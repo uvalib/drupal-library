@@ -17,6 +17,13 @@ WORKDIR $APP_HOME
 # Move in necessary assets
 COPY package/data/container_bash_profile /root/.profile
 COPY package/data/etc/msmtprc /etc/msmtprc
+COPY package/data/opt/drupal/composer.json /opt/drupal/composer.json
+COPY package/data/opt/drupal/composer.lock /opt/drupal/composer.lock
+COPY package/data/opt/drupal/scripts/pull-uvalib-drupal-theme /opt/drupal/scripts/pull-uvalib-drupal-theme
+RUN chmod +x /opt/drupal/scripts/pull-uvalib-drupal-theme
+
+# Eventually we will want to make this configurable outside the container
+COPY package/data/usr/local/etc/php/php.ini-production /usr/local/etc/php/php.ini
 
 # install other dependancies
 RUN pecl install apcu-5.1.22 && docker-php-ext-enable apcu

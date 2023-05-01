@@ -1,0 +1,10 @@
+#!/bin/sh
+cd /opt/drupal/web/themes/uvalib-drupal-theme
+git fetch
+changes=`git diff --name-only origin/main| wc -l`
+
+if [ $changes -gt 0 ]; then
+	echo $changes changes detected.
+	git pull && \
+	drush cr
+fi
