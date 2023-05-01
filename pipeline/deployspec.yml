@@ -29,6 +29,10 @@ phases:
     commands:
       # clone terraform repo
       - git clone https://${GITLAB_USER}:${GITLAB_TOKEN}@gitlab.com/uvalib/terraform-infrastructure.git
+      # decrypt the bastion private key
+      - BASTION_KEY_NAME=staging/bastion/keys/bastion_staging.pem
+      - BASTION_KEY=${CODEBUILD_SRC_DIR}/terraform-infrastructure/${BASTION_KEY_NAME}
+      - ${CODEBUILD_SRC_DIR}/terraform-infrastructure/scripts/decrypt-key.ksh ${BASTION_KEY}.cpt ${BASTION_KEY_NAME}
       # decrypt the instance private key
       - PRIVATE_KEY_NAME=library.virginia.edu/staging/keys/library-drupal-staging.pem
       - PRIVATE_KEY=${CODEBUILD_SRC_DIR}/terraform-infrastructure/${PRIVATE_KEY_NAME}
