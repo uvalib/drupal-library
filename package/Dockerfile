@@ -20,7 +20,7 @@ COPY package/data/etc/msmtprc /etc/msmtprc
 COPY package/data/opt/drupal/composer.json /opt/drupal/composer.json
 COPY package/data/opt/drupal/composer.lock /opt/drupal/composer.lock
 
-RUN cd /opt/drupal && composer install
+RUN cd /opt/drupal && composer install --no-dev --optimize-autoloader
 RUN git clone https://github.com/uvalib/uvalib-drupal-theme.git /opt/drupal/web/themes/uvalib-drupal-theme
 RUN git clone https://github.com/uvalib/drupal_jsonapi_search_api_extension.git /opt/drupal/web/modules/custom/drupal_jsonapi_search_api_extension
 RUN git clone https://github.com/uvalib/drupal-uvaldap-module.git /opt/drupal/web/modules/uvaldap
