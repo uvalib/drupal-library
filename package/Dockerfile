@@ -1,4 +1,4 @@
-#
+
 # build the target container
 #
 FROM public.ecr.aws/docker/library/drupal:9.3.22
@@ -12,8 +12,7 @@ RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
 # Specify home
 ENV APP_HOME /drupal-library
-# WORKDIR $APP_HOME
-WORKDIR /opt/drupal
+WORKDIR $APP_HOME
 
 # Move in necessary assets
 COPY package/data/container_bash_profile /root/.profile
@@ -21,7 +20,7 @@ COPY package/data/etc/msmtprc /etc/msmtprc
 COPY package/data/opt/drupal/composer.json /opt/drupal/composer.json
 COPY package/data/opt/drupal/composer.lock /opt/drupal/composer.lock
 
-RUN composer install
+RUN cd /opt/drupal && composer install
 RUN git clone https://github.com/uvalib/uvalib-drupal-theme.git /opt/drupal/web/themes/uvalib-drupal-theme
 RUN git clone https://github.com/uvalib/drupal_jsonapi_search_api_extension.git /opt/drupal/web/modules/custom/drupal_jsonapi_search_api_extension
 RUN git clone https://github.com/uvalib/drupal-uvaldap-module.git /opt/drupal/web/modules/uvaldap
