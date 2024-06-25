@@ -12,6 +12,7 @@ database:
 hooks:
     post-start:
         - exec: package/data/usr/local/bin/git-checkout.sh
+        - exec-host: ddev composer install
 use_dns_when_possible: true
 composer_root: local/ddev
 composer_version: "2"
