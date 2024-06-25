@@ -1,5 +1,5 @@
 name: drupal-library
-type: drupal10
+type: drupal9
 docroot: local/ddev/web
 php_version: "8.1"
 webserver_type: nginx-fpm
