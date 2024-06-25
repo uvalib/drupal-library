@@ -1,5 +1,7 @@
 vendor
 web/core
-web/modules/contrib
-web/themes/contrib
+web/modules/*
+web/modules/*
+web/themes/*
 web/sites/default/files
+backups/sql

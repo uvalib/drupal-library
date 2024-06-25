@@ -1,16 +1,19 @@
 name: drupal-library
-type: drupal
+type: drupal10
 docroot: local/ddev/web
-composer_root: local/ddev
 php_version: "8.1"
 webserver_type: nginx-fpm
 xdebug_enabled: false
 additional_hostnames: []
 additional_fqdns: []
 database:
-    type: mariadb
-    version: "10.11"
+    type: mysql
+    version: "8.0"
+hooks:
+    post-start:
+        - exec: package/data/usr/local/bin/git-checkout.sh
 use_dns_when_possible: true
+composer_root: local/ddev
 composer_version: "2"
 web_environment: []
 corepack_enable: false
