@@ -9,4 +9,4 @@ ssh -t $SRCHOST sudo docker exec -it drupal-0 drush sql-dump --extra-dump=--no-t
 
 ( gzip -t $OUTPUT 2>/dev/null && [ "$(gunzip -c $OUTPUT | wc -c)" -ne 0 ]) \
 	&& echo "Successfully wrote $OUTPUT" \
-	|| echo "ERROR: The gzip file is truncated or corrupted."; mv ${OUTPUT} ${OUTPUT}.corrupted
+	|| ( echo "ERROR: The gzip file is truncated or corrupted."; mv ${OUTPUT} ${OUTPUT}.corrupted  )
