@@ -35,14 +35,14 @@ phases:
       - BASTION_KEY=${CODEBUILD_SRC_DIR}/terraform-infrastructure/${BASTION_KEY_NAME}
       - ${CODEBUILD_SRC_DIR}/terraform-infrastructure/scripts/decrypt-key.ksh ${BASTION_KEY}.cpt ${BASTION_KEY_NAME}
       # decrypt the instance private key
-      - PRIVATE_KEY_NAME=library.virginia.edu/devel/keys/library-drupal-devel.pem
+      - PRIVATE_KEY_NAME=library.virginia.edu/develop/keys/library-drupal-develop.pem
       - PRIVATE_KEY=${CODEBUILD_SRC_DIR}/terraform-infrastructure/${PRIVATE_KEY_NAME}
       - ${CODEBUILD_SRC_DIR}/terraform-infrastructure/scripts/decrypt-key.ksh ${PRIVATE_KEY}.cpt ${PRIVATE_KEY_NAME}
       - chmod 600 ${PRIVATE_KEY}
 
   build:
     commands:
-      - cd ${CODEBUILD_SRC_DIR}/terraform-infrastructure/library.virginia.edu/devel
+      - cd ${CODEBUILD_SRC_DIR}/terraform-infrastructure/library.virginia.edu/develop
       - terraform init -no-color
       - ami=$(terraform output instance_ami | grep ami | head -1 | tr -d ", \"")
       - echo "AMI [${ami}]"
