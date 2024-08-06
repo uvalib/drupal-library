@@ -4,7 +4,8 @@
 FROM public.ecr.aws/docker/library/drupal:9.3.22
 
 # update the packages
-RUN apt-get -y update && apt-get -y upgrade && apt-get -y install default-mysql-client git less vim msmtp-mta
+RUN apt-get -y update && apt-get -y upgrade && apt-get -y install default-mysql-client git less vim msmtp-mta \
+	&& apt-get -y install rsync
 
 # set the timezone appropriatly
 ENV TZ=UTC
