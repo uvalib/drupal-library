@@ -4,7 +4,8 @@
 FROM public.ecr.aws/docker/library/drupal:9.3.22
 
 # update the packages
-RUN apt-get -y update && apt-get -y upgrade && apt-get -y install default-mysql-client git less vim msmtp-mta
+RUN apt-get -y update && apt-get -y upgrade && apt-get -y install default-mysql-client git less vim msmtp-mta \
+	&& apt-get -y install rsync
 
 # set the timezone appropriatly
 ENV TZ=UTC
@@ -44,7 +45,7 @@ RUN pecl install apcu-5.1.22 && docker-php-ext-enable apcu
 
 # Add the build tag
 ARG BUILD_TAG
-RUN test -n "$BUILD_TAG" && touch $APP_HOME/buildtag.build-$BUILD_TAG || touch $APP_HOME/buildtag.build-0
+RUN test -n "$BUILD_TAG" && touch $APP_HOME/buildtag.release-$BUILD_TAG || touch $APP_HOME/buildtag.release-0
 
 #
 # end of file
