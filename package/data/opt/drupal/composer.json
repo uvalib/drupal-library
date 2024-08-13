@@ -47,10 +47,10 @@
         "drupal/config_update": "^1.7",
         "drupal/content_moderation_notifications": "^3.5",
         "drupal/content_sync": "^3.0.x-dev@dev",
-        "drupal/core": "9.3.22",
-        "drupal/core-composer-scaffold": "9.3.22",
-        "drupal/core-project-message": "9.3.22",
-        "drupal/core-recommended": "9.3.22",
+        "drupal/core": "^9.5",
+        "drupal/core-composer-scaffold": "^9.5",
+        "drupal/core-project-message": "^9.5",
+        "drupal/core-recommended": "^9.5",
         "drupal/custom_search": "^1.0.0-beta8",
         "drupal/d8w3css": "^2.0",
         "drupal/devel": "^4.1",
@@ -163,6 +163,6 @@
         }
     },
     "require-dev": {
-        "drupal/core-dev": "9.3.22"
+        "drupal/core-dev": "^9.5"
     }
 }
