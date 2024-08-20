@@ -45,7 +45,7 @@ RUN pecl install apcu-5.1.22 && docker-php-ext-enable apcu
 
 # Add the build tag
 ARG BUILD_TAG
-RUN test -n "$BUILD_TAG" && touch $APP_HOME/buildtag.release-$BUILD_TAG || touch $APP_HOME/buildtag.release-0
+RUN test -n "$BUILD_TAG" && touch $APP_HOME/buildtag.build-$BUILD_TAG || touch $APP_HOME/buildtag.build-0
 
 #
 # end of file
