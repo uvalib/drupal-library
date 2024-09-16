@@ -20,6 +20,7 @@ COPY package/data/container_bash_profile /root/.profile
 COPY package/data/etc/msmtprc /etc/msmtprc
 COPY package/data/opt/drupal/composer.json /opt/drupal/composer.json
 COPY package/data/opt/drupal/composer.lock /opt/drupal/composer.lock
+COPY package/data/opt/drupal/web/sites/default/settings.php /opt/drupal/web/sites/default/settings.php
 
 RUN cd /opt/drupal && composer install --no-dev --optimize-autoloader
 RUN git clone https://github.com/uvalib/uvalib-drupal-theme.git /opt/drupal/web/themes/uvalib-drupal-theme
