@@ -27,9 +27,7 @@ RUN git clone https://github.com/uvalib/uvalib-drupal-theme.git /opt/drupal/web/
 RUN git clone https://github.com/uvalib/drupal_jsonapi_search_api_extension.git /opt/drupal/web/modules/custom/drupal_jsonapi_search_api_extension
 RUN git clone https://github.com/uvalib/drupal-uvaldap-module.git /opt/drupal/web/modules/uvaldap
 RUN git clone https://github.com/uvalib/drupal-library.git /opt/drupal/util/drupal-library
-# RUN git clone https://github.com/uvalib/docker-composer.git /opt/drupal/util/docker-composer
-
-RUN ln -s /opt/drupal/util/drupal-library/package/data/opt/drupal/config/sync /opt/drupal/config/sync
+RUN ln -s /opt/drupal/util/drupal-library/package/data/opt/drupal/config /opt/drupal/config
 
 
 # REBUILD DRUPAL
