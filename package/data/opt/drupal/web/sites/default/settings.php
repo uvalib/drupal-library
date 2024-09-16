@@ -282,7 +282,6 @@ $databases = array();
  */
  global $content_directories;
 # $content_directories['sync'] = $app_root.'/sites/default/content/sync';
-$content_directories['sync'] = 'sites/default/content/sync-prod';
 
 /**
  * Settings:
