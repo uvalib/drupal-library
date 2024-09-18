@@ -1,7 +1,7 @@
 #!/bin/bash
 
-OUTPUT=./sql/library-drupal-0-backup.`date +%F-%T`.sql.gz
-SRCHOST=library-drupal-0.internal.lib.virginia.edu 
+OUTPUT=./sql/library-drupal-develop-0-backup.`date +%F-%T`.sql.gz
+SRCHOST=library-drupal-develop-0.internal.lib.virginia.edu 
 echo "NOTE: this script assumes you have ssh, sudo and docker privileges on $SRCHOST"
 echo "Dumping from $SRCHOST to $OUTPUT"
 
