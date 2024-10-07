@@ -55,6 +55,7 @@
         "drupal/cache_utility": "^1.0",
         "drupal/ckeditor": "^1.0",
         "drupal/ckeditor_accordion": "^2.2",
+        "drupal/ckeditor_plugin_report": "^2.0",
         "drupal/classy-classy": "^1.0@alpha",
         "drupal/color": "^1.0",
         "drupal/color_field": "^3.0",
