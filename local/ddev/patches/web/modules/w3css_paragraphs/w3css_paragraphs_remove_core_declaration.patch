@@ -1,0 +1,288 @@
+diff -ruN w3css_paragraphs.orig/w3css_paragraphs.info.yml w3css_paragraphs/w3css_paragraphs.info.yml
+--- w3css_paragraphs.orig/w3css_paragraphs.info.yml	2024-08-19 08:49:14
++++ w3css_paragraphs/w3css_paragraphs.info.yml	2024-08-19 08:46:15
+@@ -1,7 +1,7 @@
+ name: 'W3CSS Paragraphs'
+ type: module
+ description: '<strong>Coming soon: The W3CSS Theme is going to have a new name. Version 3 is named <a target=_blank href=https://www.drupal.org/project/solo>"Solo"</strong></a> (because the W3.CSS library is a standalone library and also because the new theme will not be dependent on core/jQuery library).<br/>A suite of Paragraph bundles made with the w3css framework.'
+-core: 8.x
++# core: 8.x
+ core_version_requirement: ^9 || ^10 || ^11
+ package: Paragraphs
+ dependencies:
+diff -ruN w3css_paragraphs.orig/modules/w3css_paragraphs_3d_carousel/w3css_paragraphs_3d_carousel.info.yml w3css_paragraphs/modules/w3css_paragraphs_3d_carousel/w3css_paragraphs_3d_carousel.info.yml
+--- w3css_paragraphs.orig/modules/w3css_paragraphs_3d_carousel/w3css_paragraphs_3d_carousel.info.yml	2024-08-18 20:39:34
++++ w3css_paragraphs/modules/w3css_paragraphs_3d_carousel/w3css_paragraphs_3d_carousel.info.yml	2024-08-18 20:41:48
+@@ -1,7 +1,7 @@
+ name: W3CSS Paragraphs 3D Carousel
+ type: module
+ description: A reusable W3CSS paragraphs 3d carousel bundle.
+-core: 8.x
++# core: 8.x
+ core_version_requirement: ^9 || ^10 || ^11
+ package: Paragraphs
+ dependencies:
+diff -ruN w3css_paragraphs.orig/modules/w3css_paragraphs_3d_flip_box/w3css_paragraphs_3d_flip_box.info.yml w3css_paragraphs/modules/w3css_paragraphs_3d_flip_box/w3css_paragraphs_3d_flip_box.info.yml
+--- w3css_paragraphs.orig/modules/w3css_paragraphs_3d_flip_box/w3css_paragraphs_3d_flip_box.info.yml	2024-08-18 20:39:34
++++ w3css_paragraphs/modules/w3css_paragraphs_3d_flip_box/w3css_paragraphs_3d_flip_box.info.yml	2024-08-18 20:42:03
+@@ -1,7 +1,7 @@
+ name: W3CSS Paragraphs 3D Flip Box
+ type: module
+ description: A reusable W3CSS paragraphs 3D flip box bundle.
+-core: 8.x
++# core: 8.x
+ core_version_requirement: ^9 || ^10 || ^11
+ package: Paragraphs
+ dependencies:
+diff -ruN w3css_paragraphs.orig/modules/w3css_paragraphs_accordion/w3css_paragraphs_accordion.info.yml w3css_paragraphs/modules/w3css_paragraphs_accordion/w3css_paragraphs_accordion.info.yml
+--- w3css_paragraphs.orig/modules/w3css_paragraphs_accordion/w3css_paragraphs_accordion.info.yml	2024-08-18 20:39:34
++++ w3css_paragraphs/modules/w3css_paragraphs_accordion/w3css_paragraphs_accordion.info.yml	2024-08-18 20:45:08
+@@ -1,7 +1,7 @@
+ name: W3CSS Paragraphs Accordion
+ type: module
+ description: A reusable W3CSS paragraphs Accordion bundle.
+-core: 8.x
++# core: 8.x
+ core_version_requirement: ^9 || ^10 || ^11
+ package: Paragraphs
+ dependencies:
+diff -ruN w3css_paragraphs.orig/modules/w3css_paragraphs_block/w3css_paragraphs_block.info.yml w3css_paragraphs/modules/w3css_paragraphs_block/w3css_paragraphs_block.info.yml
+--- w3css_paragraphs.orig/modules/w3css_paragraphs_block/w3css_paragraphs_block.info.yml	2024-08-18 20:39:35
++++ w3css_paragraphs/modules/w3css_paragraphs_block/w3css_paragraphs_block.info.yml	2024-08-18 20:43:06
+@@ -1,7 +1,7 @@
+ name: W3CSS Paragraphs Drupal Block
+ type: module
+ description: A reusable W3CSS paragraphs Drupal block bundle.
+-core: 8.x
++# core: 8.x
+ core_version_requirement: ^9 || ^10 || ^11
+ package: Paragraphs
+ dependencies:
+diff -ruN w3css_paragraphs.orig/modules/w3css_paragraphs_card/w3css_paragraphs_card.info.yml w3css_paragraphs/modules/w3css_paragraphs_card/w3css_paragraphs_card.info.yml
+--- w3css_paragraphs.orig/modules/w3css_paragraphs_card/w3css_paragraphs_card.info.yml	2024-08-18 20:39:34
++++ w3css_paragraphs/modules/w3css_paragraphs_card/w3css_paragraphs_card.info.yml	2024-08-18 20:41:20
+@@ -1,7 +1,7 @@
+ name: W3CSS Paragraphs Card
+ type: module
+ description: A reusable W3CSS paragraphs card bundle.
+-core: 8.x
++# core: 8.x
+ core_version_requirement: ^9 || ^10 || ^11
+ package: Paragraphs
+ dependencies:
+diff -ruN w3css_paragraphs.orig/modules/w3css_paragraphs_contact_form/w3css_paragraphs_contact_form.info.yml w3css_paragraphs/modules/w3css_paragraphs_contact_form/w3css_paragraphs_contact_form.info.yml
+--- w3css_paragraphs.orig/modules/w3css_paragraphs_contact_form/w3css_paragraphs_contact_form.info.yml	2024-08-18 20:39:35
++++ w3css_paragraphs/modules/w3css_paragraphs_contact_form/w3css_paragraphs_contact_form.info.yml	2024-08-18 20:43:01
+@@ -1,7 +1,7 @@
+ name: W3CSS Paragraphs Contact Form
+ type: module
+ description: A reusable W3CSS paragraphs contact form bundle.
+-core: 8.x
++# core: 8.x
+ core_version_requirement: ^9 || ^10 || ^11
+ package: Paragraphs
+ dependencies:
+diff -ruN w3css_paragraphs.orig/modules/w3css_paragraphs_content/w3css_paragraphs_content.info.yml w3css_paragraphs/modules/w3css_paragraphs_content/w3css_paragraphs_content.info.yml
+--- w3css_paragraphs.orig/modules/w3css_paragraphs_content/w3css_paragraphs_content.info.yml	2024-08-18 20:39:34
++++ w3css_paragraphs/modules/w3css_paragraphs_content/w3css_paragraphs_content.info.yml	2024-08-18 20:41:28
+@@ -1,7 +1,7 @@
+ name: W3CSS Paragraphs Content Type
+ type: module
+ description: A reusable W3CSS paragraphs Content Type for all Paragraphs Bundles.
+-core: 8.x
++# core: 8.x
+ core_version_requirement: ^9 || ^10 || ^11
+ package: Paragraphs
+ dependencies:
+diff -ruN w3css_paragraphs.orig/modules/w3css_paragraphs_custom_block/w3css_paragraphs_custom_block.info.yml w3css_paragraphs/modules/w3css_paragraphs_custom_block/w3css_paragraphs_custom_block.info.yml
+--- w3css_paragraphs.orig/modules/w3css_paragraphs_custom_block/w3css_paragraphs_custom_block.info.yml	2024-08-18 20:39:34
++++ w3css_paragraphs/modules/w3css_paragraphs_custom_block/w3css_paragraphs_custom_block.info.yml	2024-08-18 20:42:07
+@@ -1,7 +1,7 @@
+ name: W3CSS Paragraphs Custom Block
+ type: module
+ description: A reusable W3CSS paragraphs custom block bundle.
+-core: 8.x
++# core: 8.x
+ core_version_requirement: ^9 || ^10 || ^11
+ package: Paragraphs
+ dependencies:
+diff -ruN w3css_paragraphs.orig/modules/w3css_paragraphs_hero/w3css_paragraphs_hero.info.yml w3css_paragraphs/modules/w3css_paragraphs_hero/w3css_paragraphs_hero.info.yml
+--- w3css_paragraphs.orig/modules/w3css_paragraphs_hero/w3css_paragraphs_hero.info.yml	2024-08-18 20:39:35
++++ w3css_paragraphs/modules/w3css_paragraphs_hero/w3css_paragraphs_hero.info.yml	2024-08-18 20:43:46
+@@ -1,7 +1,7 @@
+ name: W3CSS Paragraphs Hero
+ type: module
+ description: A reusable W3CSS paragraphs hero bundle.
+-core: 8.x
++# core: 8.x
+ core_version_requirement: ^9 || ^10 || ^11
+ package: Paragraphs
+ dependencies:
+diff -ruN w3css_paragraphs.orig/modules/w3css_paragraphs_hero_full_width/w3css_paragraphs_hero_full_width.info.yml w3css_paragraphs/modules/w3css_paragraphs_hero_full_width/w3css_paragraphs_hero_full_width.info.yml
+--- w3css_paragraphs.orig/modules/w3css_paragraphs_hero_full_width/w3css_paragraphs_hero_full_width.info.yml	2024-08-18 20:39:34
++++ w3css_paragraphs/modules/w3css_paragraphs_hero_full_width/w3css_paragraphs_hero_full_width.info.yml	2024-08-18 20:42:47
+@@ -1,7 +1,7 @@
+ name: W3CSS Paragraphs Hero Full Width
+ type: module
+ description: A reusable W3CSS paragraphs hero full width bundle.
+-core: 8.x
++# core: 8.x
+ core_version_requirement: ^9 || ^10 || ^11
+ package: Paragraphs
+ dependencies:
+diff -ruN w3css_paragraphs.orig/modules/w3css_paragraphs_image_overlay/w3css_paragraphs_image_overlay.info.yml w3css_paragraphs/modules/w3css_paragraphs_image_overlay/w3css_paragraphs_image_overlay.info.yml
+--- w3css_paragraphs.orig/modules/w3css_paragraphs_image_overlay/w3css_paragraphs_image_overlay.info.yml	2024-08-18 20:39:35
++++ w3css_paragraphs/modules/w3css_paragraphs_image_overlay/w3css_paragraphs_image_overlay.info.yml	2024-08-18 20:43:19
+@@ -1,7 +1,7 @@
+ name: W3CSS Paragraphs image Overlay
+ type: module
+ description: A reusable W3CSS paragraphs Image Overlay bundle.
+-core: 8.x
++# core: 8.x
+ core_version_requirement: ^9 || ^10 || ^11
+ package: Paragraphs
+ dependencies:
+diff -ruN w3css_paragraphs.orig/modules/w3css_paragraphs_menu/w3css_paragraphs_menu.info.yml w3css_paragraphs/modules/w3css_paragraphs_menu/w3css_paragraphs_menu.info.yml
+--- w3css_paragraphs.orig/modules/w3css_paragraphs_menu/w3css_paragraphs_menu.info.yml	2024-08-18 20:39:34
++++ w3css_paragraphs/modules/w3css_paragraphs_menu/w3css_paragraphs_menu.info.yml	2024-08-18 20:42:43
+@@ -1,7 +1,7 @@
+ name: W3CSS Paragraphs Menu
+ type: module
+ description: A reusable W3CSS paragraphs menu reference render bundle.
+-core: 8.x
++# core: 8.x
+ core_version_requirement: ^9 || ^10 || ^11
+ package: Paragraphs
+ dependencies:
+diff -ruN w3css_paragraphs.orig/modules/w3css_paragraphs_modal/w3css_paragraphs_modal.info.yml w3css_paragraphs/modules/w3css_paragraphs_modal/w3css_paragraphs_modal.info.yml
+--- w3css_paragraphs.orig/modules/w3css_paragraphs_modal/w3css_paragraphs_modal.info.yml	2024-08-18 20:39:35
++++ w3css_paragraphs/modules/w3css_paragraphs_modal/w3css_paragraphs_modal.info.yml	2024-08-18 20:47:23
+@@ -1,7 +1,7 @@
+ name: W3CSS Paragraphs Modal
+ type: module
+ description: A reusable W3CSS paragraphs Modal bundle.
+-core: 8.x
++# core: 8.x
+ core_version_requirement: ^9 || ^10 || ^11
+ package: Paragraphs
+ dependencies:
+diff -ruN w3css_paragraphs.orig/modules/w3css_paragraphs_one_column/w3css_paragraphs_one_column.info.yml w3css_paragraphs/modules/w3css_paragraphs_one_column/w3css_paragraphs_one_column.info.yml
+--- w3css_paragraphs.orig/modules/w3css_paragraphs_one_column/w3css_paragraphs_one_column.info.yml	2024-08-18 20:39:34
++++ w3css_paragraphs/modules/w3css_paragraphs_one_column/w3css_paragraphs_one_column.info.yml	2024-08-18 20:42:28
+@@ -1,7 +1,7 @@
+ name: W3CSS Paragraphs One Column
+ type: module
+ description: A reusable W3CSS paragraphs one column bundle.
+-core: 8.x
++# core: 8.x
+ core_version_requirement: ^9 || ^10 || ^11
+ package: Paragraphs
+ dependencies:
+diff -ruN w3css_paragraphs.orig/modules/w3css_paragraphs_parallax/w3css_paragraphs_parallax.info.yml w3css_paragraphs/modules/w3css_paragraphs_parallax/w3css_paragraphs_parallax.info.yml
+--- w3css_paragraphs.orig/modules/w3css_paragraphs_parallax/w3css_paragraphs_parallax.info.yml	2024-08-18 20:39:34
++++ w3css_paragraphs/modules/w3css_paragraphs_parallax/w3css_paragraphs_parallax.info.yml	2024-08-18 20:42:35
+@@ -1,7 +1,7 @@
+ name: W3CSS Paragraphs Parallax
+ type: module
+ description: A reusable W3CSS paragraphs parallax bundle.
+-core: 8.x
++# core: 8.x
+ core_version_requirement: ^9 || ^10 || ^11
+ package: Paragraphs
+ dependencies:
+diff -ruN w3css_paragraphs.orig/modules/w3css_paragraphs_quicklinks/w3css_paragraphs_quicklinks.info.yml w3css_paragraphs/modules/w3css_paragraphs_quicklinks/w3css_paragraphs_quicklinks.info.yml
+--- w3css_paragraphs.orig/modules/w3css_paragraphs_quicklinks/w3css_paragraphs_quicklinks.info.yml	2024-08-18 20:39:35
++++ w3css_paragraphs/modules/w3css_paragraphs_quicklinks/w3css_paragraphs_quicklinks.info.yml	2024-08-18 20:43:48
+@@ -1,7 +1,7 @@
+ name: W3CSS Paragraphs quicklinks
+ type: module
+ description: A reusable W3CSS paragraphs quicklinks bundle.
+-core: 8.x
++# core: 8.x
+ core_version_requirement: ^9 || ^10 || ^11
+ package: Paragraphs
+ dependencies:
+diff -ruN w3css_paragraphs.orig/modules/w3css_paragraphs_responsive_image/w3css_paragraphs_responsive_image.info.yml w3css_paragraphs/modules/w3css_paragraphs_responsive_image/w3css_paragraphs_responsive_image.info.yml
+--- w3css_paragraphs.orig/modules/w3css_paragraphs_responsive_image/w3css_paragraphs_responsive_image.info.yml	2024-08-18 20:39:35
++++ w3css_paragraphs/modules/w3css_paragraphs_responsive_image/w3css_paragraphs_responsive_image.info.yml	2024-08-18 20:44:00
+@@ -1,7 +1,7 @@
+ name: W3CSS Paragraphs Responsive Image
+ type: module
+ description: A reusable W3CSS paragraphs Responsive Image bundle.
+-core: 8.x
++# core: 8.x
+ core_version_requirement: ^9 || ^10 || ^11
+ package: Paragraphs
+ dependencies:
+diff -ruN w3css_paragraphs.orig/modules/w3css_paragraphs_slideshow/w3css_paragraphs_slideshow.info.yml w3css_paragraphs/modules/w3css_paragraphs_slideshow/w3css_paragraphs_slideshow.info.yml
+--- w3css_paragraphs.orig/modules/w3css_paragraphs_slideshow/w3css_paragraphs_slideshow.info.yml	2024-08-18 20:39:35
++++ w3css_paragraphs/modules/w3css_paragraphs_slideshow/w3css_paragraphs_slideshow.info.yml	2024-08-18 20:42:57
+@@ -1,7 +1,7 @@
+ name: W3CSS Paragraphs Slideshow
+ type: module
+ description: A reusable W3CSS paragraphs Slideshow bundle.
+-core: 8.x
++# core: 8.x
+ core_version_requirement: ^9 || ^10 || ^11
+ package: Paragraphs
+ dependencies:
+diff -ruN w3css_paragraphs.orig/modules/w3css_paragraphs_tabs/w3css_paragraphs_tabs.info.yml w3css_paragraphs/modules/w3css_paragraphs_tabs/w3css_paragraphs_tabs.info.yml
+--- w3css_paragraphs.orig/modules/w3css_paragraphs_tabs/w3css_paragraphs_tabs.info.yml	2024-08-18 20:39:34
++++ w3css_paragraphs/modules/w3css_paragraphs_tabs/w3css_paragraphs_tabs.info.yml	2024-08-18 20:41:58
+@@ -1,7 +1,7 @@
+ name: W3CSS Paragraphs Tabs
+ type: module
+ description: A reusable W3CSS paragraphs tabs bundle.
+-core: 8.x
++# core: 8.x
+ core_version_requirement: ^9 || ^10 || ^11
+ package: Paragraphs
+ dependencies:
+diff -ruN w3css_paragraphs.orig/modules/w3css_paragraphs_three_columns/w3css_paragraphs_three_columns.info.yml w3css_paragraphs/modules/w3css_paragraphs_three_columns/w3css_paragraphs_three_columns.info.yml
+--- w3css_paragraphs.orig/modules/w3css_paragraphs_three_columns/w3css_paragraphs_three_columns.info.yml	2024-08-18 20:39:34
++++ w3css_paragraphs/modules/w3css_paragraphs_three_columns/w3css_paragraphs_three_columns.info.yml	2024-08-18 20:42:51
+@@ -1,7 +1,7 @@
+ name: W3CSS Paragraphs Three Columns
+ type: module
+ description: A reusable W3CSS paragraphs three columns bundle.
+-core: 8.x
++# core: 8.x
+ core_version_requirement: ^9 || ^10 || ^11
+ package: Paragraphs
+ dependencies:
+diff -ruN w3css_paragraphs.orig/modules/w3css_paragraphs_two_columns/w3css_paragraphs_two_columns.info.yml w3css_paragraphs/modules/w3css_paragraphs_two_columns/w3css_paragraphs_two_columns.info.yml
+--- w3css_paragraphs.orig/modules/w3css_paragraphs_two_columns/w3css_paragraphs_two_columns.info.yml	2024-08-18 20:39:35
++++ w3css_paragraphs/modules/w3css_paragraphs_two_columns/w3css_paragraphs_two_columns.info.yml	2024-08-18 20:43:29
+@@ -1,7 +1,7 @@
+ name: W3CSS Paragraphs Two Columns
+ type: module
+ description: A reusable W3CSS paragraphs two columns bundle.
+-core: 8.x
++# core: 8.x
+ core_version_requirement: ^9 || ^10 || ^11
+ package: Paragraphs
+ dependencies:
+diff -ruN w3css_paragraphs.orig/modules/w3css_paragraphs_views/w3css_paragraphs_views.info.yml w3css_paragraphs/modules/w3css_paragraphs_views/w3css_paragraphs_views.info.yml
+--- w3css_paragraphs.orig/modules/w3css_paragraphs_views/w3css_paragraphs_views.info.yml	2024-08-18 20:39:35
++++ w3css_paragraphs/modules/w3css_paragraphs_views/w3css_paragraphs_views.info.yml	2024-08-18 20:43:13
+@@ -1,7 +1,7 @@
+ name: W3CSS Paragraphs Views
+ type: module
+ description: A reusable W3CSS paragraphs viewsreference bundle.
+-core: 8.x
++# core: 8.x
+ core_version_requirement: ^9 || ^10 || ^11
+ package: Paragraphs
+ dependencies:
+diff -ruN w3css_paragraphs.orig/modules/w3css_paragraphs_webform/w3css_paragraphs_webform.info.yml w3css_paragraphs/modules/w3css_paragraphs_webform/w3css_paragraphs_webform.info.yml
+--- w3css_paragraphs.orig/modules/w3css_paragraphs_webform/w3css_paragraphs_webform.info.yml	2024-08-18 20:39:35
++++ w3css_paragraphs/modules/w3css_paragraphs_webform/w3css_paragraphs_webform.info.yml	2024-08-18 20:42:54
+@@ -1,7 +1,7 @@
+ name: W3CSS Paragraphs Webform
+ type: module
+ description: A reusable W3CSS paragraphs webform bundle.
+-core: 8.x
++# core: 8.x
+ core_version_requirement: ^9 || ^10 || ^11
+ package: Paragraphs
+ dependencies:

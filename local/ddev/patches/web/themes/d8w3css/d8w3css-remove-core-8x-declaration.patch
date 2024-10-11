@@ -1,0 +1,22 @@
+diff -ruN d8w3css.orig/drupal8_w3css_subtheme/drupal8_w3css_subtheme.info.yml d8w3css/drupal8_w3css_subtheme/drupal8_w3css_subtheme.info.yml
+--- d8w3css.orig/drupal8_w3css_subtheme/drupal8_w3css_subtheme.info.yml	2024-08-18 20:36:02
++++ d8w3css/drupal8_w3css_subtheme/drupal8_w3css_subtheme.info.yml	2024-08-19 08:59:17
+@@ -3,7 +3,7 @@
+ base theme: drupal8_w3css_theme
+ core_version_requirement: ^9 || ^10 || ^11
+ description: 'Version 3 <strong><a target=_blank href=https://www.drupal.org/project/solo>"Solo"</strong></a> has been completed with lots of new features that will make it easier and better for you to create a great and successful website or online profile. Should you wish to construct a more intricate website, consider utilizing the <a target=_blank href=https://www.drupal.org/project/paragraphs_bundles>Paragraphs Bundles Module.</strong></a>'
+-core: '8.x'
++# core: '8.x'
+ libraries:
+   - drupal8_w3css_subtheme/d8w3css-subtheme-global
+ 
+diff -ruN d8w3css.orig/drupal8_w3css_theme.info.yml d8w3css/drupal8_w3css_theme.info.yml
+--- d8w3css.orig/drupal8_w3css_theme.info.yml	2024-08-18 20:36:02
++++ d8w3css/drupal8_w3css_theme.info.yml	2024-08-19 01:00:31
+@@ -1,5 +1,5 @@
+ name: W3CSS Theme V2
+-core: 8.x
++# core: 8.x
+ description: 'Version 3 <strong><a target=_blank href=https://www.drupal.org/project/solo>"Solo"</strong></a> has been completed with lots of new features that will make it easier and better for you to create a great and successful website or online profile. Should you wish to construct a more intricate website, consider utilizing the <a target=_blank href=https://www.drupal.org/project/paragraphs_bundles>Paragraphs Bundles Module.</strong></a><br/><a target=_blank href=https://www.drupal.org/node/2866181>Documentation</a> - <a target=_blank href=http://flex6.com>Try Out Demonstration</a> - <a target=_blank href=https://www.flex6.com/w3css-predefined-color-themes>Color Scheme</a> - <a href=https://www.drupal.org/project/issues/d8w3css>Create Issue on Drupal</a><br/>Developed & Designed by <strong><a target=_blank href=https://www.alaahaddad.com>Alaa Haddad</a></strong> <a target=_blank href=https://www.flashwebcenter.com>Drupal Development</a> and <a target=_blank href=https://www.drupalcare.com>Drupal Maintenance</a>'
+ package: W3CSS
+ type: theme
