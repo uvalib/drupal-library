@@ -1,7 +1,7 @@
 
 # build the target container
 #
-FROM public.ecr.aws/docker/library/drupal:9.3.22
+FROM public.ecr.aws/docker/library/drupal:9.5
 
 # update the packages
 RUN apt-get -y update && apt-get -y upgrade && apt-get -y install default-mysql-client git less vim msmtp-mta \
@@ -20,12 +20,15 @@ COPY package/data/container_bash_profile /root/.profile
 COPY package/data/etc/msmtprc /etc/msmtprc
 COPY package/data/opt/drupal/composer.json /opt/drupal/composer.json
 COPY package/data/opt/drupal/composer.lock /opt/drupal/composer.lock
+COPY package/data/opt/drupal/web/sites/default/settings.php /opt/drupal/web/sites/default/settings.php
 
 RUN cd /opt/drupal && composer install --no-dev --optimize-autoloader
 RUN git clone https://github.com/uvalib/uvalib-drupal-theme.git /opt/drupal/web/themes/uvalib-drupal-theme
 RUN git clone https://github.com/uvalib/drupal_jsonapi_search_api_extension.git /opt/drupal/web/modules/custom/drupal_jsonapi_search_api_extension
 RUN git clone https://github.com/uvalib/drupal-uvaldap-module.git /opt/drupal/web/modules/uvaldap
-RUN git clone https://github.com/uvalib/docker-composer.git /opt/drupal/util/docker-composer
+RUN git clone https://github.com/uvalib/drupal-library.git /opt/drupal/util/drupal-library
+RUN ln -s /opt/drupal/util/drupal-library/package/data/opt/drupal/config /opt/drupal/config
+
 
 # REBUILD DRUPAL
 # 1. composer install -- we can experiment with special flags here (production vs development build e.g.)

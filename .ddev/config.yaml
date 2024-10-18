@@ -16,7 +16,11 @@ hooks:
 use_dns_when_possible: true
 composer_root: local/ddev
 composer_version: "2"
-web_environment: []
+web_environment: 
+    - HOST_IP=localhost
+    - ANSIBLE_HOSTNAME=ddev
+    - BUILD_TAG=ddev-build
+
 corepack_enable: false
 
 # Key features of DDEV's config.yaml:
