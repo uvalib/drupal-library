@@ -855,6 +855,8 @@ $databases['default']['default'] = array(
 );
 #$settings['config_sync_directory'] = 'sites/default/files/config_8mfRRcNckaNrqev-QBNUf8-_j0mg3f2DlLvXPTeaxVKG34AIli4d0aqF0DiNCeKCKjAZ8uCq3w/sync';
 $settings['config_sync_directory'] = '/opt/drupal/config/sync';
+$settings['ansible_hostname'] = getenv('ANSIBLE_HOSTNAME');
+$settings['host_ip'] = getenv('HOST_IP');
 if (PHP_SAPI === 'cli') {
   ini_set('memory_limit', '1024M');
 }
