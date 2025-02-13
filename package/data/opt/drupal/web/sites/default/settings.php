@@ -861,7 +861,7 @@ if (PHP_SAPI === 'cli') {
   ini_set('memory_limit', '1024M');
 }
 $settings['block_interest_cohort'] = FALSE;
-ini_set('memory_limit', '512M');
+ini_set('memory_limit', '1024M');
 if (file_exists('/usr/local/etc/settings.local.php')) {
    include '/usr/local/etc/settings.local.php';
 }
