@@ -71,6 +71,7 @@
         "drupal/devel_entity_updates": "^4.1",
         "drupal/facets": "^2",
         "drupal/features": "^3.12",
+        "drupal/field_formatter_class": "^1.8",
         "drupal/geolocation": "^3.7",
         "drupal/jquery_ui_button": "^2.1",
         "drupal/jquery_ui_checkboxradio": "^2.0",
