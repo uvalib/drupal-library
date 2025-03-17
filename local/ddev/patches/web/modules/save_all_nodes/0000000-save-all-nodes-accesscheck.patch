@@ -1,0 +1,26 @@
+diff --git a/src/Commands/SaveAllNodesCommands.php b/src/Commands/SaveAllNodesCommands.php
+index a27f428..22cf046 100644
+--- a/src/Commands/SaveAllNodesCommands.php
++++ b/src/Commands/SaveAllNodesCommands.php
+@@ -79,7 +79,7 @@ class SaveAllNodesCommands extends DrushCommands {
+     // An array with lots of node IDs.
+     $node_types = [$node_type];
+     $query = $this->entityTypeManager->getStorage('node')->getQuery();
+-    $nids = $query->condition('type', $node_types, 'IN')->execute();
++    $nids = $query->accessCheck(true)->condition('type', $node_types, 'IN')->execute();
+ 
+     $this->output()->writeln('Total nodes found: ' . count($nids));
+ 
+diff --git a/src/Form/SaveAllNodesForm.php b/src/Form/SaveAllNodesForm.php
+index 91de2a8..9b958be 100644
+--- a/src/Form/SaveAllNodesForm.php
++++ b/src/Form/SaveAllNodesForm.php
+@@ -190,7 +190,7 @@ class SaveAllNodesForm extends FormBase {
+    */
+   public function getNodeIds(array $node_types) {
+     $query = $this->entityTypeManager->getStorage('node')->getQuery();
+-    return $query->condition('type', $node_types, 'IN')->execute();
++    return $query->accessCheck(true)->condition('type', $node_types, 'IN')->execute();
+   }
+ 
+ }
