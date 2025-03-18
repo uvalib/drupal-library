@@ -22,21 +22,22 @@ COPY package/data/opt/drupal/composer.json /opt/drupal/composer.json
 COPY package/data/opt/drupal/composer.lock /opt/drupal/composer.lock
 COPY package/data/opt/drupal/web/sites/default/settings.php /opt/drupal/web/sites/default/settings.php
 
-RUN cd /opt/drupal && composer install --no-dev --optimize-autoloader
+# REBUILD DRUPAL
+# 1. checkout the github managed parts:
+#	a. custom theme
+#	b. custom modules
+#	c. /opt/drupal/config
+# 2. composer install -- we can experiment with special flags here (production vs development build e.g.)
+
+RUN ln -s /opt/drupal/util/drupal-library/local/dev/patches /opt/drupal
+
 RUN git clone https://github.com/uvalib/uvalib-drupal-theme.git /opt/drupal/web/themes/uvalib-drupal-theme
 RUN git clone https://github.com/uvalib/drupal_jsonapi_search_api_extension.git /opt/drupal/web/modules/custom/drupal_jsonapi_search_api_extension
 RUN git clone https://github.com/uvalib/drupal-uvaldap-module.git /opt/drupal/web/modules/uvaldap
 RUN git clone https://github.com/uvalib/drupal-library.git /opt/drupal/util/drupal-library
 RUN ln -s /opt/drupal/util/drupal-library/package/data/opt/drupal/config /opt/drupal/config
-RUN ln -s /opt/drupal/util/drupal-library/local/dev/patches /opt/drupal
 
-
-# REBUILD DRUPAL
-# 1. composer install -- we can experiment with special flags here (production vs development build e.g.)
-# 2. checkout the github managed parts:
-#	a. custom theme
-#	b. custom modules
-#	c. /opt/drupal/config
+RUN cd /opt/drupal && composer install --no-dev --optimize-autoloader
 
 COPY package/data/opt/drupal/scripts/pull-uvalib-drupal-theme /opt/drupal/scripts/pull-uvalib-drupal-theme
 RUN chmod +x /opt/drupal/scripts/pull-uvalib-drupal-theme
