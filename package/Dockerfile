@@ -28,6 +28,7 @@ RUN git clone https://github.com/uvalib/drupal_jsonapi_search_api_extension.git 
 RUN git clone https://github.com/uvalib/drupal-uvaldap-module.git /opt/drupal/web/modules/uvaldap
 RUN git clone https://github.com/uvalib/drupal-library.git /opt/drupal/util/drupal-library
 RUN ln -s /opt/drupal/util/drupal-library/package/data/opt/drupal/config /opt/drupal/config
+RUN ln -s /opt/drupal/util/drupal-library/local/dev/patches /opt/drupal
 
 
 # REBUILD DRUPAL
