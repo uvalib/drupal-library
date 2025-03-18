@@ -3,5 +3,6 @@ web/core
 web/modules/*
 web/modules/*
 web/themes/*
+web/libraries/*
 web/sites/default/files
 backups/sql
