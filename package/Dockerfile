@@ -37,6 +37,7 @@ RUN git clone https://github.com/uvalib/drupal-uvaldap-module.git /opt/drupal/we
 RUN git clone https://github.com/uvalib/drupal-library.git /opt/drupal/util/drupal-library
 RUN ln -s /opt/drupal/util/drupal-library/package/data/opt/drupal/config /opt/drupal/config
 
+RUN cd /opt/drupal && ls -l
 RUN cd /opt/drupal && composer install --no-dev --optimize-autoloader
 
 COPY package/data/opt/drupal/scripts/pull-uvalib-drupal-theme /opt/drupal/scripts/pull-uvalib-drupal-theme
