@@ -33,7 +33,7 @@ COPY package/data/opt/drupal/web/sites/default/settings.php /opt/drupal/web/site
 RUN git clone https://github.com/uvalib/uvalib-drupal-theme.git /opt/drupal/web/themes/uvalib-drupal-theme
 RUN git clone https://github.com/uvalib/drupal_jsonapi_search_api_extension.git /opt/drupal/web/modules/custom/drupal_jsonapi_search_api_extension
 RUN git clone https://github.com/uvalib/drupal-uvaldap-module.git /opt/drupal/web/modules/uvaldap
-RUN git clone -b release https://github.com/uvalib/drupal-library.git /opt/drupal/util/drupal-library
+RUN git clone https://github.com/uvalib/drupal-library.git /opt/drupal/util/drupal-library
 RUN ln -s /opt/drupal/util/drupal-library/package/data/opt/drupal/config /opt/drupal/config
 RUN ln -s /opt/drupal/util/drupal-library/local/ddev/patches /opt/drupal/patches
 RUN ln -s /opt/drupal/util/drupal-library/package/data/opt/drupal/vendor-archive /opt/drupal/vendor-archive
