@@ -37,7 +37,7 @@
                 "version": "1.1.1",
                 "type": "drupal-library",
                 "dist": {
-                    "url": "https://www.smartmenus.org/files/?file=smartmenus-jquery/smartmenus-1.1.1.zip",
+                    "url": "file://./vendor-archive/smartmenus-1.1.1.zip",
                     "type": "zip"
                 },
                 "require": {
