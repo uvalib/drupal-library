@@ -34,6 +34,7 @@ phases:
       - docker push $CONTAINER_REGISTRY/$CONTAINER_IMAGE:build-$BUILD_VERSION
       - docker push $CONTAINER_REGISTRY/$CONTAINER_IMAGE:$COMMIT_TAG
       - aws --region=$AWS_REGION ssm put-parameter --name /containers/$CONTAINER_IMAGE/latest --value build-$BUILD_VERSION --type String --overwrite
+      - aws --region=$AWS_REGION ssm put-parameter --name /containers/$CONTAINER_IMAGE/release --value release-$BUILD_VERSION --type String --overwrite
       - printenv
 
 ### NOTE: that this will tag latest and release with ANY change (regardless of branch),  Later we will need to make it sensitive to which branch this commit was checked into.
