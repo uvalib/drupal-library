@@ -39,6 +39,7 @@ RUN ln -s /opt/drupal/util/drupal-library/local/ddev/patches /opt/drupal/patches
 RUN ln -s /opt/drupal/util/drupal-library/package/data/opt/drupal/vendor-archive /opt/drupal/vendor-archive
 
 RUN cd /opt/drupal && ls -l
+RUN cd /opt/drupal && ls -la vendor-archive/
 RUN cd /opt/drupal && composer install --no-dev --optimize-autoloader
 
 COPY package/data/opt/drupal/scripts/pull-uvalib-drupal-theme /opt/drupal/scripts/pull-uvalib-drupal-theme

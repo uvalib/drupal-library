@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "99b59d4862b2e4a1dca335dbfca3f907",
+    "content-hash": "fc465148f3d94e89579f309a044b5b0f",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -1478,7 +1478,7 @@
             "version": "1.1.1",
             "dist": {
                 "type": "zip",
-                "url": "file://./vendor-archive/smartmenus-1.1.1.zip"
+                "url": "vendor-archive/smartmenus-1.1.1.zip"
             },
             "require": {
                 "composer/installers": "^1.2"
