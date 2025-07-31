@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "1c2605f509782a41c0cb81e06c9944c4",
+    "content-hash": "99b59d4862b2e4a1dca335dbfca3f907",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -5715,7 +5715,7 @@
             ],
             "authors": [
                 {
-                    "name": "DanChadwick",
+                    "name": "danchadwick",
                     "homepage": "https://www.drupal.org/user/504278"
                 },
                 {
@@ -5723,16 +5723,16 @@
                     "homepage": "https://www.drupal.org/user/371407"
                 },
                 {
-                    "name": "Liam Morland",
+                    "name": "liam morland",
                     "homepage": "https://www.drupal.org/user/493050"
+                },
+                {
+                    "name": "mandclu",
+                    "homepage": "https://www.drupal.org/user/52136"
                 },
                 {
                     "name": "quicksketch",
                     "homepage": "https://www.drupal.org/user/35821"
-                },
-                {
-                    "name": "torotil",
-                    "homepage": "https://www.drupal.org/user/865256"
                 }
             ],
             "description": "Provides webform access controls for webform nodes.",
@@ -5765,7 +5765,7 @@
             ],
             "authors": [
                 {
-                    "name": "DanChadwick",
+                    "name": "danchadwick",
                     "homepage": "https://www.drupal.org/user/504278"
                 },
                 {
@@ -5773,16 +5773,16 @@
                     "homepage": "https://www.drupal.org/user/371407"
                 },
                 {
-                    "name": "Liam Morland",
+                    "name": "liam morland",
                     "homepage": "https://www.drupal.org/user/493050"
+                },
+                {
+                    "name": "mandclu",
+                    "homepage": "https://www.drupal.org/user/52136"
                 },
                 {
                     "name": "quicksketch",
                     "homepage": "https://www.drupal.org/user/35821"
-                },
-                {
-                    "name": "torotil",
-                    "homepage": "https://www.drupal.org/user/865256"
                 }
             ],
             "description": "Provides a webform element for a selecting an image.",
@@ -5815,7 +5815,7 @@
             ],
             "authors": [
                 {
-                    "name": "DanChadwick",
+                    "name": "danchadwick",
                     "homepage": "https://www.drupal.org/user/504278"
                 },
                 {
@@ -5823,16 +5823,16 @@
                     "homepage": "https://www.drupal.org/user/371407"
                 },
                 {
-                    "name": "Liam Morland",
+                    "name": "liam morland",
                     "homepage": "https://www.drupal.org/user/493050"
+                },
+                {
+                    "name": "mandclu",
+                    "homepage": "https://www.drupal.org/user/52136"
                 },
                 {
                     "name": "quicksketch",
                     "homepage": "https://www.drupal.org/user/35821"
-                },
-                {
-                    "name": "torotil",
-                    "homepage": "https://www.drupal.org/user/865256"
                 }
             ],
             "description": "Provides a Webform content type which allows webforms to be integrated into a website as nodes.",
@@ -5865,7 +5865,7 @@
             ],
             "authors": [
                 {
-                    "name": "DanChadwick",
+                    "name": "danchadwick",
                     "homepage": "https://www.drupal.org/user/504278"
                 },
                 {
@@ -5873,16 +5873,16 @@
                     "homepage": "https://www.drupal.org/user/371407"
                 },
                 {
-                    "name": "Liam Morland",
+                    "name": "liam morland",
                     "homepage": "https://www.drupal.org/user/493050"
+                },
+                {
+                    "name": "mandclu",
+                    "homepage": "https://www.drupal.org/user/52136"
                 },
                 {
                     "name": "quicksketch",
                     "homepage": "https://www.drupal.org/user/35821"
-                },
-                {
-                    "name": "torotil",
-                    "homepage": "https://www.drupal.org/user/865256"
                 }
             ],
             "description": "Provides a webform element for converting HTML or SVG markup into a selectable single or multiple options input.",
