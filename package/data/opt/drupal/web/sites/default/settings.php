@@ -752,6 +752,8 @@ $settings['container_yamls'][] = $app_root . '/' . $site_path . '/services.yml';
  * example.org, with all subdomains included.
  */
  $settings['trusted_host_patterns'] = [
+    '^localhost$',
+    '^10\.130\.\d+\.\d+$',
     '10.130.109.122',
     '10.130.109.107',
     '10.130.109.80',
