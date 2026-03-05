@@ -22,6 +22,7 @@ COPY package/data/usr/local/bin/msmtp-local-maildir-write.sh /usr/local/bin
 COPY package/data/opt/drupal/composer.json /opt/drupal/composer.json
 COPY package/data/opt/drupal/composer.lock /opt/drupal/composer.lock
 COPY package/data/opt/drupal/web/sites/default/settings.php /opt/drupal/web/sites/default/settings.php
+COPY package/data/etc/apache2/sites-enabled/000-default.conf /etc/apache2/sites-enabled/000-default.conf
 
 # REBUILD DRUPAL
 # 1. checkout the github managed parts:
@@ -29,6 +30,10 @@ COPY package/data/opt/drupal/web/sites/default/settings.php /opt/drupal/web/site
 #	b. custom modules
 #	c. /opt/drupal/config
 # 2. composer install -- we can experiment with special flags here (production vs development build e.g.)
+
+RUN a2enmod proxy
+RUN a2enmod proxy_http
+RUN a2enmod headers
 
 RUN git clone https://github.com/uvalib/uvalib-drupal-theme.git /opt/drupal/web/themes/uvalib-drupal-theme
 RUN git clone https://github.com/uvalib/drupal_jsonapi_search_api_extension.git /opt/drupal/web/modules/custom/drupal_jsonapi_search_api_extension
