@@ -23,6 +23,7 @@ COPY package/data/opt/drupal/composer.json /opt/drupal/composer.json
 COPY package/data/opt/drupal/composer.lock /opt/drupal/composer.lock
 COPY package/data/opt/drupal/web/sites/default/settings.php /opt/drupal/web/sites/default/settings.php
 COPY package/data/etc/apache2/sites-enabled/000-default.conf /etc/apache2/sites-enabled/000-default.conf
+COPY package/data/var/simplesamlphp/metadata/saml20-idp-remote.php /var/simplesamlphp/metadata/saml20-idp-remote.php
 
 # REBUILD DRUPAL
 # 1. checkout the github managed parts:
