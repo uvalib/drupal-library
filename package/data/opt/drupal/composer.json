@@ -109,6 +109,7 @@
         "drupal/search_api_solr": "^4.3",
         "drupal/section_library": "^2.0",
         "drupal/simple_sitemap": "^4.2",
+        "drupal/simplesamlphp_auth": "^4.1",
         "drupal/smartmenus": "^2.0@beta",
         "drupal/token": "^1.9",
         "drupal/w3css_paragraphs": "^1.0",
@@ -140,6 +141,8 @@
             "drupal/core-project-message": true,
             "php-http/discovery": true,
             "phpstan/extension-installer": true,
+            "simplesamlphp/composer-module-installer": true,
+            "simplesamlphp/composer-xmlprovider-installer": true,
             "tbachert/spi": true
         }
     },
