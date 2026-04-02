@@ -26,7 +26,7 @@ COPY package/data/etc/apache2/sites-enabled/000-default.conf /etc/apache2/sites-
 
 # REBUILD DRUPAL
 # 1. checkout the github managed parts:
-#	a. custom theme
+#	a. custom themes (v1 + v2; switch in Drupal Appearance)
 #	b. custom modules
 #	c. /opt/drupal/config
 # 2. composer install -- we can experiment with special flags here (production vs development build e.g.)
@@ -36,6 +36,7 @@ RUN a2enmod proxy_http
 RUN a2enmod headers
 
 RUN git clone https://github.com/uvalib/uvalib-drupal-theme.git /opt/drupal/web/themes/uvalib-drupal-theme
+RUN git clone https://github.com/uvalib/uvalib-drupal-theme-v2.git /opt/drupal/web/themes/uvalib-drupal-theme-v2
 RUN git clone https://github.com/uvalib/drupal_jsonapi_search_api_extension.git /opt/drupal/web/modules/custom/drupal_jsonapi_search_api_extension
 RUN git clone https://github.com/uvalib/drupal-uvaldap-module.git /opt/drupal/web/modules/uvaldap
 RUN git clone https://github.com/uvalib/drupal-library.git /opt/drupal/util/drupal-library

@@ -1,10 +1,23 @@
 #!/bin/sh
-cd /opt/drupal/web/themes/uvalib-drupal-theme
-git fetch
-changes=`git diff --name-only origin/main| wc -l`
+# Refresh uvalib Drupal themes from origin/main; clear caches once if anything updated.
+UPDATED=0
+for THEME_DIR in \
+	/opt/drupal/web/themes/uvalib-drupal-theme \
+	/opt/drupal/web/themes/uvalib-drupal-theme-v2
+do
+	if [ ! -d "$THEME_DIR" ]; then
+		echo "Skipping missing theme directory: $THEME_DIR"
+		continue
+	fi
+	cd "$THEME_DIR" || continue
+	git fetch
+	changes=`git diff --name-only origin/main | wc -l`
+	if [ "$changes" -gt 0 ]; then
+		echo "$THEME_DIR: $changes changes detected."
+		git pull && UPDATED=1
+	fi
+done
 
-if [ $changes -gt 0 ]; then
-	echo $changes changes detected.
-	git pull && \
+if [ "$UPDATED" -eq 1 ]; then
 	drush cr
 fi
