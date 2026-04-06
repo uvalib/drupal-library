@@ -3,7 +3,7 @@
 UPDATED=0
 for THEME_DIR in \
 	/opt/drupal/web/themes/uvalib-drupal-theme \
-	/opt/drupal/web/themes/uvalib-drupal-theme-v2
+	/opt/drupal/web/themes/custom/uvalib_drupal_theme_2026
 do
 	if [ ! -d "$THEME_DIR" ]; then
 		echo "Skipping missing theme directory: $THEME_DIR"

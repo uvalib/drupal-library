@@ -36,7 +36,7 @@ RUN a2enmod proxy_http
 RUN a2enmod headers
 
 RUN git clone https://github.com/uvalib/uvalib-drupal-theme.git /opt/drupal/web/themes/uvalib-drupal-theme
-RUN git clone https://github.com/uvalib/uvalib-drupal-theme-v2.git /opt/drupal/web/themes/uvalib-drupal-theme-v2
+RUN git clone https://github.com/uvalib/uvalib_drupal_theme_2026.git /opt/drupal/web/themes/custom/uvalib_drupal_theme_2026
 RUN git clone https://github.com/uvalib/drupal_jsonapi_search_api_extension.git /opt/drupal/web/modules/custom/drupal_jsonapi_search_api_extension
 RUN git clone https://github.com/uvalib/drupal-uvaldap-module.git /opt/drupal/web/modules/uvaldap
 RUN git clone https://github.com/uvalib/drupal-library.git /opt/drupal/util/drupal-library

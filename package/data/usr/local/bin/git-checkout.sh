@@ -9,8 +9,8 @@ if [ ! -d ${DOCROOT}/themes/uvalib-drupal-theme ]; then
 	git clone https://github.com/uvalib/uvalib-drupal-theme.git ${DOCROOT}/themes/uvalib-drupal-theme
 fi
 
-if [ ! -d ${DOCROOT}/themes/uvalib-drupal-theme-v2 ]; then
-	git clone https://github.com/uvalib/uvalib-drupal-theme-v2.git ${DOCROOT}/themes/uvalib-drupal-theme-v2
+if [ ! -d ${DOCROOT}/themes/custom/uvalib_drupal_theme_2026 ]; then
+	git clone https://github.com/uvalib/uvalib_drupal_theme_2026.git ${DOCROOT}/themes/custom/uvalib_drupal_theme_2026
 fi
 
 if [ ! -d ${DOCROOT}/modules/custom/drupal_jsonapi_search_api_extension ]; then
