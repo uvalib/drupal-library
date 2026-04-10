@@ -37,6 +37,11 @@ phases:
       - PRIVATE_KEY=${CODEBUILD_SRC_DIR}/terraform-infrastructure/${PRIVATE_KEY_NAME}
       - ${CODEBUILD_SRC_DIR}/terraform-infrastructure/scripts/decrypt-key.ksh ${PRIVATE_KEY}.cpt ${PRIVATE_KEY_NAME}
       - chmod 600 ${PRIVATE_KEY}
+      # decrypt the container.env.secret
+      - CONTAINER_SECRET_KEY_NAME=library.virginia.edu/develop/keys/library-drupal-develop.pem
+      - CONTAINER_SECRET=${CODEBUILD_SRC_DIR}/terraform-infrastructure/library.virginia.edu/develop/container.env.secret
+      - ${CODEBUILD_SRC_DIR}/terraform-infrastructure/scripts/decrypt-key.ksh ${CONTAINER_SECRET}.cpt ${CONTAINER_SECRET_KEY_NAME}
+      - chmod 600 ${CONTAINER_SECRET}
 
   build:
     commands:
