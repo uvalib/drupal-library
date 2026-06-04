@@ -55,7 +55,7 @@ RUN chmod +x /opt/drupal/scripts/pull-uvalib-drupal-theme
 COPY package/data/usr/local/etc/php/php.ini-production /usr/local/etc/php/php.ini
 
 # install other dependancies
-RUN pecl install apcu-5.1.22 && docker-php-ext-enable apcu
+RUN pecl install apcu && docker-php-ext-enable apcu
 
 # Add the build tag
 ARG BUILD_TAG
