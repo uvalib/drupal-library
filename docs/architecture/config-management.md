@@ -36,7 +36,9 @@ The config-sync repo has **one branch per environment**: `development`, `staging
     The automated export/commit is **not yet self-sufficient** — keeping `production`
     current has required manual fixes to production config. The export mechanism is
     slated for a complete review. Until then, treat the automation as unproven and verify
-    against `production` or a live DB.
+    against `production` or a live DB. See the
+    [Config-sync mechanism review brief](../maintenance/config-sync-mechanism-review.md)
+    for how it currently works, its provenance, and the open redesign decisions.
 
 ## Working with config
 
