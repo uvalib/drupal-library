@@ -11,12 +11,32 @@ repository**, not in this one:
 !!! warning "Don't assume config is untracked"
     Because `config/sync/` in this repo is just a placeholder, it can look as though the
     site's configuration isn't under version control. It is — just in the
-    `drupal-library-config-sync` repo. To inspect text formats, blocks, enabled modules,
-    etc. without a running site, clone that repo and read the YAML directly:
+    `drupal-library-config-sync` repo.
+
+## Per-environment branches — use `production`
+
+The config-sync repo has **one branch per environment**: `development`, `staging`,
+`production` (plus `main`). An automated job exports config and commits it
+("Automatic Commit …").
+
+!!! danger "`main` is stale — clone `--branch production`"
+    `main` is the *default* branch but is **not** what's deployed and can be badly out of
+    date (e.g. it showed CKEditor 4 long after production had moved to CKEditor 5). A
+    plain `gh repo clone …` checks out `main` and will mislead you. Always target the
+    environment branch you mean:
 
     ```bash
-    gh repo clone uvalib/drupal-library-config-sync
+    gh repo clone uvalib/drupal-library-config-sync -- --branch production
     ```
+
+    For the authoritative current state, prefer the `production` branch or a live DB
+    import over `main`.
+
+!!! note "Mechanism under review"
+    The automated export/commit is **not yet self-sufficient** — keeping `production`
+    current has required manual fixes to production config. The export mechanism is
+    slated for a complete review. Until then, treat the automation as unproven and verify
+    against `production` or a live DB.
 
 ## Working with config
 

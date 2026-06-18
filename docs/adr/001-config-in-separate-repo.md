@@ -26,3 +26,7 @@ Exported Drupal configuration is version-controlled in the separate
   config is untracked. To inspect text formats, blocks, enabled modules, etc. without a
   running site, clone the config-sync repo and read the YAML.
 - After changing config on the site, run `drush cex` and commit to the config-sync repo.
+- The repo has **per-environment branches** (`development`, `staging`, `production`);
+  `production` is the deployed baseline and `main` is *not* — see
+  [Configuration management](../architecture/config-management.md). The automated
+  export/commit mechanism is not yet self-sufficient and is slated for a complete review.
