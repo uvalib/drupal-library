@@ -1,0 +1,23 @@
+site_name: library.virginia.edu Drupal Site
+site_description: Operations and architecture documentation for the UVA Library Drupal 10 site
+repo_url: https://github.com/uvalib/drupal-library
+repo_name: uvalib/drupal-library
+
+plugins:
+  - search
+  - awesome-pages
+  - git-revision-date-localized:
+      enable_creation_date: false
+      type: datetime
+
+theme:
+  name: material
+  palette:
+    primary: blue
+    accent: blue
+  features:
+    - navigation.sections
+    - navigation.top
+    - search.highlight
+
+docs_dir: ../docs

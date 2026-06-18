@@ -1,0 +1,7 @@
+nav:
+  - Home: index.md
+  - Architecture: architecture
+  - Operations: operations
+  - Maintenance: maintenance
+  - Architecture Decisions: adr
+  - Troubleshooting: troubleshooting

@@ -1,0 +1,5 @@
+nav:
+  - README.md
+  - mariadb-ssl-dump.md
+  - simplesamlphp-secure-cookie.md
+  - ddev-one-name-per-directory.md

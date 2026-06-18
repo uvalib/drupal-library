@@ -1,0 +1,6 @@
+nav:
+  - README.md
+  - container-and-build.md
+  - config-management.md
+  - authentication-netbadge.md
+  - search-solr.md
