@@ -5,3 +5,4 @@ nav:
   - Maintenance: maintenance
   - Architecture Decisions: adr
   - Troubleshooting: troubleshooting
+  - Session Logs: session-logs
