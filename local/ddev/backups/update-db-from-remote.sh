@@ -6,6 +6,9 @@ DEFAULT_ENV="dev"
 SCRIPT_DIR=$(dirname "$(readlink -f "$0")")
 BACKUP_DIR="$SCRIPT_DIR/../backups/sql"
 IMPORT_DB=true
+# Minimum plausible dump size (bytes). A real dump is >100MB; anything this
+# small is almost certainly an error message captured instead of SQL.
+MIN_DUMP_BYTES=1000000
 
 while getopts "hn" opt; do
     case $opt in
@@ -59,38 +62,56 @@ ssh-add
 echo "Using host: $HOST"
 
 echo "Checking connection to $HOST..."
-if [[ $(ssh -o ConnectTimeout=5 "$HOST" sudo true) ]]; then
-	echo "Connection to $HOST failed.  Check that you are on VPN"
-	exit 1
-fi	 
+if ! ssh -o ConnectTimeout=5 "$HOST" sudo true 2>/dev/null; then
+    echo "Connection to $HOST failed.  Check that you are on VPN"
+    exit 1
+fi
 
 echo "Retrieving db from $HOST..."
-ssh -t "$HOST" sudo docker exec -it drupal-0 drush sql-dump --extra-dump=--no-tablespaces | tee "$TEMP_SQL" | gzip > "$BACKUP"
+# Notes:
+#  - No `ssh -t` / `docker exec -it`: a tty merges stderr into stdout and adds
+#    CR/control chars, which previously contaminated the dump file. Without it,
+#    drush errors go to our terminal and only SQL lands in $TEMP_SQL.
+#  - `--skip-ssl-verify-server-cert` keeps the DB connection encrypted but skips
+#    cert-chain verification (MariaDB's equivalent of MySQL's --ssl-mode=REQUIRED),
+#    working around the self-signed cert in the server's chain (error 2026).
+#    If prod refuses TLS entirely, use `--skip-ssl` instead.
+ssh "$HOST" 'sudo docker exec -i drupal-0 drush sql-dump --extra-dump="--no-tablespaces --skip-ssl-verify-server-cert"' > "$TEMP_SQL"
+dump_status=$?
+
+if [[ $dump_status -ne 0 ]]; then
+    echo "Error: remote sql-dump failed (exit $dump_status). First lines of output:"
+    head -5 "$TEMP_SQL"
+    rm -f "$TEMP_SQL"
+    exit 1
+fi
 
 echo "Validating SQL dump..."
-if ! ddev mysql < "$TEMP_SQL" --silent --execute="quit" 2>/dev/null; then
-    echo "Error: Invalid SQL syntax detected in dump"
-    rm "$BACKUP" "$TEMP_SQL"
+dump_bytes=$(wc -c < "$TEMP_SQL")
+if [[ "$dump_bytes" -lt "$MIN_DUMP_BYTES" ]]; then
+    echo "Error: dump is only $dump_bytes bytes (< $MIN_DUMP_BYTES) — likely an error message, not a database. Contents:"
+    head -5 "$TEMP_SQL"
+    rm -f "$TEMP_SQL"
+    exit 1
+fi
+if ! head -c 4096 "$TEMP_SQL" | grep -qE '^-- (MySQL|MariaDB) dump'; then
+    echo "Error: dump does not start with a mysqldump header — not valid SQL. Contents:"
+    head -5 "$TEMP_SQL"
+    rm -f "$TEMP_SQL"
     exit 1
 fi
 
-if [[ $(file $BACKUP) == *truncated* ]]; then
-    echo "Error: truncated SQL detected in dump.  Check to see if connection timed out.  NB: this script assumes VPN access to the host."
-    rm "$BACKUP" "$TEMP_SQL"
+echo "Compressing dump..."
+if ! gzip -c "$TEMP_SQL" > "$BACKUP"; then
+    echo "Error: failed to compress dump"
+    rm -f "$TEMP_SQL" "$BACKUP"
     exit 1
 fi
-
-rm "$TEMP_SQL"
-
-if [[ ! -f "$BACKUP" ]] || [[ ! -s "$BACKUP" ]]; then
-    echo "Error: Backup file is empty or not created"
-    rm -f "$BACKUP"
-    exit 1
-fi
+rm -f "$TEMP_SQL"
 
 if ! gzip -t "$BACKUP" 2>/dev/null; then
     echo "Error: Backup file is not a valid gzip file"
-    rm "$BACKUP"
+    rm -f "$BACKUP"
     exit 1
 fi
 
