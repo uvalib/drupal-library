@@ -52,7 +52,7 @@
         "drupal/admin_toolbar": "^3.1",
         "drupal/asset_injector": "^2.21",
         "drupal/backup_migrate": "^5.0",
-        "drupal/block_class": "^2.0",
+        "drupal/block_class": "^3.0",
         "drupal/block_place": "^1.0",
         "drupal/bootstrap": "^5.0",
         "drupal/bootstrap_layout_builder": "^2.2",
