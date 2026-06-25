@@ -2,3 +2,9 @@ package/scripts/build.ksh
 package/scripts/shell.ksh
 .vscode
 mkdocs/site/
+
+# Claude Code: share project settings + instructions, keep per-developer local settings out
+.claude/settings.local.json
+
+# Dangling symlink into the container; not valid on the host
+local/ddev/vendor-archive
