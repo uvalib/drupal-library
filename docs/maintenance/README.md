@@ -9,6 +9,7 @@ version upgrade.
 | Removing CKEditor 4, migrating to CKEditor 5 | [CKEditor 4 → 5](ckeditor4-to-ckeditor5.md) |
 | Drupal 10 → 11 upgrade | [Drupal 11 upgrade](drupal-11-upgrade.md) |
 | Config-sync export mechanism (review/redesign) | [Config-sync mechanism review](config-sync-mechanism-review.md) |
+| Move cache off the shared DB to Redis (real fix for deploy deadlocks) | [Redis cache backend](redis-cache-backend.md) |
 
 ## Validation / smoke tests
 

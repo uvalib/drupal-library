@@ -4,3 +4,4 @@ nav:
   - ckeditor4-to-ckeditor5.md
   - drupal-11-upgrade.md
   - config-sync-mechanism-review.md
+  - redis-cache-backend.md

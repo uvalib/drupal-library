@@ -3,3 +3,5 @@ nav:
   - local-development.md
   - syncing-data.md
   - deployment.md
+  - production-deploy-runbook.md
+  - deploy-strategy-exploration.md
