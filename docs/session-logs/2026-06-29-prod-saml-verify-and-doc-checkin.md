@@ -34,15 +34,23 @@ The 2026-06-25 open loop tracked `a7e87a5` (SimpleSAMLphp secure-cookie fix) + `
 
 `build-20260625193203` = commit `2a1ddef`, which carries both `a7e87a5` and `block_class` 3.0.0. The SetEnvIf count was **0** when the bug was diagnosed (06-25); it is now **1** on both nodes — the secure-cookie banner condition is cleared. Deploy landed ~2026-06-27, during/after the 2026-06-26 cache-deadlock incident. User has hand-verified the banner is gone and asked the original reporter to confirm independently. Open-loop memory marked **RESOLVED**.
 
-## 5. CKEditor 4 removal — deferred
+## 5. CKEditor 4 removal — executed & verified on STAGING
 
-Left uncommitted (`composer.json` / `composer.lock`). User is at a conference 2026-06-30 and will sequence the removal after returning. Reminder of the hazard: `pm:uninstall ckeditor` must run on **each** environment (staging + both prod nodes) *while the image still has the code*, then deploy the code-removal image — reverse order breaks bootstrap.
+Originally planned to defer, but proceeded with the **staging** rollout to test the sequence:
+
+1. **Uninstalled first, code still present:** confirmed staging matched prod (all 3 formats on `ckeditor5`, v4 module enabled-but-unused, `ckeditor_plugin_report` disabled), then `drush pm:uninstall ckeditor ckeditor_plugin_report`. Staging single-node, so no concurrency risk. Verified healthy (bootstrap Successful, front page 200).
+2. **Shipped the code removal:** committed `composer remove drupal/ckeditor` on branch `chore/remove-ckeditor4` → PR #9 → merged to `main` (`23e5aef`) → staging deployed `build-20260629205554` (~6 min).
+3. **Post-deploy verification — all green:** ckeditor code gone from image, bootstrap Successful, `drush cr` clean (no "module ckeditor does not exist"), all 3 formats still `ckeditor5`, front page 200.
+
+The uninstall-then-remove-code sequence worked exactly as intended — no broken bootstrap.
+
+**⏳ Production still pending.** Prod (two nodes, shared RDS DB) still has v4 enabled; the code removal is now on `main` but prod is manual-deploy. **Deadlock caveat:** `pm:uninstall` is itself a cache-writer, so on prod's two live nodes it carries the same shared-DB-cache deadlock risk as the 2026-06-26 incident — dropping `drush cr` is necessary but not sufficient. Production rollout should run under the runbook's **maintenance-mode variant**, or after Redis lands. Full guidance captured in `docs/maintenance/ckeditor4-to-ckeditor5.md` (Production rollout section).
 
 ---
 
 ## Open items (carried forward)
 
-- **CKEditor 4 removal** — parked until user returns; local composer changes uncommitted; manual per-env `pm:uninstall` sequencing required. Gates the Drupal 11 upgrade.
+- **CKEditor 4 removal** — staging done & verified 2026-06-29 (code removal on `main`). **Production pending:** uninstall on both nodes first, under maintenance mode (deadlock caveat). Gates the Drupal 11 upgrade.
 - **Redis cache backend** — the real fix for the 2026-06-26 deadlock-WSOD class; highest-value design item.
 - **Config-sync mechanism redesign** — un-versioned host cron + git `safe.directory`; needs codifying into the pipeline/Ansible.
 - **Staging SAML config-as-code (item B)** — do deliberately with xw5d; full plan in `docs/maintenance/staging-saml-standardization-followup.md`.
