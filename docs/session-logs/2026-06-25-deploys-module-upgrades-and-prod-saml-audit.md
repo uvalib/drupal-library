@@ -49,3 +49,10 @@ Ported the file-free operational steps (`composer install`, `drush cr`, apache `
 - **CKEditor 4 removal** — execute the manual `pm:uninstall ckeditor` sequencing per env, then ship the code removal (still uncommitted locally).
 - **Item B** — SimpleSAMLphp config-as-code standardization for staging/prod (do with xw5d).
 - **Uncommitted in drupal-library** — CKEditor 4 removal (composer.json/lock), the CLAUDE.md host-SSH section (intentionally held out of the repo), this session log, and the two new maintenance/followup docs.
+
+---
+
+## Addendum: 2026-06-29 follow-on
+
+- **Dangling `vendor-archive` symlink removed.** The ghost `package/data/opt/drupal/vendor-archive/vendor-archive` (a self-referential symlink → container path `/var/www/html/package/data/opt/drupal/vendor-archive`, 0B) was deleted from the working tree. Source of these ghosts is still unconfirmed — likely a post-start/archive hook running inside the container; watching for re-appearance. The tracked `smartmenus-1.1.1.zip` in that dir was left untouched.
+- **SAML/maintenance docs committed** (`c1fd97e`, branch `docs/prod-deploy-runbook-incident`): this session log + `docs/maintenance/staging-saml-standardization-followup.md` (item B). Not yet pushed — holding per request until session wrap-up. CKEditor 4 composer changes and the CLAUDE.md host-SSH section remain uncommitted.
