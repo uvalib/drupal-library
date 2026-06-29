@@ -99,6 +99,29 @@ Releases are tracked by ECR image tags (not git tags).
 - `SIMPLESAMLPHP_CONFIG_DIR=/var/simplesamlphp/config` is set as an Apache `SetEnv`.
 - APCu is installed via `pecl install apcu` in the Dockerfile (no version pin).
 
+## Connecting to environment hosts (SSH)
+
+All hosts are on `*.internal.lib.virginia.edu` and require the **UVA VPN** (without it, the names won't even resolve). SSH is key-based; over VPN a plain `ssh <host>` works. Use `-o BatchMode=yes` for non-interactive checks so it fails fast instead of hanging on a prompt.
+
+| Env | Host | Notes |
+|-----|------|-------|
+| **staging** | `library-drupal-staging-0.internal.lib.virginia.edu` | instance `uva-library-drupal-staging-0`, IP `10.130.109.122` |
+| **dev** | `library-drupal-develop-0.internal.lib.virginia.edu` | single node |
+| **prod (node 0)** | `library-drupal-0.internal.lib.virginia.edu` | instance `uva-library-drupal-production-0`, IP `10.130.110.83` |
+| **prod (node 1)** | `library-drupal-1.internal.lib.virginia.edu` | instance `uva-library-drupal-production-1`, IP `10.130.110.179` |
+
+**Production runs two nodes** behind the ALB (`instance_count = 2`), both running the `drupal-0` container. When verifying a prod deploy, check **both** hosts. Staging and dev are single-node.
+
+- A push to `main` deploys to **staging** (the deploy CodeBuild project runs `pipeline/deployspec.yml` → Terraform/Ansible in `terraform-infrastructure/library.virginia.edu/staging`).
+- The Drupal container is named **`drupal-0`**; the NetBadge SP container is **`netbadge-0`**. Run commands inside it with e.g. `ssh <host> 'sudo docker exec drupal-0 <cmd>'`.
+- Authoritative source for hostnames/IPs: the generated inventory/tfvars under `terraform-infrastructure/library.virginia.edu/<env>/ansible/` (e.g. `inventory.generated`, `tfvars.*.generated`). The `staging` dir may contain a stale `staging-1` tfvars — `instance_count` is 1, so only `staging-0` is real.
+- Example — verify the deployed Apache vhost on staging:
+  ```bash
+  ssh library-drupal-staging-0.internal.lib.virginia.edu \
+    'sudo docker exec drupal-0 cat /etc/apache2/sites-enabled/000-default.conf'
+  ```
+- The running container's image tag (e.g. `build-20260625181816`) is shown by `sudo docker ps`; the timestamp matches the builder's start time, letting you confirm which commit is live.
+
 ## What to edit in this repo
 
 - **Drupal dependencies:** `package/data/opt/drupal/composer.json` and `composer.lock`
