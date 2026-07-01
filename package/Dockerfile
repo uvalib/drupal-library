@@ -1,10 +1,13 @@
 
 # build the static devops-docs site (served by the devops_docs module)
 #
+# git is installed because the git-revision-date plugin's GitPython import
+# requires the git binary present, even though we don't ship a .git here: the
+# CodeBuild source export has no .git directory, so the plugin falls back to the
+# build date (fallback_to_build_date in mkdocs.yml) for "last updated" stamps.
 FROM python:3.12-slim AS docs-builder
 RUN apt-get -y update && apt-get -y install git
 WORKDIR /repo
-COPY .git/ .git/
 COPY docs/ docs/
 COPY mkdocs/ mkdocs/
 RUN pip install --no-cache-dir -r mkdocs/requirements.txt
