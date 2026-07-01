@@ -1,0 +1,6 @@
+services:
+  devops_docs.request_subscriber:
+    class: Drupal\devops_docs\EventSubscriber\DevopsDocsRequestSubscriber
+    arguments: ['@current_user']
+    tags:
+      - { name: event_subscriber }

@@ -1,0 +1,28 @@
+<?php
+
+/**
+ * @file
+ * Install hooks for the devops_docs module.
+ */
+
+/**
+ * Implements hook_install().
+ *
+ * Seeds the initial devops team onto the 'devops' role (defined in
+ * config/install/user.role.devops.yml) so access works immediately on
+ * every environment the module is enabled on, without a manual per-
+ * environment role-assignment step. Only runs once, at install time --
+ * accounts added to the team later still need a manual role grant (or a
+ * future update hook).
+ */
+function devops_docs_install() {
+  $usernames = ['ys2n', 'xw5d'];
+  $storage = \Drupal::entityTypeManager()->getStorage('user');
+  foreach ($usernames as $name) {
+    $account = current($storage->loadByProperties(['name' => $name]));
+    if ($account && !$account->hasRole('devops')) {
+      $account->addRole('devops');
+      $account->save();
+    }
+  }
+}

@@ -1,0 +1,24 @@
+/* Bold collapsible section headers in the sidebar to distinguish them from
+   page links (--nested covers the accordion sections; --section covers the
+   flattened group headers if navigation.sections is ever re-enabled) */
+.md-nav__item--nested > .md-nav__link,
+.md-nav__item--section > .md-nav__link,
+.md-nav__item--section > label {
+  font-weight: 700;
+}
+
+/* Increase indentation for nested nav items */
+.md-nav__item .md-nav {
+  padding-left: 1.2rem;
+}
+
+/* Move last-updated date to bottom right */
+.md-source-file {
+  display: flex;
+  justify-content: flex-end;
+  font-size: 0.75rem;
+  color: var(--md-default-fg-color--light);
+  margin-top: 2rem;
+  padding-top: 0.5rem;
+  border-top: 1px solid var(--md-default-fg-color--lightest);
+}

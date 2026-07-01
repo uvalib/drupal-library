@@ -1,0 +1,4 @@
+view devops docs:
+  title: 'View DevOps documentation'
+  description: 'Access the internal operations/architecture documentation site at /devops-docs.'
+  restrict access: true

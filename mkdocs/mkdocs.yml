@@ -9,6 +9,7 @@ plugins:
   - git-revision-date-localized:
       enable_creation_date: false
       type: datetime
+      fallback_to_build_date: true
 
 theme:
   name: material
@@ -16,8 +17,10 @@ theme:
     primary: blue
     accent: blue
   features:
-    - navigation.sections
     - navigation.top
     - search.highlight
 
 docs_dir: ../docs
+
+extra_css:
+  - stylesheets/extra.css

@@ -13,6 +13,7 @@ hooks:
     post-start:
         - exec: package/data/usr/local/bin/git-checkout.sh
         - exec: ln -sf /var/www/html/package/data/opt/drupal/vendor-archive /var/www/html/local/ddev/vendor-archive
+        - exec: mkdir -p /var/www/html/local/ddev/web/modules/custom && ln -sf /var/www/html/package/data/opt/drupal/web/modules/custom/devops_docs /var/www/html/local/ddev/web/modules/custom/devops_docs
         - exec-host: ddev composer install
 use_dns_when_possible: true
 composer_root: local/ddev

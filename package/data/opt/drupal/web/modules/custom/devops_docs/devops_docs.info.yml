@@ -1,0 +1,5 @@
+name: DevOps Docs
+type: module
+description: 'Serves the pre-built mkdocs operations/architecture documentation under /devops-docs, gated by a dedicated permission.'
+package: Custom
+core_version_requirement: ^10 || ^11
