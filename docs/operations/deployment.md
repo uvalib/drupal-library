@@ -29,6 +29,12 @@ Runs on AWS CodeBuild:
 
 Releases are tracked by **ECR image tags**, not git tags.
 
+## Themes deploy on a separate track
+
+The active theme is **not** promoted by image tag — it's pinned to a git tag at
+deploy time via an SSM parameter, independently of the container. See
+[Theme deployment](theme-deployment.md) for the full mechanism and runbook.
+
 ## Where smoke tests fit
 
 Post-deploy smoke tests (homepage, [search/Solr](../architecture/search-solr.md), a

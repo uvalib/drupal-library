@@ -11,10 +11,10 @@
       
       
       
-        <link rel="prev" href="../ckeditor4-to-ckeditor5/">
+        <link rel="prev" href="../deployment/">
       
       
-        <link rel="next" href="../config-sync-mechanism-review/">
+        <link rel="next" href="../production-deploy-runbook/">
       
       
         
@@ -25,7 +25,7 @@
     
     
       
-        <title>Drupal 10 → 11 Upgrade - library.virginia.edu Drupal Site</title>
+        <title>Theme deployment (build-time clone + deploy-time tag pin) - library.virginia.edu Drupal Site</title>
       
     
     
@@ -76,7 +76,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#drupal-10-11-upgrade" class="md-skip">
+        <a href="#theme-deployment-build-time-clone-deploy-time-tag-pin" class="md-skip">
           Skip to content
         </a>
       
@@ -112,7 +112,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Drupal 10 → 11 Upgrade
+              Theme deployment (build-time clone + deploy-time tag pin)
             
           </span>
         </div>
@@ -478,18 +478,20 @@
       
   
   
+    
   
   
+  
     
     
     
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
         
           
           <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
@@ -510,7 +512,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_3">
             <span class="md-nav__icon md-icon"></span>
             
@@ -528,7 +530,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../operations/" class="md-nav__link">
+      <a href="../" class="md-nav__link">
         
   
   
@@ -556,7 +558,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../operations/local-development/" class="md-nav__link">
+      <a href="../local-development/" class="md-nav__link">
         
   
   
@@ -584,7 +586,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../operations/syncing-data/" class="md-nav__link">
+      <a href="../syncing-data/" class="md-nav__link">
         
   
   
@@ -612,7 +614,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../operations/deployment/" class="md-nav__link">
+      <a href="../deployment/" class="md-nav__link">
         
   
   
@@ -620,230 +622,6 @@
     
   
     Deployment
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../operations/theme-deployment/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Theme deployment (build-time clone + deploy-time tag pin)
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../operations/production-deploy-runbook/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Production Deploy Runbook
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../operations/deploy-strategy-exploration/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Deployment Strategy — Exploration &amp; Open Questions
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-          </ul>
-        </nav>
-      
-    </li>
-  
-
-    
-      
-      
-  
-  
-    
-  
-  
-  
-    
-    
-    
-    
-    
-    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
-      
-        
-        
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
-        
-          
-          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
-            
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Maintenance
-  
-
-    
-  </span>
-  
-  
-
-            <span class="md-nav__icon md-icon"></span>
-          </label>
-        
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
-          <label class="md-nav__title" for="__nav_4">
-            <span class="md-nav__icon md-icon"></span>
-            
-  
-    Maintenance
-  
-
-          </label>
-          <ul class="md-nav__list" data-md-scrollfix>
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Maintenance
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../module-updates/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Module &amp; Core Updates
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../ckeditor4-to-ckeditor5/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    CKEditor 4 → CKEditor 5 Migration
   
 
     
@@ -880,7 +658,7 @@
   <span class="md-ellipsis">
     
   
-    Drupal 10 → 11 Upgrade
+    Theme deployment (build-time clone + deploy-time tag pin)
   
 
     
@@ -898,7 +676,7 @@
   <span class="md-ellipsis">
     
   
-    Drupal 10 → 11 Upgrade
+    Theme deployment (build-time clone + deploy-time tag pin)
   
 
     
@@ -924,10 +702,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#prerequisites-blockers" class="md-nav__link">
+  <a href="#how-the-deploy-time-pin-works" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Prerequisites / blockers
+        How the deploy-time pin works
       
     </span>
   </a>
@@ -935,21 +713,49 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#environment-changes" class="md-nav__link">
+  <a href="#runbook-promote-a-theme-change" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Environment changes
+        Runbook: promote a theme change
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Runbook: promote a theme change">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-cut-the-tag-set-the-default-updates-the-ssm-pointer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Cut the tag &amp; set the default (updates the SSM pointer)
       
     </span>
   </a>
   
 </li>
-      
-        <li class="md-nav__item">
-  <a href="#status" class="md-nav__link">
+        
+          <li class="md-nav__item">
+  <a href="#2-deploy-the-theme" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Status
+        2. Deploy the theme
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#containercode-changes-are-a-separate-track" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Container/code changes are a separate track
       
     </span>
   </a>
@@ -972,7 +778,229 @@
   
   
     <li class="md-nav__item">
-      <a href="../config-sync-mechanism-review/" class="md-nav__link">
+      <a href="../production-deploy-runbook/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Production Deploy Runbook
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../deploy-strategy-exploration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Deployment Strategy — Exploration &amp; Open Questions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Maintenance
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Maintenance
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../maintenance/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Maintenance
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../maintenance/module-updates/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Module &amp; Core Updates
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../maintenance/ckeditor4-to-ckeditor5/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CKEditor 4 → CKEditor 5 Migration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../maintenance/drupal-11-upgrade/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Drupal 10 → 11 Upgrade
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../maintenance/config-sync-mechanism-review/" class="md-nav__link">
         
   
   
@@ -1000,7 +1028,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../redis-cache-backend/" class="md-nav__link">
+      <a href="../../maintenance/redis-cache-backend/" class="md-nav__link">
         
   
   
@@ -1747,10 +1775,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#prerequisites-blockers" class="md-nav__link">
+  <a href="#how-the-deploy-time-pin-works" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Prerequisites / blockers
+        How the deploy-time pin works
       
     </span>
   </a>
@@ -1758,21 +1786,49 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#environment-changes" class="md-nav__link">
+  <a href="#runbook-promote-a-theme-change" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Environment changes
+        Runbook: promote a theme change
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Runbook: promote a theme change">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-cut-the-tag-set-the-default-updates-the-ssm-pointer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Cut the tag &amp; set the default (updates the SSM pointer)
       
     </span>
   </a>
   
 </li>
-      
-        <li class="md-nav__item">
-  <a href="#status" class="md-nav__link">
+        
+          <li class="md-nav__item">
+  <a href="#2-deploy-the-theme" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Status
+        2. Deploy the theme
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#containercode-changes-are-a-separate-track" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Container/code changes are a separate track
       
     </span>
   </a>
@@ -1799,26 +1855,98 @@
   
 
 
-<h1 id="drupal-10-11-upgrade">Drupal 10 → 11 Upgrade</h1>
-<p><strong>Target agreed:</strong> 2026-06-10. Upgrade from Drupal 10.x to Drupal 11, PHP 8.2 → 8.3.</p>
-<h2 id="prerequisites-blockers">Prerequisites / blockers</h2>
+<h1 id="theme-deployment-build-time-clone-deploy-time-tag-pin">Theme deployment (build-time clone + deploy-time tag pin)</h1>
+<p>First-party themes and modules are <strong>cloned from GitHub at image-build time</strong>
+(see <a href="../../adr/003-runtime-cloned-themes-modules/">ADR 003</a> and
+<a href="../../architecture/container-and-build/">Container &amp; build</a>). That clone captures
+whatever the repo's default branch (<code>main</code>) pointed at <em>when the image was built</em>,
+so the image's theme can lag the latest theme work. The <strong>active theme</strong> is
+therefore re-pinned to a specific git <strong>tag at deploy time</strong> to close that gap and
+to guarantee staging and production run the exact same revision.</p>
+<div class="admonition note">
+<p class="admonition-title">Scope: only the active theme is deploy-time refreshed</p>
+<p>The active theme is machine-name <strong><code>uvalibrary_v2a</code></strong>, which lives in the
+<strong><code>uvalib-drupal-theme</code></strong> repo (dir <code>/opt/drupal/web/themes/uvalib-drupal-theme</code>).
+The deploy-time tag checkout only touches that directory. The other cloned
+repos — <code>uvalib_drupal_theme_2026</code> (not yet active) and the custom modules
+(<code>drupal_jsonapi_search_api_extension</code>, <code>uvaldap</code>) — are <strong>not</strong> refreshed at
+deploy; they run at whatever <code>main</code> HEAD the image baked. If the 2026 theme
+becomes active, this mechanism would need to be extended to it.</p>
+</div>
+<h2 id="how-the-deploy-time-pin-works">How the deploy-time pin works</h2>
+<p>The shared task <strong><code>library.virginia.edu/tasks/theme_deployment_task.yml</code></strong> does the
+work. It is included from two playbooks per environment:</p>
+<table>
+<thead>
+<tr>
+<th>Playbook</th>
+<th>When it runs</th>
+<th>Clears cache after?</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>&lt;env&gt;/ansible/deploy_backend.yml</code></td>
+<td>Full backend deploy</td>
+<td>No — the container is recreated fresh (cold cache), so no <code>drush cr</code> is needed</td>
+</tr>
+<tr>
+<td><code>&lt;env&gt;/ansible/deploy_theme_only.yml</code></td>
+<td>Theme-only deploy (no image change)</td>
+<td><strong>Yes</strong> — runs <code>drush cr</code> (the container is already warm)</td>
+</tr>
+</tbody>
+</table>
+<p>The task:</p>
+<ol>
+<li>Reads the git tag from <strong>SSM</strong>: <code>aws ssm get-parameter --name "/themes/uvalib/drupal-library/release"</code>. The <code>release</code> segment comes from the calling playbook's <code>ssm_release_theme_tag</code> var.</li>
+<li>Resolves the <strong>effective tag</strong> = <code>deploy_theme_tag</code> (if passed on the command line) else the SSM value.</li>
+<li>Runs <code>docker exec drupal-0 bash -c "cd /opt/drupal/web/themes/uvalib-drupal-theme &amp;&amp; git fetch &amp;&amp; git checkout &lt;effective_tag&gt;"</code> — leaving the theme repo on that tag in detached HEAD.</li>
+</ol>
+<p>Per environment:</p>
 <ul>
-<li><strong>Remove CKEditor 4.</strong> <code>drupal/ckeditor</code> has no Drupal 11 support and must be removed
-  first — see <a href="../ckeditor4-to-ckeditor5/">CKEditor 4 → 5</a>.</li>
-<li><strong>Contrib compatibility.</strong> Every contrib module in <code>composer.json</code> must have a
-  Drupal 11-compatible release. Use Upgrade Status (<code>drupal/upgrade_status</code>) to audit
-  before bumping core.</li>
-<li><strong>Deprecated API usage</strong> in the custom themes/modules (cloned at build time — see
-  <a href="../../architecture/container-and-build/">Container &amp; build</a>) must be cleared.</li>
+<li><strong>Staging &amp; production</strong> run this (staging via the shared task include; production has an inline equivalent).</li>
+<li><strong>Develop</strong> has no <code>deploy_theme_only.yml</code> and no theme task. Theme updates on dev are <strong>manual</strong> — <code>git pull</code>/<code>git checkout</code> in the container, typically via the <code>pull-uvalib-drupal-theme</code> helper (<code>/opt/drupal/scripts/pull-uvalib-drupal-theme</code>), which fetches <code>origin/main</code> for both theme dirs and runs <code>drush cr</code> if anything changed. So dev tracks <code>main</code>, not a pinned tag.</li>
 </ul>
-<h2 id="environment-changes">Environment changes</h2>
-<ul>
-<li><code>package/Dockerfile</code> base image → <code>drupal:11.x</code>.</li>
-<li><code>.ddev/config.yaml</code> → <code>type: drupal11</code>, <code>php_version: "8.3"</code>.</li>
-<li>Pipeline specs and any PHP version references → 8.3.</li>
-</ul>
-<h2 id="status">Status</h2>
-<p><strong>Planned.</strong> CKEditor 4 removal is the first concrete step on the critical path.</p>
+<h2 id="runbook-promote-a-theme-change">Runbook: promote a theme change</h2>
+<p>Theme changes flow dev → release → staging → production, decoupled from the
+container image.</p>
+<h3 id="1-cut-the-tag-set-the-default-updates-the-ssm-pointer">1. Cut the tag &amp; set the default (updates the SSM pointer)</h3>
+<p>In a checkout of <code>uvalib-drupal-theme</code>:</p>
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>pull
+git<span class="w"> </span>fetch<span class="w"> </span>--tags<span class="w">                 </span><span class="c1"># ensure you have all tags</span>
+git<span class="w"> </span>tag<span class="w">                          </span><span class="c1"># list; copy the tag to release, e.g. prod-theme-20260519-netbadge-login</span>
+
+<span class="c1"># point the default at that tag (this is the manual &quot;write&quot; side of the SSM pin)</span>
+aws<span class="w"> </span>ssm<span class="w"> </span>put-parameter<span class="w"> </span>--name<span class="w"> </span><span class="s2">&quot;/themes/uvalib/drupal-library/release&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--value<span class="w"> </span><span class="s2">&quot;&lt;tag&gt;&quot;</span><span class="w"> </span>--overwrite
+aws<span class="w"> </span>ssm<span class="w"> </span>get-parameter<span class="w"> </span>--name<span class="w"> </span><span class="s2">&quot;/themes/uvalib/drupal-library/release&quot;</span><span class="w">   </span><span class="c1"># verify</span>
+</code></pre></div>
+<h3 id="2-deploy-the-theme">2. Deploy the theme</h3>
+<div class="highlight"><pre><span></span><code><span class="c1"># deploy the current default (SSM &#39;release&#39;) tag</span>
+ap<span class="w"> </span>deploy_theme_only.yml
+
+<span class="c1"># OR: test a specific tag WITHOUT changing the default</span>
+<span class="c1"># (a later redeploy reverts to the SSM default — good for trialling a tag)</span>
+ap<span class="w"> </span>deploy_theme_only.yml<span class="w"> </span>-e<span class="w"> </span><span class="nv">deploy_theme_tag</span><span class="o">=</span>&lt;git<span class="w"> </span>theme<span class="w"> </span>tag&gt;
+</code></pre></div>
+<p><code>ap</code> is the <code>aws-vault exec … -- ansible-playbook</code> alias, run from the env's
+<code>ansible/</code> directory.</p>
+<div class="admonition warning">
+<p class="admonition-title">Production is deployed one node at a time — never both at once</p>
+<p>Production runs two nodes. Deploy the theme to <strong>one node, verify it, then the
+other</strong> — do not let a bad theme land on both simultaneously. <code>preview.library.virginia.edu</code>
+is pinned to node 0 for exactly this kind of single-node verification (see
+<a href="../../architecture/hostnames-and-urls/">Hostnames &amp; URLs</a>); the legacy runbook
+verified via the direct node URLs (<code>library-drupal-0…:8080</code>, then <code>-1</code>).</p>
+</div>
+<h2 id="containercode-changes-are-a-separate-track">Container/code changes are a separate track</h2>
+<p>Application/container changes are promoted by <strong>ECR image tag</strong>, not this theme
+mechanism: the <code>release</code> branch auto-builds an image (<code>release-YYYYMMDDHHMMSS</code>)
+that auto-deploys to staging; after testing, the image is promoted to production
+by tagging it <code>prod-yymmdd</code>. See <a href="../deployment/">Deployment</a>. So a full production
+release is really <em>two</em> coordinated pins: the <strong>image tag</strong> (code) and the <strong>SSM
+theme tag</strong> (theme).</p>
 
 
 
@@ -1839,7 +1967,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-datetime" title="June 18, 2026 15:56:36 UTC">June 18, 2026 15:56:36</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-datetime" title="July 2, 2026 16:29:04 UTC">July 2, 2026 16:29:04</span>
   </span>
 
     
