@@ -1,0 +1,2311 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Operations and architecture documentation for the UVA Library Drupal 10 site">
+      
+      
+      
+      
+        <link rel="prev" href="../deployment/">
+      
+      
+        <link rel="next" href="../deploy-strategy-exploration/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>Production Deploy Runbook - library.virginia.edu Drupal Site</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="blue" data-md-color-accent="blue">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#production-deploy-runbook" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="library.virginia.edu Drupal Site" class="md-header__button md-logo" aria-label="library.virginia.edu Drupal Site" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            library.virginia.edu Drupal Site
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Production Deploy Runbook
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/uvalib/drupal-library" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    uvalib/drupal-library
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="library.virginia.edu Drupal Site" class="md-nav__button md-logo" aria-label="library.virginia.edu Drupal Site" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    library.virginia.edu Drupal Site
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/uvalib/drupal-library" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    uvalib/drupal-library
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Architecture
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Architecture
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../architecture/hostnames-and-urls/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hostnames &amp; URLs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../architecture/container-and-build/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Container &amp; Build
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../architecture/config-management/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Configuration Management
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../architecture/authentication-netbadge/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Authentication (NetBadge)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../architecture/search-solr/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Search (Solr)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Operations
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Operations
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Operations
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../local-development/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Local Development (DDEV)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../syncing-data/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Syncing Data from Remote Environments
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../deployment/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Deployment
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Production Deploy Runbook
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Production Deploy Runbook
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#when-this-applies" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        When this applies
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-one-rule-that-matters-do-not-rebuild-cache-while-the-other-node-serves-traffic" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The one rule that matters: do not rebuild cache while the other node serves traffic
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#preconditions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Preconditions
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tools" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tools
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#rolling-deploy-step-by-step" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Rolling deploy — step by step
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Rolling deploy — step by step">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#0-baseline" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        0. Baseline
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#1-drain-the-node-from-the-alb" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Drain the node from the ALB
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-deploy-the-new-image-to-that-node-only" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Deploy the new image to that node only
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-verify-the-node-directly-out-of-rotation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Verify the node directly (out of rotation)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-re-add-the-node-to-the-alb" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Re-add the node to the ALB
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-repeat-for-node-0" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Repeat for node 0
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6-single-cache-rebuild-at-the-end-only-if-the-change-needs-it" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Single cache rebuild at the end (only if the change needs it)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#7-final-verification" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. Final verification
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#structural-changes-maintenance-mode" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Structural changes — maintenance mode
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#rollback" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Rollback
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#related" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Related
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../deploy-strategy-exploration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Deployment Strategy — Exploration &amp; Open Questions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Maintenance
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Maintenance
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../maintenance/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Maintenance
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../maintenance/module-updates/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Module &amp; Core Updates
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../maintenance/ckeditor4-to-ckeditor5/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CKEditor 4 → CKEditor 5 Migration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../maintenance/drupal-11-upgrade/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Drupal 10 → 11 Upgrade
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../maintenance/config-sync-mechanism-review/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Config-Sync Mechanism — Review &amp; Redesign Brief
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../maintenance/redis-cache-backend/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Redis Cache Backend (follow-up)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Architecture Decisions
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Architecture Decisions
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../adr/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Architecture Decision Records
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../adr/001-config-in-separate-repo/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ADR 001: Store exported Drupal config in a separate repo
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../adr/002-https-at-load-balancer/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ADR 002: Terminate HTTPS at the load balancer; serve HTTP in the container
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../adr/003-runtime-cloned-themes-modules/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ADR 003: Clone first-party themes/modules at build time, not via Composer
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../adr/004-target-drupal-11/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ADR 004: Upgrade to Drupal 11 (PHP 8.3)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Troubleshooting
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Troubleshooting
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../troubleshooting/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Troubleshooting
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../troubleshooting/mariadb-ssl-dump/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MariaDB SSL Dump Failure (error 2026)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../troubleshooting/simplesamlphp-secure-cookie/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SimpleSAMLphp Secure Cookie Error on the HTTP Container
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../troubleshooting/ddev-one-name-per-directory/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DDEV Refuses to Run the Project from This Directory
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Incidents
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Incidents
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../incidents/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Incidents
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../incidents/2026-06-26-prod-cache-deadlock-wsod/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2026-06-26 — Production WSOD during rolling deploy (shared-cache deadlock)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Session Logs
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Session Logs
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../session-logs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../session-logs/2026-06-18-module-assessment-docs-and-config-sync/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Session Log: Module Assessment, Docs Scaffold &amp; Config-Sync Discovery
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../session-logs/2026-06-25-deploys-module-upgrades-and-prod-saml-audit/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Session Log: Deploys, Module Upgrades, Staging Playbook Fix &amp; Prod SAML Audit
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../session-logs/2026-06-29-prod-saml-verify-and-doc-checkin/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Session Log: Prod SAML Fix Verification, Doc Check-in &amp; Cleanup
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../session-logs/2026-07-01-devops-docs-module/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Session Log: DevOps Docs Module (/devops-docs)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../session-logs/2026-07-01-preview-hostname-redirect/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Session Log: preview.library.virginia.edu Default-Redirect Mechanism
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#when-this-applies" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        When this applies
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-one-rule-that-matters-do-not-rebuild-cache-while-the-other-node-serves-traffic" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The one rule that matters: do not rebuild cache while the other node serves traffic
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#preconditions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Preconditions
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tools" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tools
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#rolling-deploy-step-by-step" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Rolling deploy — step by step
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Rolling deploy — step by step">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#0-baseline" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        0. Baseline
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#1-drain-the-node-from-the-alb" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Drain the node from the ALB
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-deploy-the-new-image-to-that-node-only" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Deploy the new image to that node only
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-verify-the-node-directly-out-of-rotation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Verify the node directly (out of rotation)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-re-add-the-node-to-the-alb" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Re-add the node to the ALB
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-repeat-for-node-0" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Repeat for node 0
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6-single-cache-rebuild-at-the-end-only-if-the-change-needs-it" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Single cache rebuild at the end (only if the change needs it)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#7-final-verification" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. Final verification
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#structural-changes-maintenance-mode" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Structural changes — maintenance mode
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#rollback" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Rollback
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#related" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Related
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="production-deploy-runbook">Production Deploy Runbook</h1>
+<div class="admonition info">
+<p class="admonition-title">What is a <em>runbook</em>?</p>
+<p>A <strong>runbook</strong> is a step-by-step operational procedure for a routine-but-risky task —
+the exact commands to run, in order, with the checks and decision points in between.
+It's the difference between "we know how to deploy" (in someone's head) and "anyone on
+the team can deploy safely by following these steps." A runbook captures the <em>how</em>; an
+<a href="../../incidents/">incident note</a> captures <em>what went wrong once</em> and what we
+changed because of it. This page is the how; it was rewritten after the
+<a href="../../incidents/2026-06-26-prod-cache-deadlock-wsod/">2026-06-26 cache-deadlock WSOD</a>.</p>
+</div>
+<h2 id="when-this-applies">When this applies</h2>
+<p>Production (<code>library.virginia.edu</code>) runs <strong>two nodes</strong> behind an ALB
+(<code>library-drupal-0</code>, <code>library-drupal-1</code>), both serving the <code>drupal-0</code> container. Unlike
+staging — where a push to <code>main</code> auto-deploys — <strong>production is deployed manually</strong> by
+running the Ansible backend playbook against each node, then rotating it through the load
+balancer.</p>
+<p>This runbook covers a <strong>zero-downtime rolling deploy</strong>: one node out of the ALB at a time,
+so the site stays up throughout.</p>
+<h2 id="the-one-rule-that-matters-do-not-rebuild-cache-while-the-other-node-serves-traffic">The one rule that matters: do not rebuild cache while the other node serves traffic</h2>
+<div class="admonition danger">
+<p class="admonition-title">Shared database cache</p>
+<p>Both nodes share a <strong>single database cache backend</strong> (no Redis/Memcache — see the
+<a href="../../maintenance/redis-cache-backend/">Redis follow-up</a>). A <code>drush cr</code> is a mass write
+to the shared <code>cache_*</code> tables. If you run it on one node <strong>while the other node is
+serving live traffic</strong>, the two collide on the same InnoDB rows and MySQL throws a
+<strong>deadlock (SQLSTATE 40001 / errno 1213)</strong>. The uncaught fatal renders a broken page,
+which then gets cached and served → <strong>WSOD</strong>. This caused the
+<a href="../../incidents/2026-06-26-prod-cache-deadlock-wsod/">2026-06-26 incident</a>.</p>
+<p><strong>"Out of the ALB" is <em>not</em> "isolated."</strong> A drained node still shares the database
+cache with the live node. Draining protects HTTP traffic, not the cache.</p>
+</div>
+<p>Consequences for the procedure below:</p>
+<ul>
+<li><strong>Pure code/config swap (no cache rebuild needed):</strong> roll the nodes, skip <code>drush cr</code>.</li>
+<li><strong>Change that needs a cache rebuild</strong> (module major-version bump, core update, anything
+  altering services/plugins/entity definitions): do <strong>one</strong> <code>drush cr</code> at the <strong>end</strong>,
+  after both nodes are on the new image — ideally in a <strong>low-traffic window</strong>, or under
+  <strong>maintenance mode</strong> (see <a href="#structural-changes-maintenance-mode">Structural changes</a>).
+  Do <strong>not</strong> <code>drush cr</code> per-node mid-rollout.</li>
+</ul>
+<h2 id="preconditions">Preconditions</h2>
+<ul>
+<li>On the <strong>UVA VPN</strong> (hostnames won't resolve otherwise).</li>
+<li><code>aws-vault</code> configured; the <code>staging</code> profile has the needed access (yes, prod uses the
+  <code>staging</code> profile — that's how the favorite and the deploy are wired).</li>
+<li>Know the <strong>deploy tag</strong> you're shipping. The current <code>latest</code> build tag:
+  <div class="highlight"><pre><span></span><code>aws-vault<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>staging<span class="w"> </span>--<span class="w"> </span>aws<span class="w"> </span>ssm<span class="w"> </span>get-parameter<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--name<span class="w"> </span><span class="s2">&quot;/containers/uvalib/drupal-library/latest&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--query<span class="w"> </span><span class="s1">&#39;Parameter.Value&#39;</span><span class="w"> </span>--output<span class="w"> </span>text
+</code></pre></div>
+  Confirm the image's source commit before shipping:
+  <div class="highlight"><pre><span></span><code>aws-vault<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>staging<span class="w"> </span>--<span class="w"> </span>aws<span class="w"> </span>ecr<span class="w"> </span>describe-images<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--repository-name<span class="w"> </span>uvalib/drupal-library<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--image-ids<span class="w"> </span><span class="nv">imageTag</span><span class="o">=</span>&lt;deploy_tag&gt;<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--query<span class="w"> </span><span class="s1">&#39;imageDetails[0].imageTags&#39;</span><span class="w"> </span>--output<span class="w"> </span>text<span class="w">   </span><span class="c1"># includes gitcommit-&lt;sha&gt;</span>
+</code></pre></div></li>
+</ul>
+<h2 id="tools">Tools</h2>
+<ul>
+<li><strong><code>alb-state</code></strong> — <code>/Users/ys2n/Code/scripts/uvalib/aws/alb-state</code>; favorite <code>drupal-prod</code>
+  targets <code>alb-library-drupal-production</code>. Adds/removes nodes from the ALB target group,
+  refuses to empty the pool, and <code>--watch</code> polls until health stabilizes.</li>
+<li><strong>Ansible</strong> — <code>terraform-infrastructure/library.virginia.edu/production/ansible/</code>,
+  <code>deploy_backend.yml</code>, run with <code>-e deploy_tag=&lt;tag&gt;</code> and <code>--limit &lt;node&gt;</code>.</li>
+</ul>
+<h2 id="rolling-deploy-step-by-step">Rolling deploy — step by step</h2>
+<p>Do node 1 first, then node 0 (so node 0 keeps serving while node 1 deploys). Repeat the
+whole block for the second node.</p>
+<h3 id="0-baseline">0. Baseline</h3>
+<div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>/Users/ys2n/Code/scripts/uvalib/aws
+./alb-state<span class="w"> </span>drupal-prod<span class="w">          </span><span class="c1"># confirm BOTH nodes healthy before starting</span>
+</code></pre></div>
+<h3 id="1-drain-the-node-from-the-alb">1. Drain the node from the ALB</h3>
+<div class="highlight"><pre><span></span><code>./alb-state<span class="w"> </span>drupal-prod<span class="w"> </span>--remove<span class="w"> </span>uva-library-drupal-production-1<span class="w"> </span>--watch<span class="w"> </span>--interval<span class="w"> </span><span class="m">30</span>
+</code></pre></div>
+<p><code>--watch</code> holds until the node fully drains (the <strong>deregistration delay is 300s</strong>), then
+prints "All targets are in a stable state." Wait for that — draining lets in-flight
+requests finish before the container is swapped.</p>
+<h3 id="2-deploy-the-new-image-to-that-node-only">2. Deploy the new image to that node only</h3>
+<div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>/Users/ys2n/Code/uvalib/terraform-infrastructure/library.virginia.edu/production/ansible
+aws-vault<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>staging<span class="w"> </span>--<span class="w"> </span>ansible-playbook<span class="w"> </span>deploy_backend.yml<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-e<span class="w"> </span><span class="nv">deploy_tag</span><span class="o">=</span>&lt;deploy_tag&gt;<span class="w"> </span>--limit<span class="w"> </span>uva-library-drupal-production-1
+</code></pre></div>
+<p>Expect <code>failed=0</code> in the PLAY RECAP. The <code>"…saml-staging.pem missing"</code> line is a
+pre-existing <strong>non-fatal</strong> warning from the backend playbook (the NetBadge SP is a separate
+container) — ignore it.</p>
+<h3 id="3-verify-the-node-directly-out-of-rotation">3. Verify the node directly (out of rotation)</h3>
+<p>Hit the node <strong>directly on <code>:8080</code></strong> — this checks <em>that specific node</em>, bypassing the ALB:</p>
+<div class="highlight"><pre><span></span><code>curl<span class="w"> </span>-s<span class="w"> </span>-o<span class="w"> </span>/dev/null<span class="w"> </span>-w<span class="w"> </span><span class="s1">&#39;HTTP %{http_code}  %{time_total}s\n&#39;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>http://library-drupal-1.internal.lib.virginia.edu:8080/<span class="w">      </span><span class="c1"># 200; first hit is cold/slow</span>
+</code></pre></div>
+<p>On the node, confirm the image and any change-specific expectations:</p>
+<div class="highlight"><pre><span></span><code>ssh<span class="w"> </span>library-drupal-1.internal.lib.virginia.edu<span class="w"> </span><span class="s1">&#39;</span>
+<span class="s1">  sudo docker ps --format &quot;{{.Image}} {{.Names}}&quot; | grep drupal-0       # = your deploy_tag</span>
+<span class="s1">  sudo docker exec drupal-0 grep -i X-Forwarded-Proto \</span>
+<span class="s1">    /etc/apache2/sites-enabled/000-default.conf                          # change-specific</span>
+<span class="s1">&#39;</span>
+</code></pre></div>
+<div class="admonition warning">
+<p class="admonition-title">Do NOT run <code>drush cr</code> here</p>
+<p>See <a href="#the-one-rule-that-matters-do-not-rebuild-cache-while-the-other-node-serves-traffic">the one rule</a>.
+Verifying module versions with <code>drush pm:list</code> at this point is also unreliable — the
+shared cache reflects whichever node wrote last, so a half-rolled deploy shows the
+<em>old</em> version even though the new code is on disk. Trust the on-disk <code>.info.yml</code>, not
+<code>pm:list</code>, until the rollout is complete.</p>
+</div>
+<h3 id="4-re-add-the-node-to-the-alb">4. Re-add the node to the ALB</h3>
+<div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>/Users/ys2n/Code/scripts/uvalib/aws
+./alb-state<span class="w"> </span>drupal-prod<span class="w"> </span>--add<span class="w"> </span>uva-library-drupal-production-1<span class="w"> </span>--watch<span class="w"> </span>--interval<span class="w"> </span><span class="m">30</span>
+</code></pre></div>
+<p><code>--watch</code> holds until the node is <code>healthy</code> (health check is <strong>120s interval × 2</strong> ≈ up to
+4 min from cold). Do not proceed to the other node until this node is healthy — that's what
+keeps the pool from going empty.</p>
+<h3 id="5-repeat-for-node-0">5. Repeat for node 0</h3>
+<p>Same five steps with <code>uva-library-drupal-production-0</code> /
+<code>library-drupal-0.internal.lib.virginia.edu</code>.</p>
+<h3 id="6-single-cache-rebuild-at-the-end-only-if-the-change-needs-it">6. Single cache rebuild at the end (only if the change needs it)</h3>
+<p>After <strong>both</strong> nodes are on the new image — and ideally in a low-traffic window:</p>
+<div class="highlight"><pre><span></span><code>ssh<span class="w"> </span>library-drupal-0.internal.lib.virginia.edu<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span><span class="s1">&#39;sudo docker exec drupal-0 /opt/drupal/vendor/bin/drush cr&#39;</span>
+</code></pre></div>
+<p>The cache is shared, so one <code>cr</code> covers both nodes. Now <code>drush pm:list</code> will report the
+correct (new) versions. If the change has database updates, run <code>drush updb</code> here too.</p>
+<h3 id="7-final-verification">7. Final verification</h3>
+<div class="highlight"><pre><span></span><code><span class="c1"># Both nodes healthy in the ALB:</span>
+/Users/ys2n/Code/scripts/uvalib/aws/alb-state<span class="w"> </span>drupal-prod
+<span class="c1"># Public endpoint through the load balancer:</span>
+curl<span class="w"> </span>-s<span class="w"> </span>-o<span class="w"> </span>/dev/null<span class="w"> </span>-w<span class="w"> </span><span class="s1">&#39;HTTP %{http_code}\n&#39;</span><span class="w"> </span>https://library.virginia.edu/
+</code></pre></div>
+<h2 id="structural-changes-maintenance-mode">Structural changes — maintenance mode</h2>
+<p>For module <strong>major-version</strong> bumps, <strong>core</strong> updates, or anything changing
+services/plugins/entity definitions, the safest path avoids serving live traffic against a
+mid-rebuild cache entirely:</p>
+<ol>
+<li><code>drush state:set system.maintenance_mode 1</code> (and <code>drush cr</code>).</li>
+<li>Deploy <strong>both</strong> nodes (steps 1–5, but you can drain both since the site is in
+   maintenance).</li>
+<li><strong>One</strong> <code>drush cr</code> (+ <code>drush updb</code> if needed).</li>
+<li><code>drush state:set system.maintenance_mode 0</code>.</li>
+</ol>
+<p>This trades a short, controlled pause for eliminating the deadlock/WSOD risk. Until the
+<a href="../../maintenance/redis-cache-backend/">Redis cache backend</a> lands, prefer this for any
+deploy that must rebuild cache.</p>
+<h2 id="rollback">Rollback</h2>
+<p>Re-deploy the previous tag the same way (rolling, per node). The prior production tag
+before a deploy is whatever the nodes were running — capture it from
+<code>sudo docker ps</code> <strong>before</strong> you start. Releases are tracked by
+<a href="../deployment/#release-tracking">ECR image tags, not git tags</a>.</p>
+<h2 id="related">Related</h2>
+<ul>
+<li><a href="../../incidents/2026-06-26-prod-cache-deadlock-wsod/">Incident: 2026-06-26 cache-deadlock WSOD</a></li>
+<li><a href="../../maintenance/redis-cache-backend/">Redis cache backend (follow-up / real fix)</a></li>
+<li><a href="../deployment/">Deployment pipeline overview</a></li>
+<li>Host/SSH details are in the repo <code>CLAUDE.md</code>.</li>
+</ul>
+
+
+
+
+
+
+
+  
+    
+  
+  
+
+
+  <aside class="md-source-file">
+    
+      
+  <span class="md-source-file__fact">
+    <span class="md-icon" title="Last update">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
+    </span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-datetime" title="June 26, 2026 17:12:27 UTC">June 26, 2026 17:12:27</span>
+  </span>
+
+    
+    
+    
+    
+  </aside>
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.top", "search.highlight"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>

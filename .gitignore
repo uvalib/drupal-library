@@ -2,7 +2,6 @@ package/scripts/build.ksh
 package/scripts/shell.ksh
 .vscode
 mkdocs/site/
-package/data/opt/drupal/web/modules/custom/devops_docs/static/
 
 # Claude Code: share project settings + instructions, keep per-developer local settings out
 .claude/settings.local.json

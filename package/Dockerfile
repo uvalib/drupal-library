@@ -1,19 +1,4 @@
 
-# build the static devops-docs site (served by the devops_docs module)
-#
-# git is installed because the git-revision-date plugin's GitPython import
-# requires the git binary present, even though we don't ship a .git here: the
-# CodeBuild source export has no .git directory, so the plugin falls back to the
-# build date (fallback_to_build_date in mkdocs.yml) for "last updated" stamps.
-FROM python:3.12-slim AS docs-builder
-RUN apt-get -y update && apt-get -y install git
-WORKDIR /repo
-COPY docs/ docs/
-COPY mkdocs/ mkdocs/
-RUN pip install --no-cache-dir -r mkdocs/requirements.txt
-RUN cd mkdocs && mkdocs build --site-dir /repo/site
-
-#
 # build the target container
 #
 FROM public.ecr.aws/docker/library/drupal:10.6.10
@@ -59,8 +44,9 @@ RUN ln -s /opt/drupal/util/drupal-library/package/data/opt/drupal/config /opt/dr
 RUN ln -s /opt/drupal/util/drupal-library/local/ddev/patches /opt/drupal/patches
 RUN ln -s /opt/drupal/util/drupal-library/package/data/opt/drupal/vendor-archive /opt/drupal/vendor-archive
 
-# devops docs: pre-built static mkdocs site, served via the embedded devops_docs module
-COPY --from=docs-builder /repo/site /opt/drupal/util/drupal-library/package/data/opt/drupal/web/modules/custom/devops_docs/static
+# devops docs: the pre-built static mkdocs site (static/) is committed to this
+# repo, so the clone above already contains it -- just symlink the module in.
+# Rebuild static/ locally with scripts/build-docs.sh after editing docs/.
 RUN ln -s /opt/drupal/util/drupal-library/package/data/opt/drupal/web/modules/custom/devops_docs /opt/drupal/web/modules/custom/devops_docs
 
 RUN cd /opt/drupal && ls -l

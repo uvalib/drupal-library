@@ -43,3 +43,41 @@ theme/module repos into the webroot if missing — see
     ```
 
     See [Troubleshooting → DDEV one name per directory](../troubleshooting/ddev-one-name-per-directory.md).
+
+## Editing these docs
+
+This documentation site is built with mkdocs and served in-app at `/devops-docs`
+(gated by the `devops` role — see [Hostnames & URLs](../architecture/hostnames-and-urls.md)).
+
+**The built site is committed to the repo** — there is *no* docs build step in the
+Docker/CI image build. The image ships whatever `static/` is committed. So the docs
+build is a **local dev step**, not a build-time one:
+
+```bash
+# 1. edit markdown under docs/ (or mkdocs/mkdocs.yml)
+# 2. rebuild the static site
+./scripts/build-docs.sh
+# 3. commit BOTH the markdown and the regenerated static/ output
+git add docs/ package/data/opt/drupal/web/modules/custom/devops_docs/static
+git commit
+```
+
+`build-docs.sh` uses a local `mkdocs` if present, otherwise a throwaway Docker
+container (no local Python needed).
+
+### Advisory drift hook
+
+Because the build is manual, it's possible to commit doc changes and forget to
+rebuild `static/`. A tracked pre-commit hook catches that — **advisory only, it
+never blocks a commit**; it just prints a heads-up so you can decide whether to
+rebuild now or ship the fix and circle back. Install it once per clone:
+
+```bash
+./scripts/install-git-hooks.sh    # sets core.hooksPath to scripts/git-hooks
+```
+
+!!! note "Why committed static/ instead of building in CI"
+    Keeping mkdocs out of the image build means a broken docs page (or the mkdocs
+    toolchain itself) can never block the application deploy — docs and the app
+    have very different urgency. The tradeoff is that `static/` build output lives
+    in git history; acceptable here since the docs change infrequently.

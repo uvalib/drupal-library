@@ -1,0 +1,4 @@
+# The devops_docs static site is generated (mkdocs build output committed to the
+# repo; see scripts/build-docs.sh). Mark it generated so GitHub collapses it in
+# diffs/PR reviews and excludes it from language stats.
+package/data/opt/drupal/web/modules/custom/devops_docs/static/** linguist-generated=true

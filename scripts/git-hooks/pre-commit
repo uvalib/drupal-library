@@ -1,0 +1,46 @@
+#!/usr/bin/env bash
+#
+# Advisory drift check for the devops_docs static site.
+#
+# This hook NEVER blocks a commit. It only prints a heads-up when you are
+# committing changes to the docs source (docs/ or mkdocs/) without a rebuilt
+# static site, so the deployer/developer can make the judgement call: rebuild
+# now, or ship the fix and circle back to the docs later.
+#
+set -euo pipefail
+
+STATIC_DIR="package/data/opt/drupal/web/modules/custom/devops_docs/static"
+
+staged() { git diff --cached --name-only --diff-filter=ACMR; }
+
+doc_changes=$(staged | grep -E '^(docs/|mkdocs/)' || true)
+static_changes=$(staged | grep -E "^${STATIC_DIR}/" || true)
+
+# Only speak up when doc sources change but the built site isn't part of the commit.
+if [ -n "$doc_changes" ] && [ -z "$static_changes" ]; then
+  n=$(printf '%s\n' "$doc_changes" | grep -c . || true)
+
+  # Quantify how far behind static/ already is: doc-touching commits since the
+  # last commit that rebuilt static/.
+  behind_note=""
+  last_static_commit=$(git log -1 --format='%h %cs' -- "$STATIC_DIR" 2>/dev/null || true)
+  if [ -n "$last_static_commit" ]; then
+    sha=${last_static_commit%% *}
+    behind=$(git rev-list --count "${sha}..HEAD" -- docs mkdocs 2>/dev/null || echo 0)
+    behind_note="static/ last rebuilt at ${last_static_commit}; ${behind} doc commit(s) since then."
+  fi
+
+  yellow=$(printf '\033[33m'); reset=$(printf '\033[0m')
+  {
+    echo ""
+    echo "${yellow}⚠  devops docs drift (advisory only — your commit will proceed)${reset}"
+    echo "   This commit changes ${n} doc source file(s) but includes no rebuilt static site."
+    [ -n "$behind_note" ] && echo "   ${behind_note}"
+    echo "   The published /devops-docs site stays stale until someone runs:"
+    echo "       ./scripts/build-docs.sh        # then: git add ${STATIC_DIR} && git commit"
+    echo "   Fine to skip for now and circle back — just a heads-up."
+    echo ""
+  } >&2
+fi
+
+exit 0
