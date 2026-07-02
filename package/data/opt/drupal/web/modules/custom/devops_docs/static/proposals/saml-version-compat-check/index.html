@@ -11,10 +11,10 @@
       
       
       
-        <link rel="prev" href="../">
+        <link rel="prev" href="../util-checkout-rethink/">
       
       
-        <link rel="next" href="../../session-logs/">
+        <link rel="next" href="../../adr/">
       
       
         
@@ -25,7 +25,7 @@
     
     
       
-        <title>2026-06-26 — Production WSOD during rolling deploy (shared-cache deadlock) - library.virginia.edu Drupal Site</title>
+        <title>Proposal: SimpleSAMLphp version-compatibility check at deploy time - library.virginia.edu Drupal Site</title>
       
     
     
@@ -76,7 +76,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#2026-06-26-production-wsod-during-rolling-deploy-shared-cache-deadlock" class="md-skip">
+        <a href="#proposal-simplesamlphp-version-compatibility-check-at-deploy-time" class="md-skip">
           Skip to content
         </a>
       
@@ -112,7 +112,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              2026-06-26 — Production WSOD during rolling deploy (shared-cache deadlock)
+              Proposal: SimpleSAMLphp version-compatibility check at deploy time
             
           </span>
         </div>
@@ -950,18 +950,20 @@
       
   
   
+    
   
   
+  
     
     
     
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" checked>
         
           
           <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
@@ -982,7 +984,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_5">
             <span class="md-nav__icon md-icon"></span>
             
@@ -1000,7 +1002,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../proposals/" class="md-nav__link">
+      <a href="../" class="md-nav__link">
         
   
   
@@ -1028,7 +1030,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../proposals/ephemeral-environments/" class="md-nav__link">
+      <a href="../ephemeral-environments/" class="md-nav__link">
         
   
   
@@ -1056,7 +1058,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../proposals/environment-contracts/" class="md-nav__link">
+      <a href="../environment-contracts/" class="md-nav__link">
         
   
   
@@ -1084,7 +1086,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../proposals/util-checkout-rethink/" class="md-nav__link">
+      <a href="../util-checkout-rethink/" class="md-nav__link">
         
   
   
@@ -1109,10 +1111,37 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="../../proposals/saml-version-compat-check/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Proposal: SimpleSAMLphp version-compatibility check at deploy time
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   
@@ -1128,6 +1157,81 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#the-problem" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The problem
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#approaches-considered-and-why-not" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Approaches considered (and why not)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-approach-an-advisory-check-at-deploy-time" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The approach: an advisory check at deploy time
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#home-ownership" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Home &amp; ownership
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#to-iterate-open-questions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        To iterate / open questions
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -1532,20 +1636,18 @@
       
   
   
-    
   
   
-  
     
     
     
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" >
         
           
           <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
@@ -1566,7 +1668,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_8">
             <span class="md-nav__icon md-icon"></span>
             
@@ -1584,7 +1686,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../" class="md-nav__link">
+      <a href="../../incidents/" class="md-nav__link">
         
   
   
@@ -1609,37 +1711,10 @@
                 
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    2026-06-26 — Production WSOD during rolling deploy (shared-cache deadlock)
-  
-
-    
-  </span>
-  
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../../incidents/2026-06-26-prod-cache-deadlock-wsod/" class="md-nav__link">
         
   
   
@@ -1655,120 +1730,6 @@
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#summary" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Summary
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#timeline-edt" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Timeline (EDT)
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#evidence" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Evidence
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#root-cause" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Root cause
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Root cause">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#the-misconception-that-enabled-it" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        The misconception that enabled it
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#resolution" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Resolution
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#corrective-actions" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Corrective actions
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#related" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Related
-      
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -2058,10 +2019,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#summary" class="md-nav__link">
+  <a href="#the-problem" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Summary
+        The problem
       
     </span>
   </a>
@@ -2069,10 +2030,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#timeline-edt" class="md-nav__link">
+  <a href="#approaches-considered-and-why-not" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Timeline (EDT)
+        Approaches considered (and why not)
       
     </span>
   </a>
@@ -2080,10 +2041,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#evidence" class="md-nav__link">
+  <a href="#the-approach-an-advisory-check-at-deploy-time" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Evidence
+        The approach: an advisory check at deploy time
       
     </span>
   </a>
@@ -2091,38 +2052,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#root-cause" class="md-nav__link">
+  <a href="#home-ownership" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Root cause
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Root cause">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#the-misconception-that-enabled-it" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        The misconception that enabled it
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#resolution" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Resolution
+        Home &amp; ownership
       
     </span>
   </a>
@@ -2130,21 +2063,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#corrective-actions" class="md-nav__link">
+  <a href="#to-iterate-open-questions" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Corrective actions
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#related" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Related
+        To iterate / open questions
       
     </span>
   </a>
@@ -2171,119 +2093,87 @@
   
 
 
-<h1 id="2026-06-26-production-wsod-during-rolling-deploy-shared-cache-deadlock">2026-06-26 — Production WSOD during rolling deploy (shared-cache deadlock)</h1>
-<p><strong>Severity:</strong> brief partial outage (WSOD) on production
-<strong>Duration:</strong> short — a single fatal at 11:14:50 EDT, cleared by a manual <code>drush cr</code>
-<strong>Trigger:</strong> manual <code>drush cr</code> on one node while the other served live traffic
-<strong>Status:</strong> resolved; preventive changes captured below</p>
-<h2 id="summary">Summary</h2>
-<p>During the manual rolling deploy of <code>build-20260625193203</code> (the SimpleSAMLphp
-secure-cookie fix + <code>block_class</code> 3.0.0), <code>library.virginia.edu</code> served a <strong>White Screen of
-Death</strong> for a period. The site was restored by running <code>drush cr</code>. Root cause: a <strong>database
-deadlock on the shared cache</strong>, triggered by rebuilding cache on one node while the other
-node was serving all live production traffic.</p>
-<h2 id="timeline-edt">Timeline (EDT)</h2>
-<table>
-<thead>
-<tr>
-<th>Time</th>
-<th>Event</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>~10:50</td>
-<td>Node 1 drained from ALB; node 0 serving 100%</td>
-</tr>
-<tr>
-<td>~11:00</td>
-<td>Node 1 deployed (new image)</td>
-</tr>
-<tr>
-<td>~11:04</td>
-<td><code>drush cr</code> run on node 1 (out of rotation, but <strong>shares DB cache with live node 0</strong>)</td>
-</tr>
-<tr>
-<td>~11:05</td>
-<td>Node 1 re-added, healthy</td>
-</tr>
-<tr>
-<td>~11:06</td>
-<td>Node 0 drained; <strong>node 1 now serving 100%</strong></td>
-</tr>
-<tr>
-<td>~11:13</td>
-<td>Node 0 deployed</td>
-</tr>
-<tr>
-<td><strong>11:14:50</strong></td>
-<td><strong><code>drush cr</code> on node 0 collides with node 1's live traffic → deadlock → fatal on node 1 → WSOD</strong></td>
-</tr>
-<tr>
-<td>~11:15</td>
-<td>Node 0 re-added; manual <code>drush cr</code> clears the cached error page</td>
-</tr>
-</tbody>
-</table>
-<h2 id="evidence">Evidence</h2>
-<p>One uncaught fatal in node 1's container log, at 11:14:50 EDT:</p>
-<div class="highlight"><pre><span></span><code>Uncaught PHP Exception Drupal\Core\Database\DatabaseExceptionWrapper:
-&quot;SQLSTATE[40001]: Serialization failure: 1213 Deadlock found when trying to get lock;
- try restarting transaction: INSERT INTO &quot;cache_entity&quot; (...)&quot;
+<h1 id="proposal-simplesamlphp-version-compatibility-check-at-deploy-time">Proposal: SimpleSAMLphp version-compatibility check at deploy time</h1>
+<p><strong>Status:</strong> Proposal / discussion — near-converged, iterating. Nothing adopted.
+<strong>Implementation home:</strong> <code>drupal-netbadge</code> (the shared SP hub) + the shared Ansible deploy
+machinery.
+<strong>Documentation home:</strong> <em>here</em>, in this devops-docs site — <code>drupal-netbadge</code> currently has no
+documentation infrastructure, and this contract is cross-repo anyway, so the devops-docs site is
+the natural hub for it (the eventual contract note belongs in
+<code>docs/architecture/authentication-netbadge.md</code>, not in the netbadge repo).
+<strong>Related:</strong> <a href="../ephemeral-environments/">Ephemeral environments</a>, the SAML config-as-code
+("item B") work, <code>docs/architecture/authentication-netbadge.md</code>.</p>
+<h2 id="the-problem">The problem</h2>
+<p>NetBadge/SAML uses <strong>two SimpleSAMLphp instances</strong> that interoperate through a <strong>shared Redis
+session store</strong>: the SP container (<code>drupal-netbadge</code> / <code>netbadge-0</code>) <em>writes</em> the session; the
+Drupal-side SimpleSAMLphp library (<code>drupal/simplesamlphp_auth</code> in each Drupal app) <em>reads</em> it.</p>
+<p>The <strong>config</strong> side of that contract is already handled — the shared store/salt/auth-source are
+driven by environment variables in the terraform configs, so those stay in sync by
+construction. The <strong>gap</strong> is the SimpleSAMLphp <strong>library versions</strong>: each side's version is
+governed by its own independent <code>composer.lock</code> (drupal-library's, drupal-dsf's, and
+drupal-netbadge's), with nothing coordinating them. A <strong>major</strong> drift changes the session
+serialization format, so the SP writes sessions the Drupal side can't deserialize → login
+breaks silently (manifests as "session invalid," not an error).</p>
+<p><strong>Current state (2026-07-02):</strong> aligned by coincidence, both on <code>simplesamlphp/saml2 v5.0.5</code>.
+But the two repos are already skewed at the <em>patch</em> level (netbadge on <code>assets-base 2.4.3</code> /
+<code>saml2-legacy 4.19.1</code>, library on <code>2.4.6</code> / <code>4.19.2</code>), which proves the locks float
+independently — it's benign only because both are still 2.4.x.</p>
+<p><strong>What actually matters:</strong> the <strong>major</strong> version (session format tracks the major; patch/minor
+skew is harmless).</p>
+<h2 id="approaches-considered-and-why-not">Approaches considered (and why not)</h2>
+<ul>
+<li><strong>Version exposed via the SAML/SimpleSAMLphp API</strong> — there isn't one. SAML metadata carries no
+  software version; SimpleSAMLphp 2.x emits no version header and hides it from the public UI.
+  The only version in the exchange is the SAML <em>protocol</em> version (<code>2.0</code>), which is constant.</li>
+<li><strong>Runtime version endpoints + client self-report + a shared client module</strong> — over-engineered
+  for what is fundamentally a build-artifact comparison.</li>
+<li><strong>Static <code>composer.lock</code> diff (scheduled/CI)</strong> — workable, but a lock may not match a given
+  built image tag, and it needs its own job.</li>
+</ul>
+<h2 id="the-approach-an-advisory-check-at-deploy-time">The approach: an advisory check at deploy time</h2>
+<p>The deploy already has <strong>both in view</strong> — <code>deployspec.yml</code> runs <code>deploy_netbadge.yml</code> <em>and</em>
+<code>deploy_backend.yml</code> in the same run — so the check needs no new endpoint, module, or job, and
+it inspects the <strong>actual installed versions in the running images</strong> (more accurate than
+lock-diffing). It is <strong>advisory only</strong> (light coupling): it warns, it does not gate the deploy.</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># saml_version_check_task.yml  (shared include — advisory)</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">read simplesamlphp/saml2 version from each container</span>
+<span class="w">  </span><span class="nt">shell</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">&gt;</span>
+<span class="w">    </span><span class="no">docker exec {{ item.container }}</span>
+<span class="w">    </span><span class="no">sh -c &#39;grep -A2 &quot;simplesamlphp/saml2&quot; {{ item.installed_json }} | grep -m1 version&#39;</span>
+<span class="w">  </span><span class="nt">loop</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="p p-Indicator">{</span><span class="nt"> name</span><span class="p">:</span><span class="w"> </span><span class="nv">drupal</span><span class="p p-Indicator">,</span><span class="nt">   container</span><span class="p">:</span><span class="w"> </span><span class="nv">drupal-0</span><span class="p p-Indicator">,</span><span class="nt">   installed_json</span><span class="p">:</span><span class="w"> </span><span class="nv">/opt/drupal/vendor/composer/installed.json</span><span class="w"> </span><span class="p p-Indicator">}</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="p p-Indicator">{</span><span class="nt"> name</span><span class="p">:</span><span class="w"> </span><span class="nv">netbadge</span><span class="p p-Indicator">,</span><span class="nt"> container</span><span class="p">:</span><span class="w"> </span><span class="nv">netbadge-0</span><span class="p p-Indicator">,</span><span class="nt"> installed_json</span><span class="p">:</span><span class="w"> </span><span class="nv">/var/www/.../vendor/composer/installed.json</span><span class="w"> </span><span class="p p-Indicator">}</span><span class="w">  </span><span class="c1"># confirm path</span>
+<span class="w">  </span><span class="nt">register</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">saml2_versions</span>
+
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">warn if the SAML2 majors diverge</span>
+<span class="w">  </span><span class="nt">debug</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">msg</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;⚠</span><span class="nv"> </span><span class="s">SAML2</span><span class="nv"> </span><span class="s">drift</span><span class="nv"> </span><span class="s">—</span><span class="nv"> </span><span class="s">drupal={{</span><span class="nv"> </span><span class="s">drupal_v</span><span class="nv"> </span><span class="s">}}</span><span class="nv"> </span><span class="s">netbadge={{</span><span class="nv"> </span><span class="s">netbadge_v</span><span class="nv"> </span><span class="s">}};</span><span class="nv"> </span><span class="s">session</span><span class="nv"> </span><span class="s">compat</span><span class="nv"> </span><span class="s">tracks</span><span class="nv"> </span><span class="s">the</span><span class="nv"> </span><span class="s">major,</span><span class="nv"> </span><span class="s">align</span><span class="nv"> </span><span class="s">them.&quot;</span>
+<span class="w">  </span><span class="nt">when</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">(drupal_v | major) != (netbadge_v | major)</span>
 </code></pre></div>
+<p>It slots in exactly like the shared <code>theme_deployment_task.yml</code> include — one file, pulled into
+both env deploys.</p>
+<h2 id="home-ownership">Home &amp; ownership</h2>
+<p>Split, because <code>drupal-netbadge</code> has no documentation infrastructure today:</p>
 <ul>
-<li>Exactly <strong>one</strong> deadlock fatal logged, on <code>cache_entity</code>. None before or since.</li>
-<li>Cache backend confirmed: <strong>default database cache</strong>, no Redis/Memcache enabled →
-  all <code>cache_*</code> bins live in the shared RDS database, written by <strong>both</strong> nodes.</li>
+<li><strong>Implementation</strong> — <code>drupal-netbadge</code> is the hub every Drupal deployment (library, dsf,
+  future ones) shares, so it owns the shared task (and the SP side of the contract). The Drupal
+  apps inherit the check for free via the common deploy machinery.</li>
+<li><strong>Documentation</strong> — the "<strong>both sides must share a SimpleSAMLphp/saml2 major</strong>" contract note
+  lives in this devops-docs site (<code>authentication-netbadge.md</code>), since the netbadge repo has
+  nowhere to put it and the contract spans repos regardless. If drupal-netbadge later grows its
+  own docs, the note can move or be mirrored — but there's no reason to gate this on that.</li>
 </ul>
-<h2 id="root-cause">Root cause</h2>
-<ol>
-<li>The two production nodes share <strong>one database cache backend</strong>.</li>
-<li><code>drush cr</code> is a <strong>mass write</strong> (bulk <code>INSERT</code>/<code>DELETE</code>) to the shared <code>cache_*</code> tables.</li>
-<li>Running it on node 0 while <strong>node 1 served live traffic</strong> put two concurrent writers on
-   the same <code>cache_entity</code> InnoDB rows → <strong>deadlock (SQLSTATE 40001 / 1213)</strong>. InnoDB chose
-   node 1's transaction as the victim and rolled it back.</li>
-<li>Drupal did not retry the cache write; the exception bubbled up <strong>uncaught</strong> → fatal.</li>
-<li><strong>Why one fatal looked like a sustained outage:</strong> the broken render was stored in the
-   page/dynamic-page cache and re-served to subsequent visitors (cache hits = no new PHP =
-   no new log lines). The manual <code>drush cr</code> flushed the cached bad page, restoring the site.</li>
-</ol>
-<h3 id="the-misconception-that-enabled-it">The misconception that enabled it</h3>
-<p>The team's practice was <em>"<code>drush cr</code> each node while it's offline."</em> But <strong>"offline" only
-means out of the ALB</strong> — the node still shares the database cache with the live node. So a
-cache rebuild on the drained node still collides with live traffic on the shared cache
-tables. Draining isolates HTTP, not the cache.</p>
-<p>(The same shared-cache root cause produced a benign symptom earlier in the deploy:
-<code>drush pm:list</code> reported <code>block_class 2.0.12</code> even after a <code>cr</code>, because the still-old node
-kept repopulating the shared discovery cache. The on-disk code was correct.)</p>
-<h2 id="resolution">Resolution</h2>
-<p><code>drush cr</code> after both nodes were on the new image (no competing writer) rebuilt the cache
-cleanly and flushed the cached error page.</p>
-<h2 id="corrective-actions">Corrective actions</h2>
-<p><strong>Immediate (done):</strong></p>
+<h2 id="to-iterate-open-questions">To iterate / open questions</h2>
 <ul>
-<li><a href="../../operations/production-deploy-runbook/">Production deploy runbook</a> rewritten:
-  <strong>never</strong> <code>drush cr</code> on one node while the other serves live traffic; do <strong>one</strong> <code>cr</code> at
-  the end after both nodes are upgraded, or under maintenance mode for structural changes.</li>
-</ul>
-<p><strong>Follow-up (the real fix):</strong></p>
-<ul>
-<li>[ ] <strong>Move the cache off the shared database to Redis (or Memcache).</strong> Redis handles
-  concurrent writes without SQL row locks, eliminating this entire deadlock class. This is
-  the standard multi-node Drupal production setup and the highest-value change. Tracked in
-  <a href="../../maintenance/redis-cache-backend/">Redis cache backend</a>.</li>
-</ul>
-<p><strong>Defensive (lower priority):</strong></p>
-<ul>
-<li>[ ] Consider deadlock-retry on cache writes and/or not caching error renders. Largely
-  moot once Redis lands.</li>
-</ul>
-<h2 id="related">Related</h2>
-<ul>
-<li><a href="../../operations/production-deploy-runbook/">Production deploy runbook</a></li>
-<li><a href="../../maintenance/redis-cache-backend/">Redis cache backend</a></li>
-<li><a href="../../troubleshooting/simplesamlphp-secure-cookie/">SimpleSAMLphp secure cookie</a> — the fix
-  this deploy was shipping</li>
+<li>Confirm the netbadge container's <code>vendor/composer/installed.json</code> path (and that the drupal
+  path is stable).</li>
+<li>Compare on <code>simplesamlphp/saml2</code>, or on <code>simplesamlphp/simplesamlphp</code> core? (saml2 is a good
+  session-format proxy; core may be more direct.)</li>
+<li>Does netbadge's <em>own</em> independent deploy also run the check (against whatever drupal images are
+  live), or only the drupal-side deploys?</li>
+<li>Where the shared task file physically lives — <code>terraform-infrastructure</code> shared tasks (next to
+  <code>theme_deployment_task.yml</code>) vs. sourced from the netbadge repo.</li>
+<li>Keep advisory forever, or offer an opt-in gating mode? (Lean advisory.)</li>
 </ul>
 
 
@@ -2305,7 +2195,7 @@ cleanly and flushed the cached error page.</p>
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-datetime" title="June 26, 2026 17:12:27 UTC">June 26, 2026 17:12:27</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-datetime" title="July 2, 2026 20:01:23 UTC">July 2, 2026 20:01:23</span>
   </span>
 
     

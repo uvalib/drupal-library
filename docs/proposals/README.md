@@ -13,3 +13,4 @@ Nothing here is adopted or committed to.
 | [Ephemeral on-demand environments](ephemeral-environments.md) | Disposable EC2 instances plugged into fixed sockets (SAML slot, ALB remap, Redis index) for deployment-devops and NetBadge/SAML testing — freeing staging to be a clean release gate. |
 | [Environment purposes & contracts](environment-contracts.md) *(stub)* | Give dev / devops / staging / prod each an explicit contract, so staging stops doubling as a devops scratch box. |
 | [Rethink the baked-in util checkout](util-checkout-rethink.md) *(stub)* | Replace the 166 MB full-repo clone in the image (90 MB is `.git`) with a `COPY` of just the paths used; keep the "live repo" convenience as an optional host mount. |
+| [SimpleSAMLphp version-compat check](saml-version-compat-check.md) | Advisory deploy-time check that the SP container and the Drupal-side SimpleSAMLphp share a `saml2` major (session-format compatibility); one shared Ansible task, no API/module. |

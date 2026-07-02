@@ -3,3 +3,4 @@ nav:
   - ephemeral-environments.md
   - environment-contracts.md
   - util-checkout-rethink.md
+  - saml-version-compat-check.md
