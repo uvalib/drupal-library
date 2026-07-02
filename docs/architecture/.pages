@@ -1,5 +1,6 @@
 nav:
   - README.md
+  - hostnames-and-urls.md
   - container-and-build.md
   - config-management.md
   - authentication-netbadge.md

@@ -8,6 +8,7 @@ in at build time, and configuration imported from a separate repository.
 
 | Topic | Page |
 |-------|------|
+| Browser URLs, ALB aliases, backend/SSH hosts per env | [Hostnames & URLs](hostnames-and-urls.md) |
 | Container image & repos cloned at build time | [Container & build](container-and-build.md) |
 | Where exported Drupal config lives | [Configuration management](config-management.md) |
 | NetBadge / SimpleSAMLphp authentication | [Authentication (NetBadge)](authentication-netbadge.md) |
