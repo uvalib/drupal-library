@@ -1,3 +1,5 @@
 nav:
   - README.md
   - ephemeral-environments.md
+  - environment-contracts.md
+  - util-checkout-rethink.md

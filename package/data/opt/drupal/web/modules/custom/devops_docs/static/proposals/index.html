@@ -1061,6 +1061,62 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="environment-contracts/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Proposal (stub): environment purposes &amp; contracts
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="util-checkout-rethink/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Proposal (stub): rethink the baked-in util checkout
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -1872,6 +1928,14 @@ the mechanism moves into <a href="../operations/">Operations</a> or
 <tr>
 <td><a href="ephemeral-environments/">Ephemeral on-demand environments</a></td>
 <td>Disposable EC2 instances plugged into fixed sockets (SAML slot, ALB remap, Redis index) for deployment-devops and NetBadge/SAML testing — freeing staging to be a clean release gate.</td>
+</tr>
+<tr>
+<td><a href="environment-contracts/">Environment purposes &amp; contracts</a> <em>(stub)</em></td>
+<td>Give dev / devops / staging / prod each an explicit contract, so staging stops doubling as a devops scratch box.</td>
+</tr>
+<tr>
+<td><a href="util-checkout-rethink/">Rethink the baked-in util checkout</a> <em>(stub)</em></td>
+<td>Replace the 166 MB full-repo clone in the image (90 MB is <code>.git</code>) with a <code>COPY</code> of just the paths used; keep the "live repo" convenience as an optional host mount.</td>
 </tr>
 </tbody>
 </table>
