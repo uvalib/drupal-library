@@ -17,6 +17,8 @@ repository.
   development with DDEV, syncing data from remote environments, the deployment pipeline.
 - **[Maintenance](maintenance/README.md)** — ongoing upkeep: module updates, the
   CKEditor 4 → 5 migration, the Drupal 11 upgrade.
+- **[Proposals](proposals/README.md)** — proposal-stage design work under discussion,
+  not yet decided (the pipeline before an ADR).
 - **[Architecture Decision Records](adr/README.md)** — significant, durable decisions
   about how the site is structured, with rationale.
 - **[Troubleshooting](troubleshooting/README.md)** — known issues and their fixes.

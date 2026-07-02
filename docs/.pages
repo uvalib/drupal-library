@@ -3,6 +3,7 @@ nav:
   - Architecture: architecture
   - Operations: operations
   - Maintenance: maintenance
+  - Proposals: proposals
   - Architecture Decisions: adr
   - Troubleshooting: troubleshooting
   - Incidents: incidents

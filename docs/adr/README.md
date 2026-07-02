@@ -33,3 +33,4 @@ Supersession banner to add at the top of a superseded ADR:
 | [002](002-https-at-load-balancer.md) | Terminate HTTPS at the load balancer; serve HTTP in the container | Accepted |
 | [003](003-runtime-cloned-themes-modules.md) | Clone first-party themes/modules at build time, not via Composer | Accepted |
 | [004](004-target-drupal-11.md) | Upgrade to Drupal 11 (PHP 8.3) | Accepted |
+| [005](005-theme-asset-delivery-bounded-divergence.md) | Theme/asset delivery: bounded divergence with pin-convergence | Proposed |
