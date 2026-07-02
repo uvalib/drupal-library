@@ -12,8 +12,11 @@ database:
 hooks:
     post-start:
         - exec: package/data/usr/local/bin/git-checkout.sh
-        - exec: ln -sf /var/www/html/package/data/opt/drupal/vendor-archive /var/www/html/local/ddev/vendor-archive
-        - exec: mkdir -p /var/www/html/local/ddev/web/modules/custom && ln -sf /var/www/html/package/data/opt/drupal/web/modules/custom/devops_docs /var/www/html/local/ddev/web/modules/custom/devops_docs
+        # -n (--no-dereference) is required: without it, on the 2nd+ ddev start the existing
+        # symlink is followed into its target dir and a self-referential ghost symlink is
+        # created inside package/.../{vendor-archive,devops_docs}/ (shows up in git status).
+        - exec: ln -sfn /var/www/html/package/data/opt/drupal/vendor-archive /var/www/html/local/ddev/vendor-archive
+        - exec: mkdir -p /var/www/html/local/ddev/web/modules/custom && ln -sfn /var/www/html/package/data/opt/drupal/web/modules/custom/devops_docs /var/www/html/local/ddev/web/modules/custom/devops_docs
         - exec-host: ddev composer install
 use_dns_when_possible: true
 composer_root: local/ddev
