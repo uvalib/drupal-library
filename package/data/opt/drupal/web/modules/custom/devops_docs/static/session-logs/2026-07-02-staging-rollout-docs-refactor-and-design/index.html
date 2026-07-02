@@ -11,10 +11,8 @@
       
       
       
-        <link rel="prev" href="../ckeditor4-to-ckeditor5/">
+        <link rel="prev" href="../2026-07-01-preview-hostname-redirect/">
       
-      
-        <link rel="next" href="../config-sync-mechanism-review/">
       
       
         
@@ -25,7 +23,7 @@
     
     
       
-        <title>Drupal 10 → 11 Upgrade - library.virginia.edu Drupal Site</title>
+        <title>Session Log: Staging Rollout, Docs-as-Artifact Refactor, Theme-Deploy Docs, ADR 005 + Ephemeral Proposal - library.virginia.edu Drupal Site</title>
       
     
     
@@ -76,7 +74,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#drupal-10-11-upgrade" class="md-skip">
+        <a href="#session-log-staging-rollout-docs-as-artifact-refactor-theme-deploy-docs-adr-005-ephemeral-proposal" class="md-skip">
           Skip to content
         </a>
       
@@ -112,7 +110,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Drupal 10 → 11 Upgrade
+              Session Log: Staging Rollout, Docs-as-Artifact Refactor, Theme-Deploy Docs, ADR 005 + Ephemeral Proposal
             
           </span>
         </div>
@@ -728,20 +726,18 @@
       
   
   
-    
   
   
-  
     
     
     
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
         
           
           <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
@@ -762,7 +758,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_4">
             <span class="md-nav__icon md-icon"></span>
             
@@ -780,7 +776,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../" class="md-nav__link">
+      <a href="../../maintenance/" class="md-nav__link">
         
   
   
@@ -808,7 +804,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../module-updates/" class="md-nav__link">
+      <a href="../../maintenance/module-updates/" class="md-nav__link">
         
   
   
@@ -836,7 +832,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../ckeditor4-to-ckeditor5/" class="md-nav__link">
+      <a href="../../maintenance/ckeditor4-to-ckeditor5/" class="md-nav__link">
         
   
   
@@ -861,37 +857,10 @@
                 
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Drupal 10 → 11 Upgrade
-  
-
-    
-  </span>
-  
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../../maintenance/drupal-11-upgrade/" class="md-nav__link">
         
   
   
@@ -907,59 +876,6 @@
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#prerequisites-blockers" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Prerequisites / blockers
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#environment-changes" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Environment changes
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#status" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Status
-      
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -972,7 +888,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../config-sync-mechanism-review/" class="md-nav__link">
+      <a href="../../maintenance/config-sync-mechanism-review/" class="md-nav__link">
         
   
   
@@ -1000,7 +916,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../redis-cache-backend/" class="md-nav__link">
+      <a href="../../maintenance/redis-cache-backend/" class="md-nav__link">
         
   
   
@@ -1640,18 +1556,20 @@
       
   
   
+    
   
   
+  
     
     
     
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9" checked>
         
           
           <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="0">
@@ -1672,7 +1590,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_9">
             <span class="md-nav__icon md-icon"></span>
             
@@ -1690,7 +1608,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../session-logs/" class="md-nav__link">
+      <a href="../" class="md-nav__link">
         
   
   
@@ -1718,7 +1636,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../session-logs/2026-06-18-module-assessment-docs-and-config-sync/" class="md-nav__link">
+      <a href="../2026-06-18-module-assessment-docs-and-config-sync/" class="md-nav__link">
         
   
   
@@ -1746,7 +1664,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../session-logs/2026-06-25-deploys-module-upgrades-and-prod-saml-audit/" class="md-nav__link">
+      <a href="../2026-06-25-deploys-module-upgrades-and-prod-saml-audit/" class="md-nav__link">
         
   
   
@@ -1774,7 +1692,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../session-logs/2026-06-29-prod-saml-verify-and-doc-checkin/" class="md-nav__link">
+      <a href="../2026-06-29-prod-saml-verify-and-doc-checkin/" class="md-nav__link">
         
   
   
@@ -1802,7 +1720,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../session-logs/2026-07-01-devops-docs-module/" class="md-nav__link">
+      <a href="../2026-07-01-devops-docs-module/" class="md-nav__link">
         
   
   
@@ -1830,7 +1748,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../session-logs/2026-07-01-preview-hostname-redirect/" class="md-nav__link">
+      <a href="../2026-07-01-preview-hostname-redirect/" class="md-nav__link">
         
   
   
@@ -1855,10 +1773,37 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="../../session-logs/2026-07-02-staging-rollout-docs-refactor-and-design/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Session Log: Staging Rollout, Docs-as-Artifact Refactor, Theme-Deploy Docs, ADR 005 + Ephemeral Proposal
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   
@@ -1874,6 +1819,147 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-devops_docs-staging-live-verified" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. devops_docs → staging (live &amp; verified)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-docs-delivery-refactor-mkdocs-out-of-the-image" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Docs delivery refactor — mkdocs out of the image
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-styling-mandala-adoption-sidebar-accordions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Styling — mandala adoption + sidebar accordions
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-theme-deployment-documented" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Theme deployment documented
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-adr-005-proposed-the-design-discussion-behind-it" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. ADR 005 (Proposed) + the design discussion behind it
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-ephemeral-environments-proposal" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Ephemeral-environments proposal
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-image-inspection-the-util-checkout" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. Image inspection — the util checkout
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-vendor-archive-ghost-symlink-root-caused-fixed" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. vendor-archive ghost symlink — root-caused &amp; fixed
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-saml-debug-flag" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9. SAML debug flag
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#10-also" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10. Also
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#open-items-carried-forward-see-the-session-summary-for-next-steps" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Open items (carried forward — see the session summary for next steps)
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -1913,10 +1999,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#prerequisites-blockers" class="md-nav__link">
+  <a href="#1-devops_docs-staging-live-verified" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Prerequisites / blockers
+        1. devops_docs → staging (live &amp; verified)
       
     </span>
   </a>
@@ -1924,10 +2010,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#environment-changes" class="md-nav__link">
+  <a href="#2-docs-delivery-refactor-mkdocs-out-of-the-image" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Environment changes
+        2. Docs delivery refactor — mkdocs out of the image
       
     </span>
   </a>
@@ -1935,10 +2021,98 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#status" class="md-nav__link">
+  <a href="#3-styling-mandala-adoption-sidebar-accordions" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Status
+        3. Styling — mandala adoption + sidebar accordions
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-theme-deployment-documented" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Theme deployment documented
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-adr-005-proposed-the-design-discussion-behind-it" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. ADR 005 (Proposed) + the design discussion behind it
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-ephemeral-environments-proposal" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Ephemeral-environments proposal
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-image-inspection-the-util-checkout" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. Image inspection — the util checkout
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-vendor-archive-ghost-symlink-root-caused-fixed" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. vendor-archive ghost symlink — root-caused &amp; fixed
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-saml-debug-flag" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9. SAML debug flag
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#10-also" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10. Also
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#open-items-carried-forward-see-the-session-summary-for-next-steps" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Open items (carried forward — see the session summary for next steps)
       
     </span>
   </a>
@@ -1965,26 +2139,101 @@
   
 
 
-<h1 id="drupal-10-11-upgrade">Drupal 10 → 11 Upgrade</h1>
-<p><strong>Target agreed:</strong> 2026-06-10. Upgrade from Drupal 10.x to Drupal 11, PHP 8.2 → 8.3.</p>
-<h2 id="prerequisites-blockers">Prerequisites / blockers</h2>
+<h1 id="session-log-staging-rollout-docs-as-artifact-refactor-theme-deploy-docs-adr-005-ephemeral-proposal">Session Log: Staging Rollout, Docs-as-Artifact Refactor, Theme-Deploy Docs, ADR 005 + Ephemeral Proposal</h1>
+<p><strong>Date:</strong> 2026-07-02
+<strong>Participants:</strong> Yuji Shinozaki, Claude (Opus 4.8)
+<strong>Branch:</strong> <code>main</code>
+<strong>Outcome:</strong> Deployed and verified the <code>devops_docs</code> module on staging; refactored docs delivery so mkdocs is build-/dev-time only (built <code>static/</code> committed, no mkdocs in the image); documented the theme-deployment mechanism; drafted <strong>ADR 005</strong> (theme/asset delivery — bounded divergence) and an <strong>ephemeral-environments proposal</strong> through a long design discussion; root-caused and fixed the recurring <code>vendor-archive</code> ghost symlink; disabled the SAML <code>debug</code> flag on staging and scheduled the prod change for Monday. Continues <a href="../2026-07-01-devops-docs-module/">2026-07-01 devops-docs module</a>.</p>
+<hr />
+<h2 id="1-devops_docs-staging-live-verified">1. devops_docs → staging (live &amp; verified)</h2>
+<p>The <code>691f9a1</code> build (after fixing a <code>.git</code>-in-CodeBuild bug) deployed to staging. Enabled the
+module (<code>drush en devops_docs</code>), which fired <code>hook_install()</code> to create the <code>devops</code> role and
+seed <code>ys2n</code>/<code>xw5d</code>. Ran the full matrix against the staging container: anon → 403; nested
+paths → 301 → trailing slash → 200; assets correct MIME; missing → 404; no watchdog errors.
+<code>/devops-docs</code> is live at <code>https://library-drupal-staging.internal.lib.virginia.edu/devops-docs</code>.</p>
+<h2 id="2-docs-delivery-refactor-mkdocs-out-of-the-image">2. Docs delivery refactor — mkdocs out of the image</h2>
+<p>Reworked the approach: the built <code>static/</code> mkdocs site is now <strong>committed to the repo</strong> and
+shipped as-is (the image already clones the repo + symlinks the module), so the whole
+<code>docs-builder</code> Docker stage is gone. Rationale: a broken docs page or the mkdocs toolchain can
+no longer block the application image build. Docs became a <strong>local dev step</strong>:
+<code>scripts/build-docs.sh</code> (local mkdocs or Docker), an <strong>advisory-only</strong> pre-commit drift hook
+(<code>scripts/git-hooks/pre-commit</code> — warns "N doc files changed, static N commits behind", never
+blocks), and <code>scripts/install-git-hooks.sh</code>. <code>.gitattributes</code> marks <code>static/</code> generated.
+Validated end-to-end: the new no-<code>docs-builder</code> image built and deployed to staging, and the
+running image contains <strong>zero mkdocs/python tooling</strong> (only the static artifacts).</p>
+<h2 id="3-styling-mandala-adoption-sidebar-accordions">3. Styling — mandala adoption + sidebar accordions</h2>
+<p>Adopted <code>mandala-navina</code>'s sidebar CSS (<code>docs/stylesheets/extra.css</code>: bold section labels,
+nested indentation, last-updated date), and enabled collapsible <strong>accordions</strong> by removing
+<code>navigation.sections</code> from <code>mkdocs.yml</code>. Also enabled the <code>admonition</code>/<code>pymdownx</code> extensions
+(a page used a <code>!!!</code> callout that was rendering as literal text).</p>
+<h2 id="4-theme-deployment-documented">4. Theme deployment documented</h2>
+<p>Deep-dive into how the active theme deploys, resolving several ambiguities with the user
+(and correcting a stale legacy runbook). Captured in <code>docs/operations/theme-deployment.md</code>:
+the active theme (<code>uvalibrary_v2a</code>, in the <code>uvalib-drupal-theme</code> repo) is re-pinned to a git
+<strong>tag at deploy time</strong>, the tag coming from <strong>SSM</strong> <code>/themes/uvalib/drupal-library/release</code>;
+<code>theme_deployment_task.yml</code> is called from <code>deploy_backend.yml</code> (full deploy, cold cache) and
+<code>deploy_theme_only.yml</code> (warm container, runs <code>drush cr</code>). The SSM default is set <strong>manually</strong>
+(<code>aws ssm put-parameter</code>); dev is manual <code>git pull</code> of <code>main</code>; production is done node-by-node.
+Container/code promotion is a separate track (ECR image tag).</p>
+<h2 id="5-adr-005-proposed-the-design-discussion-behind-it">5. ADR 005 (Proposed) + the design discussion behind it</h2>
+<p>A long architecture discussion produced <strong>ADR 005 — Theme/asset delivery: bounded divergence
+with pin-convergence</strong> (Status: Proposed). It names two anti-patterns the current design
+avoids (<em>small-change → full rebuild</em>, and <em>redeploy → regress to baked state</em>), introduces
+the vocabulary (<strong>baked state / running state / divergence / the pin / convergence</strong>), and
+states the governing invariant: <strong>fleet consistency, not image equality</strong> — baked-vs-running
+divergence is accepted and bounded; inter-instance divergence is allowed only while transient
+and intentional. Implementation (immutable artifacts, best-effort startup convergence,
+<code>{baked,running}</code> observability, routine rolling rebuilds) is recorded as <em>proposed</em>, not
+adopted.</p>
+<h2 id="6-ephemeral-environments-proposal">6. Ephemeral-environments proposal</h2>
+<p>Motivated by: ddev can't do deployment-devops or NetBadge/SAML testing, and devops work had
+been squatting on <strong>staging</strong> (blurring its role as the clean release gate). Designed a
+<strong>disposable on-demand EC2 instance plugged into a small set of fixed sockets</strong> — a dedicated
+SAML SP identity (ccrypt keypair + one-time registration; reuses <code>decrypt-key.ksh</code>), an ALB
+host-header remap (same primitive as <code>preview → node-0</code>), a reserved Redis index. Everything
+else reuses existing shared infra. Captured in <code>docs/proposals/ephemeral-environments.md</code>
+(a new <strong>Proposals</strong> section). Framed for the AWS architect (Dave), who likely already has an
+on-demand-env pattern: the spin-up is a <strong>parameterized CodeBuild spec</strong> in the same family as
+<code>buildspec.yml</code>/<code>deployspec.yml</code>, and the Redis asks (cache backend + session store + ephemeral
+index allocation + sizing) are bundled for one conversation. Nothing adopted.</p>
+<h2 id="7-image-inspection-the-util-checkout">7. Image inspection — the util checkout</h2>
+<p>While confirming no mkdocs machinery ships, found the image bakes a <strong>166 MB full-repo clone</strong>
+at <code>/opt/drupal/util/drupal-library</code> (<code>.git</code> alone is 90 MB) for the config/patches/
+vendor-archive/module symlinks. Only build-time-needed paths are actually used; the clone could
+be replaced by <code>COPY</code>ing those paths (no <code>.git</code>, no docs/mkdocs source). Flagged as a rethink
+that dovetails with the config-sync review; the util checkout is referenced <em>only</em> in the
+Dockerfile.</p>
+<h2 id="8-vendor-archive-ghost-symlink-root-caused-fixed">8. vendor-archive ghost symlink — root-caused &amp; fixed</h2>
+<p>The recurring self-referential <code>vendor-archive/vendor-archive</code> symlink was root-caused (and
+reproduced): the ddev post-start <code>ln -sf TARGET LINKNAME</code> hook <strong>dereferences</strong> the existing
+<code>local/ddev/vendor-archive</code> symlink into its target dir on the 2nd+ <code>ddev start</code>, creating the
+ghost inside. Fixed with <code>ln -sfn</code> (<code>--no-dereference</code>) on both that hook and the <code>devops_docs</code>
+hook added earlier this session (same latent bug). Verified: no ghost after <code>ddev restart</code>.</p>
+<h2 id="9-saml-debug-flag">9. SAML debug flag</h2>
+<p><code>simplesamlphp_auth.settings.debug</code> was <code>true</code> on staging and both prod nodes (can log SAML
+assertion detail). <strong>Staging fixed</strong> (set <code>false</code> via type-safe <code>php:eval</code>; verified; login
+still 303-redirects). <strong>Production deferred to Monday 2026-07-06</strong> per the user — a calendar
+reminder was set, and the memory note holds the runbook (flip live on both nodes + update the
+config-sync <code>production</code> branch so a <code>cim</code> doesn't revert it).</p>
+<h2 id="10-also">10. Also</h2>
+<p>Added <code>docs/architecture/hostnames-and-urls.md</code> (browser URLs per env, prod ALB aliases,
+backend/SSH hosts) + memory. Normalized "Valkey" → "Redis" in the proposal per team
+terminology (the ElastiCache engine is technically Valkey 8.2, but everyone calls it Redis).</p>
+<hr />
+<h2 id="open-items-carried-forward-see-the-session-summary-for-next-steps">Open items (carried forward — see the session summary for next steps)</h2>
 <ul>
-<li><strong>Remove CKEditor 4.</strong> <code>drupal/ckeditor</code> has no Drupal 11 support and must be removed
-  first — see <a href="../ckeditor4-to-ckeditor5/">CKEditor 4 → 5</a>.</li>
-<li><strong>Contrib compatibility.</strong> Every contrib module in <code>composer.json</code> must have a
-  Drupal 11-compatible release. Use Upgrade Status (<code>drupal/upgrade_status</code>) to audit
-  before bumping core.</li>
-<li><strong>Deprecated API usage</strong> in the custom themes/modules (cloned at build time — see
-  <a href="../../architecture/container-and-build/">Container &amp; build</a>) must be cleared.</li>
+<li><strong>SAML <code>debug</code> flag → production</strong> — scheduled Mon 2026-07-06 (staging done).</li>
+<li><strong>Config-sync mechanism redesign</strong> — foundational; the debug-flag dance is a live symptom.</li>
+<li><strong>Redis cache backend + session store</strong> — architecture review with Dave; bundled with the
+  ephemeral Redis asks.</li>
+<li><strong>SAML config-as-code ("item B")</strong> — also gates ephemeral-env "turnkey" SAML.</li>
+<li><strong>CKEditor 4 removal → production</strong>, and <strong>devops_docs enablement → production</strong> — both
+  pending, both carry the two-node cache-deadlock caveat.</li>
+<li><strong>ADR 005 ratification</strong> and the <strong>ephemeral proposal → Dave conversation</strong>.</li>
+<li><strong>Environment contracts</strong> (dev/devops/staging/prod divides) and the <strong>util-checkout rethink</strong>
+  — discussed, not yet captured as artifacts.</li>
+<li><strong>Drupal 11 upgrade</strong> (gated on CKEditor); <strong>validation/smoke-test suite</strong> (not built).</li>
 </ul>
-<h2 id="environment-changes">Environment changes</h2>
-<ul>
-<li><code>package/Dockerfile</code> base image → <code>drupal:11.x</code>.</li>
-<li><code>.ddev/config.yaml</code> → <code>type: drupal11</code>, <code>php_version: "8.3"</code>.</li>
-<li>Pipeline specs and any PHP version references → 8.3.</li>
-</ul>
-<h2 id="status">Status</h2>
-<p><strong>Planned.</strong> CKEditor 4 removal is the first concrete step on the critical path.</p>
 
 
 
@@ -2005,7 +2254,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-datetime" title="June 18, 2026 15:56:36 UTC">June 18, 2026 15:56:36</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-datetime" title="July 2, 2026 19:26:24 UTC">July 2, 2026 19:26:24</span>
   </span>
 
     
