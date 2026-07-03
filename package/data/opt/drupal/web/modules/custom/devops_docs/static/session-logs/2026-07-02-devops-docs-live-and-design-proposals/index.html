@@ -23,7 +23,7 @@
     
     
       
-        <title>Session Log: Staging Rollout, Docs-as-Artifact Refactor, Theme-Deploy Docs, ADR 005 + Ephemeral Proposal - library.virginia.edu Drupal Site</title>
+        <title>Session Log: DevOps Docs Live on Staging + Design Proposals Wave - library.virginia.edu Drupal Site</title>
       
     
     
@@ -74,7 +74,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#session-log-staging-rollout-docs-as-artifact-refactor-theme-deploy-docs-adr-005-ephemeral-proposal" class="md-skip">
+        <a href="#session-log-devops-docs-live-on-staging-design-proposals-wave" class="md-skip">
           Skip to content
         </a>
       
@@ -110,7 +110,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Session Log: Staging Rollout, Docs-as-Artifact Refactor, Theme-Deploy Docs, ADR 005 + Ephemeral Proposal
+              Session Log: DevOps Docs Live on Staging + Design Proposals Wave
             
           </span>
         </div>
@@ -1876,7 +1876,7 @@
   <span class="md-ellipsis">
     
   
-    Session Log: Staging Rollout, Docs-as-Artifact Refactor, Theme-Deploy Docs, ADR 005 + Ephemeral Proposal
+    Session Log: DevOps Docs Live on Staging + Design Proposals Wave
   
 
     
@@ -1894,7 +1894,7 @@
   <span class="md-ellipsis">
     
   
-    Session Log: Staging Rollout, Docs-as-Artifact Refactor, Theme-Deploy Docs, ADR 005 + Ephemeral Proposal
+    Session Log: DevOps Docs Live on Staging + Design Proposals Wave
   
 
     
@@ -2023,6 +2023,28 @@
     <span class="md-ellipsis">
       
         10. Also
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#11-simplesamlphp-sp-drupal-version-compatibility" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        11. SimpleSAMLphp SP ↔ Drupal version compatibility
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#12-proposals-section-loose-ends-capture" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        12. Proposals section + loose-ends capture
       
     </span>
   </a>
@@ -2193,6 +2215,28 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#11-simplesamlphp-sp-drupal-version-compatibility" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        11. SimpleSAMLphp SP ↔ Drupal version compatibility
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#12-proposals-section-loose-ends-capture" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        12. Proposals section + loose-ends capture
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#open-items-carried-forward-see-the-session-summary-for-next-steps" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2223,7 +2267,7 @@
   
 
 
-<h1 id="session-log-staging-rollout-docs-as-artifact-refactor-theme-deploy-docs-adr-005-ephemeral-proposal">Session Log: Staging Rollout, Docs-as-Artifact Refactor, Theme-Deploy Docs, ADR 005 + Ephemeral Proposal</h1>
+<h1 id="session-log-devops-docs-live-on-staging-design-proposals-wave">Session Log: DevOps Docs Live on Staging + Design Proposals Wave</h1>
 <p><strong>Date:</strong> 2026-07-02
 <strong>Participants:</strong> Yuji Shinozaki, Claude (Opus 4.8)
 <strong>Branch:</strong> <code>main</code>
@@ -2303,6 +2347,25 @@ config-sync <code>production</code> branch so a <code>cim</code> doesn't revert 
 <p>Added <code>docs/architecture/hostnames-and-urls.md</code> (browser URLs per env, prod ALB aliases,
 backend/SSH hosts) + memory. Normalized "Valkey" → "Redis" in the proposal per team
 terminology (the ElastiCache engine is technically Valkey 8.2, but everyone calls it Redis).</p>
+<h2 id="11-simplesamlphp-sp-drupal-version-compatibility">11. SimpleSAMLphp SP ↔ Drupal version compatibility</h2>
+<p>Examined a SAML deployment code-smell: the SP runs as a separate container (<code>drupal-netbadge</code>)
+while each Drupal app runs its own SimpleSAMLphp library — two installs that interoperate via a
+shared Redis session store. The <strong>config</strong> contract is already handled by terraform env vars;
+the <strong>gap</strong> is that the two SimpleSAMLphp/saml2 <em>library versions</em> are governed by independent
+<code>composer.lock</code>s with nothing coordinating them, and a <strong>major</strong> drift breaks session
+deserialization (silent auth failure). Verified they're currently aligned (both <code>saml2 v5.0.5</code>)
+but already patch-skewed — proof the locks float independently. Converged (after discarding
+runtime version-endpoints and a static lock-diff as over-built) on an <strong>advisory deploy-time
+check</strong>: the deploy already runs both playbooks, so a small shared Ansible task reads
+<code>simplesamlphp/saml2</code> from each container's <code>installed.json</code> and warns on a major divergence — no
+API, module, or cron. Captured as a proposal; drupal-netbadge is the implementation home, but the
+<strong>documentation stays in this devops-docs site</strong> since drupal-netbadge has no docs infrastructure
+(reinforcing that this site is becoming the cross-repo devops-docs hub).</p>
+<h2 id="12-proposals-section-loose-ends-capture">12. Proposals section + loose-ends capture</h2>
+<p>Created a <strong>Proposals</strong> section (proposal-stage, nothing adopted) and captured the session's
+design threads so they persist: ephemeral environments, environment contracts, the util-checkout
+rethink, and the SAML version-compat check. Also did a loose-ends scan across memory + docs and
+produced a next-steps summary.</p>
 <hr />
 <h2 id="open-items-carried-forward-see-the-session-summary-for-next-steps">Open items (carried forward — see the session summary for next steps)</h2>
 <ul>
@@ -2314,8 +2377,8 @@ terminology (the ElastiCache engine is technically Valkey 8.2, but everyone call
 <li><strong>CKEditor 4 removal → production</strong>, and <strong>devops_docs enablement → production</strong> — both
   pending, both carry the two-node cache-deadlock caveat.</li>
 <li><strong>ADR 005 ratification</strong> and the <strong>ephemeral proposal → Dave conversation</strong>.</li>
-<li><strong>Environment contracts</strong> (dev/devops/staging/prod divides) and the <strong>util-checkout rethink</strong>
-  — discussed, not yet captured as artifacts.</li>
+<li><strong>Proposals to iterate/advance</strong> (all now captured in the Proposals section): ephemeral
+  environments, environment contracts, util-checkout rethink, SimpleSAMLphp version-compat check.</li>
 <li><strong>Drupal 11 upgrade</strong> (gated on CKEditor); <strong>validation/smoke-test suite</strong> (not built).</li>
 </ul>
 
@@ -2338,7 +2401,7 @@ terminology (the ElastiCache engine is technically Valkey 8.2, but everyone call
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-datetime" title="July 2, 2026 19:26:27 UTC">July 2, 2026 19:26:27</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-datetime" title="July 3, 2026 01:15:14 UTC">July 3, 2026 01:15:14</span>
   </span>
 
     

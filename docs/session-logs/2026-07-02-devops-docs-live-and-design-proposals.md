@@ -1,4 +1,4 @@
-# Session Log: Staging Rollout, Docs-as-Artifact Refactor, Theme-Deploy Docs, ADR 005 + Ephemeral Proposal
+# Session Log: DevOps Docs Live on Staging + Design Proposals Wave
 
 **Date:** 2026-07-02
 **Participants:** Yuji Shinozaki, Claude (Opus 4.8)
@@ -101,6 +101,29 @@ Added `docs/architecture/hostnames-and-urls.md` (browser URLs per env, prod ALB 
 backend/SSH hosts) + memory. Normalized "Valkey" → "Redis" in the proposal per team
 terminology (the ElastiCache engine is technically Valkey 8.2, but everyone calls it Redis).
 
+## 11. SimpleSAMLphp SP ↔ Drupal version compatibility
+
+Examined a SAML deployment code-smell: the SP runs as a separate container (`drupal-netbadge`)
+while each Drupal app runs its own SimpleSAMLphp library — two installs that interoperate via a
+shared Redis session store. The **config** contract is already handled by terraform env vars;
+the **gap** is that the two SimpleSAMLphp/saml2 *library versions* are governed by independent
+`composer.lock`s with nothing coordinating them, and a **major** drift breaks session
+deserialization (silent auth failure). Verified they're currently aligned (both `saml2 v5.0.5`)
+but already patch-skewed — proof the locks float independently. Converged (after discarding
+runtime version-endpoints and a static lock-diff as over-built) on an **advisory deploy-time
+check**: the deploy already runs both playbooks, so a small shared Ansible task reads
+`simplesamlphp/saml2` from each container's `installed.json` and warns on a major divergence — no
+API, module, or cron. Captured as a proposal; drupal-netbadge is the implementation home, but the
+**documentation stays in this devops-docs site** since drupal-netbadge has no docs infrastructure
+(reinforcing that this site is becoming the cross-repo devops-docs hub).
+
+## 12. Proposals section + loose-ends capture
+
+Created a **Proposals** section (proposal-stage, nothing adopted) and captured the session's
+design threads so they persist: ephemeral environments, environment contracts, the util-checkout
+rethink, and the SAML version-compat check. Also did a loose-ends scan across memory + docs and
+produced a next-steps summary.
+
 ---
 
 ## Open items (carried forward — see the session summary for next steps)
@@ -113,6 +136,6 @@ terminology (the ElastiCache engine is technically Valkey 8.2, but everyone call
 - **CKEditor 4 removal → production**, and **devops_docs enablement → production** — both
   pending, both carry the two-node cache-deadlock caveat.
 - **ADR 005 ratification** and the **ephemeral proposal → Dave conversation**.
-- **Environment contracts** (dev/devops/staging/prod divides) and the **util-checkout rethink**
-  — discussed, not yet captured as artifacts.
+- **Proposals to iterate/advance** (all now captured in the Proposals section): ephemeral
+  environments, environment contracts, util-checkout rethink, SimpleSAMLphp version-compat check.
 - **Drupal 11 upgrade** (gated on CKEditor); **validation/smoke-test suite** (not built).
