@@ -10,6 +10,7 @@ version upgrade.
 | Drupal 10 → 11 upgrade | [Drupal 11 upgrade](drupal-11-upgrade.md) |
 | Config-sync export mechanism (review/redesign) | [Config-sync mechanism review](config-sync-mechanism-review.md) |
 | Move cache off the shared DB to Redis (real fix for deploy deadlocks) | [Redis cache backend](redis-cache-backend.md) |
+| PHP OOM fatals during Twig render / KCFinder upload (open investigation) | [PHP OOM fatals](php-oom-fatals.md) |
 
 ## Validation / smoke tests
 
