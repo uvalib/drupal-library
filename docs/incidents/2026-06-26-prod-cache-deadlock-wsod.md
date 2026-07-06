@@ -1,3 +1,9 @@
+---
+status: resolved
+opened: 2026-06-26
+jira: null
+---
+
 # 2026-06-26 — Production WSOD during rolling deploy (shared-cache deadlock)
 
 **Severity:** brief partial outage (WSOD) on production

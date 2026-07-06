@@ -1,4 +1,12 @@
+---
+status: resolved
+opened: 2026-06-18
+jira: null
+---
+
 # SimpleSAMLphp Secure Cookie Error on the HTTP Container
+
+**Status:** resolved (documented 2026-06-18)
 
 ## Symptom
 

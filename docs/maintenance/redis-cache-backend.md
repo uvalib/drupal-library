@@ -1,3 +1,10 @@
+---
+status: proposed
+opened: 2026-06-26
+priority: high
+jira: null
+---
+
 # Redis Cache Backend (follow-up)
 
 **Status:** proposed — not yet implemented

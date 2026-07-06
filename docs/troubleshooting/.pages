@@ -3,3 +3,5 @@ nav:
   - mariadb-ssl-dump.md
   - simplesamlphp-secure-cookie.md
   - ddev-one-name-per-directory.md
+  - php-oom-fatals.md
+  - ...

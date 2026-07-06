@@ -1,3 +1,9 @@
+---
+status: proposed
+opened: 2026-06-18
+jira: null
+---
+
 # Config-Sync Mechanism — Review & Redesign Brief
 
 !!! warning "Status: needs review / redesign — not yet decided (flagged 2026-06-18)"

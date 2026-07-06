@@ -1,3 +1,10 @@
+---
+status: open
+opened: 2026-07-06
+priority: medium
+jira: null
+---
+
 # PHP OOM Fatals (Twig render + KCFinder upload)
 
 **Status:** open — root cause of the memory growth not yet identified; alarm noise controlled
@@ -20,34 +27,13 @@ This is wired to CloudWatch (`uva-library-drupal-production-php-{0,1}-errors`, a
 filter on the literal `php:error` in each node's container log), which pages
 `uva-site-urgent-production` / `uva-drupal-urgent-production`.
 
-## Findings (30-day scan, as of 2026-07-06)
+## Current state
 
-**113 OOM fatals** across both nodes (54 on node-0, 59 on node-1). Two distinct signatures:
-
-1. **Twig page-render OOM** — the large majority (~101 of 113 have no HTTP referer; a further
-   handful referer `/teams/<uuid>`). Some single page or template appears to balloon memory
-   during rendering.
-2. **KCFinder upload OOM** — 7 hits, referer `/libs/kcfinder/upload.php` (CKEditor's file
-   manager), across both `http`/`https` and `www`/bare-domain host variants. Distinct failure
-   mode from the page-render OOM — likely a large file/image being processed on upload.
-
-**Heavily clustered, then tapering** — not a steady background rate:
-
-```
-Jun  6-18   3 total (background rate)
-Jun 19-30  99 total   ← storm, peaks of 24/day on Jun 20 and Jun 25
-Jul  2- 6   6 total (back to background rate)
-```
-
-The Jun 19–30 storm window overlaps the Jun 25 staging rollout and Jun 29 prod deploy
-(see [session logs](../session-logs/README.md) from that period) — worth checking whether a
-theme/module change in that window changed what's rendered on the affected page(s), though
-this hasn't been confirmed as causal.
-
-**Alarm threshold already adjusted.** Alarm history shows these alarms originally paged at a
-threshold of **1** occurrence per 5-minute period; the threshold is now **10**, presumably
-raised specifically to cut noise from the low background rate. Current single-digit-per-day
-volume no longer pages; a real storm like Jun 19–30 still would.
+**113 OOM fatals** in the last 30 days (as of 2026-07-06), two distinct signatures (Twig
+page-render vs. KCFinder upload), heavily clustered Jun 19–30 then back to a low background
+rate. Full occurrence data, day-by-day breakdown, and alarm-threshold history:
+[Incidents: PHP OOM fatals — 30-day occurrence log](../incidents/2026-07-06-php-oom-fatal-occurrences.md).
+Append new scan results there as they're gathered, rather than duplicating them here.
 
 ## Investigating further
 
@@ -76,6 +62,7 @@ scan-alerts -d 30 -q 'Allowed memory size' uva-library-drupal-production
 
 ## Related
 
-- [Redis cache backend](redis-cache-backend.md) — unrelated failure mode (DB deadlock, not
-  OOM) but same "shared production infrastructure under load" theme.
+- [Incidents: PHP OOM fatals — 30-day occurrence log](../incidents/2026-07-06-php-oom-fatal-occurrences.md)
+- [Redis cache backend](../maintenance/redis-cache-backend.md) — unrelated failure mode (DB
+  deadlock, not OOM) but same "shared production infrastructure under load" theme.
 - [Production deploy runbook](../operations/production-deploy-runbook.md)

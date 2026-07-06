@@ -1,3 +1,9 @@
+---
+status: deferred
+opened: 2026-06-29
+jira: null
+---
+
 # Follow-up: Standardize SimpleSAMLphp config-as-code on staging (and prod)
 
 **Status:** open follow-up (deferred 2026-06-25)

@@ -5,3 +5,4 @@ nav:
   - config-management.md
   - authentication-netbadge.md
   - search-solr.md
+  - ...

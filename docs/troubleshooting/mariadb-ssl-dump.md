@@ -1,4 +1,12 @@
+---
+status: resolved
+opened: 2026-06-18
+jira: null
+---
+
 # MariaDB SSL Dump Failure (error 2026)
+
+**Status:** resolved (documented 2026-06-18)
 
 ## Symptom
 

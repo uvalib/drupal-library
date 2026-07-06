@@ -1,4 +1,12 @@
+---
+status: resolved
+opened: 2026-06-18
+jira: null
+---
+
 # DDEV Refuses to Run the Project from This Directory
+
+**Status:** resolved (documented 2026-06-18)
 
 ## Symptom
 

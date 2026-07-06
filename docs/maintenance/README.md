@@ -1,16 +1,25 @@
 # Maintenance
 
-Ongoing upkeep of the site: dependency updates, in-flight migrations, and the major
-version upgrade.
+Two kinds of planned work, neither of which is "a new feature":
+
+1. **Regular upkeep** to keep the service running normally — upgrades, security/bug
+   patches, module installation and retirement.
+2. **Planned risk mitigation and gradual improvement** — work scheduled to head off a
+   known problem or incrementally improve something that already works (e.g. moving cache
+   onto Redis, refactoring NetBadge), as opposed to a new user-facing capability.
 
 | Topic | Page |
 |-------|------|
 | How module/core updates are done | [Module updates](module-updates.md) |
 | Removing CKEditor 4, migrating to CKEditor 5 | [CKEditor 4 → 5](ckeditor4-to-ckeditor5.md) |
 | Drupal 10 → 11 upgrade | [Drupal 11 upgrade](drupal-11-upgrade.md) |
-| Config-sync export mechanism (review/redesign) | [Config-sync mechanism review](config-sync-mechanism-review.md) |
-| Move cache off the shared DB to Redis (real fix for deploy deadlocks) | [Redis cache backend](redis-cache-backend.md) |
-| PHP OOM fatals during Twig render / KCFinder upload (open investigation) | [PHP OOM fatals](php-oom-fatals.md) |
+| Config-sync export mechanism (review/redesign) **(proposal)** | [Config-sync mechanism review](config-sync-mechanism-review.md) |
+| Move cache off the shared DB to Redis (real fix for deploy deadlocks) **(proposal)** | [Redis cache backend](redis-cache-backend.md) |
+
+**(proposal)** = this maintenance work is still at the proposal stage — direction/details not
+yet decided. Also listed in [Proposals](../proposals/README.md) for visibility; the doc lives
+here rather than there because its home won't change once decided (unlike a pure proposal,
+which moves to Operations/Architecture once it settles).
 
 ## Validation / smoke tests
 

@@ -11,10 +11,8 @@
       
       
       
-        <link rel="prev" href="../mariadb-ssl-dump/">
+        <link rel="prev" href="../2026-07-02-devops-docs-live-and-design-proposals/">
       
-      
-        <link rel="next" href="../ddev-one-name-per-directory/">
       
       
         
@@ -25,7 +23,7 @@
     
     
       
-        <title>SimpleSAMLphp Secure Cookie Error on the HTTP Container - library.virginia.edu Drupal Site</title>
+        <title>Session Log: PHP OOM Investigation, scan-alerts Tool, and Doc Taxonomy Rework - library.virginia.edu Drupal Site</title>
       
     
     
@@ -76,7 +74,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#simplesamlphp-secure-cookie-error-on-the-http-container" class="md-skip">
+        <a href="#session-log-php-oom-investigation-scan-alerts-tool-and-doc-taxonomy-rework" class="md-skip">
           Skip to content
         </a>
       
@@ -112,7 +110,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              SimpleSAMLphp Secure Cookie Error on the HTTP Container
+              Session Log: PHP OOM Investigation, scan-alerts Tool, and Doc Taxonomy Rework
             
           </span>
         </div>
@@ -1415,20 +1413,18 @@
       
   
   
-    
   
   
-  
     
     
     
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
         
           
           <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
@@ -1449,7 +1445,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_7">
             <span class="md-nav__icon md-icon"></span>
             
@@ -1467,7 +1463,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../" class="md-nav__link">
+      <a href="../../troubleshooting/" class="md-nav__link">
         
   
   
@@ -1495,7 +1491,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../mariadb-ssl-dump/" class="md-nav__link">
+      <a href="../../troubleshooting/mariadb-ssl-dump/" class="md-nav__link">
         
   
   
@@ -1527,44 +1523,10 @@
                 
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    SimpleSAMLphp Secure Cookie Error on the HTTP Container
-  
-
-    
-  </span>
-  
-  
-    
-  
-  
-    <span class="md-status md-status--resolved"></span>
-  
-
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../../troubleshooting/simplesamlphp-secure-cookie/" class="md-nav__link">
         
   
   
@@ -1587,59 +1549,6 @@
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#symptom" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Symptom
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#cause" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Cause
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#fix" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Fix
-      
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -1652,7 +1561,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../ddev-one-name-per-directory/" class="md-nav__link">
+      <a href="../../troubleshooting/ddev-one-name-per-directory/" class="md-nav__link">
         
   
   
@@ -1687,7 +1596,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../php-oom-fatals/" class="md-nav__link">
+      <a href="../../troubleshooting/php-oom-fatals/" class="md-nav__link">
         
   
   
@@ -1878,18 +1787,20 @@
       
   
   
+    
   
   
+  
     
     
     
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9" checked>
         
           
           <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="0">
@@ -1910,7 +1821,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_9">
             <span class="md-nav__icon md-icon"></span>
             
@@ -1928,7 +1839,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../session-logs/" class="md-nav__link">
+      <a href="../" class="md-nav__link">
         
   
   
@@ -1956,7 +1867,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../session-logs/2026-06-18-module-assessment-docs-and-config-sync/" class="md-nav__link">
+      <a href="../2026-06-18-module-assessment-docs-and-config-sync/" class="md-nav__link">
         
   
   
@@ -1984,7 +1895,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../session-logs/2026-06-25-deploys-module-upgrades-and-prod-saml-audit/" class="md-nav__link">
+      <a href="../2026-06-25-deploys-module-upgrades-and-prod-saml-audit/" class="md-nav__link">
         
   
   
@@ -2012,7 +1923,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../session-logs/2026-06-29-prod-saml-verify-and-doc-checkin/" class="md-nav__link">
+      <a href="../2026-06-29-prod-saml-verify-and-doc-checkin/" class="md-nav__link">
         
   
   
@@ -2040,7 +1951,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../session-logs/2026-07-01-devops-docs-module/" class="md-nav__link">
+      <a href="../2026-07-01-devops-docs-module/" class="md-nav__link">
         
   
   
@@ -2068,7 +1979,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../session-logs/2026-07-01-preview-hostname-redirect/" class="md-nav__link">
+      <a href="../2026-07-01-preview-hostname-redirect/" class="md-nav__link">
         
   
   
@@ -2096,7 +2007,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../session-logs/2026-07-02-devops-docs-live-and-design-proposals/" class="md-nav__link">
+      <a href="../2026-07-02-devops-docs-live-and-design-proposals/" class="md-nav__link">
         
   
   
@@ -2121,10 +2032,37 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="../../session-logs/2026-07-06-oom-investigation-and-doc-taxonomy/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Session Log: PHP OOM Investigation, scan-alerts Tool, and Doc Taxonomy Rework
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   
@@ -2140,6 +2078,92 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-aws-alert-investigation-production-php-oom-fatals" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. AWS alert investigation — production PHP OOM fatals
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-built-scan-alerts-then-moved-it-out-of-this-repo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Built scan-alerts, then moved it out of this repo
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-documented-the-oom-findings-which-surfaced-doc-site-gaps" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Documented the OOM findings — which surfaced doc-site gaps
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-doc-taxonomy-reworked" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Doc taxonomy reworked
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-future-jira-integration-planned-for-not-built" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Future Jira integration — planned for, not built
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#open-items-carried-forward" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Open items (carried forward)
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -2179,10 +2203,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#symptom" class="md-nav__link">
+  <a href="#1-aws-alert-investigation-production-php-oom-fatals" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Symptom
+        1. AWS alert investigation — production PHP OOM fatals
       
     </span>
   </a>
@@ -2190,10 +2214,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#cause" class="md-nav__link">
+  <a href="#2-built-scan-alerts-then-moved-it-out-of-this-repo" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Cause
+        2. Built scan-alerts, then moved it out of this repo
       
     </span>
   </a>
@@ -2201,10 +2225,43 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#fix" class="md-nav__link">
+  <a href="#3-documented-the-oom-findings-which-surfaced-doc-site-gaps" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Fix
+        3. Documented the OOM findings — which surfaced doc-site gaps
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-doc-taxonomy-reworked" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Doc taxonomy reworked
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-future-jira-integration-planned-for-not-built" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Future Jira integration — planned for, not built
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#open-items-carried-forward" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Open items (carried forward)
       
     </span>
   </a>
@@ -2231,23 +2288,119 @@
   
 
 
-<h1 id="simplesamlphp-secure-cookie-error-on-the-http-container">SimpleSAMLphp Secure Cookie Error on the HTTP Container</h1>
-<p><strong>Status:</strong> resolved (documented 2026-06-18)</p>
-<h2 id="symptom">Symptom</h2>
-<p>SimpleSAMLphp errors on <code>session.cookie.secure</code> — it wants a secure (HTTPS) cookie, but
-the container is serving plain HTTP, so the check fails and authentication breaks.</p>
-<h2 id="cause">Cause</h2>
-<p><a href="../../adr/002-https-at-load-balancer/">HTTPS is terminated at the load balancer</a>; the
-container serves HTTP on port 80. Without being told the original request was HTTPS,
-SimpleSAMLphp refuses to set a secure cookie over what it sees as an insecure connection.</p>
-<h2 id="fix">Fix</h2>
-<p>In the Apache vhost (<code>package/data/etc/apache2/sites-enabled/000-default.conf</code>), mark the
-request as secure when the load balancer forwarded an HTTPS request:</p>
-<div class="highlight"><pre><span></span><code><span class="nb">SetEnvIf</span><span class="w"> </span>X-Forwarded-Proto<span class="w"> </span><span class="s2">&quot;https&quot;</span><span class="w"> </span>HTTPS=on
-</code></pre></div>
-<p>Also ensure <code>SIMPLESAMLPHP_CONFIG_DIR=/var/simplesamlphp/config</code> is set (Apache <code>SetEnv</code>)
-and that <code>/simplesaml/</code> is proxied to the <code>sp</code> container.</p>
-<p>See <a href="../../architecture/authentication-netbadge/">Authentication (NetBadge)</a>.</p>
+<h1 id="session-log-php-oom-investigation-scan-alerts-tool-and-doc-taxonomy-rework">Session Log: PHP OOM Investigation, scan-alerts Tool, and Doc Taxonomy Rework</h1>
+<p><strong>Date:</strong> 2026-07-06
+<strong>Participants:</strong> Yuji Shinozaki, Claude (Opus 4.8 / Sonnet 5)
+<strong>Branch:</strong> <code>main</code>
+<strong>Outcome:</strong> Investigated recurring PHP OOM fatals on production (root cause still open);
+built a general-purpose CloudWatch alarm→log investigation tool and relocated it to the
+personal <code>ys2n/scripts</code> repo where it belongs; used it to also check Mandala production;
+documented the OOM findings in mkdocs, which surfaced real gaps in the doc site's left-nav
+auto-update and its Maintenance/Troubleshooting/Incidents/Proposals taxonomy — reworked all
+four; added lightweight frontmatter to prepare for a future Jira integration.</p>
+<hr />
+<h2 id="1-aws-alert-investigation-production-php-oom-fatals">1. AWS alert investigation — production PHP OOM fatals</h2>
+<p>Investigated live CloudWatch alarms for <code>drupal-library-production</code>. All 25 alarms were
+<code>OK</code> (they self-clear in minutes), but alarm <strong>history</strong> showed <code>php-0-errors</code> /
+<code>php-1-errors</code> repeatedly flipping to <code>ALARM</code> — a <code>LogMetrics</code> filter on <code>php:error</code> in each
+node's container log. Root cause of each individual event: <strong>PHP fatal, 1 GB memory limit
+exhausted, in Twig's exception constructor</strong> — the real allocation hotspot is further up the
+call stack and wasn't isolated this session.</p>
+<p>A 30-day scan (via CloudWatch Logs Insights — <code>filter-log-events</code> reliably times out over
+that range) found <strong>113 OOM fatals</strong> across both nodes, two distinct signatures (Twig
+page-render, ~101 events; KCFinder upload, 7 events), heavily clustered <strong>Jun 19–30</strong> (peaks
+of 24/day) then back to background rate. The alarm threshold was found to have already been
+raised from 1 to 10 occurrences/5min, presumably to cut noise from the low background rate.</p>
+<p>Also ran the same investigation against <code>uva-mandala-drupal-production</code> (a different site) —
+zero PHP fatals in the last 24h, but found 22 <code>HTTP 400</code>s from the Solr proxy
+(<code>Searcher.php:183</code>, referer <code>thlib.org</code>), a distinct issue on a distinct subsystem.</p>
+<h2 id="2-built-scan-alerts-then-moved-it-out-of-this-repo">2. Built scan-alerts, then moved it out of this repo</h2>
+<p>Wrote a bash tool (<code>alarm name prefix</code> → alarm history → log-metric-filter chain → CloudWatch
+Logs Insights scan, aggregated by day/referer/failing-line) to make this repeatable. Hit two
+real bugs during development:</p>
+<ul>
+<li><strong>bash 3.2 (macOS default) incompatibility</strong> — no <code>mapfile</code>/<code>declare -A</code>; also, an <em>empty</em>
+  array under <code>set -u</code> throws "unbound variable." Fixed with plain indexed arrays / parallel
+  arrays and string-based option passing instead of array expansion.</li>
+<li><strong>A credential gotcha that looked like a script bug</strong> — <code>aws</code> was aliased in the
+  interactive shell to <code>aws-vault exec staging -- aws</code>; that alias doesn't propagate into
+  the script's own subprocess, so a bare <code>aws</code> call inside the script silently picked up
+  different (expired) credentials than the shell that invoked it — manifesting as "session
+  expired" even though the same command worked fine typed directly.</li>
+</ul>
+<p>Once it worked against a second, unrelated site (Mandala) with zero code changes beyond the
+alarm prefix argument, it was clearly general-purpose, not library-specific. Moved it to the
+personal <code>ys2n/scripts</code> repo (<code>uvalib/aws/scan-alerts</code>), matching that repo's existing
+<code>aws_run</code> credential-fallback convention (used by <code>alb-state</code>/<code>mandala-logs</code>) instead of the
+one-off <code>AWS_CMD</code> escape hatch it started with. Added <code>uvalib/aws/README.md</code> there recording
+the design rationale and both gotchas. Committed and pushed to <code>ys2n/scripts</code> (a separate
+repo from this one).</p>
+<h2 id="3-documented-the-oom-findings-which-surfaced-doc-site-gaps">3. Documented the OOM findings — which surfaced doc-site gaps</h2>
+<p>Added a maintenance doc for the OOM findings, which led to previewing the docs locally
+(<code>scripts/build-docs.sh</code> / <code>mkdocs serve</code>) before pushing — since a push to <code>main</code> here
+auto-deploys to staging. That surfaced two real problems:</p>
+<ul>
+<li><strong>The left nav didn't auto-update.</strong> <code>awesome-pages</code> <code>.pages</code> files use explicit lists, not
+  auto-discovery, so a new page silently doesn't appear in nav unless you remember to add it.
+  Fixed the immediate miss, then added the <code>...</code> auto-append wildcard (already used in
+  <code>session-logs/.pages</code>) to <strong>every</strong> <code>.pages</code> file site-wide so this class of bug can't
+  recur.</li>
+<li><strong>The doc taxonomy itself was inconsistent.</strong> Working through where the OOM doc actually
+  belonged surfaced that <code>config-sync-mechanism-review.md</code> and <code>redis-cache-backend.md</code> were
+  filed in Maintenance while literally self-describing as "not yet decided" / "proposed" —
+  the exact definition of the <em>Proposals</em> section.</li>
+</ul>
+<h2 id="4-doc-taxonomy-reworked">4. Doc taxonomy reworked</h2>
+<p>Through discussion, arrived at:</p>
+<ul>
+<li><strong>Troubleshooting</strong> = active issues needing troubleshooting, resolved or not (not just
+  "known issues with fixes" as originally written). Rebuilt its index as a <strong>recency-sorted
+  log with Opened/Status columns</strong> (✅ resolved / 🟡 open) so it doubles as "everything
+  recently troubleshot" at a glance, not just a symptom lookup table. Added explicit
+  <code>**Status:**</code> lines to the three previously-implicit docs.</li>
+<li><strong>Incidents</strong> = the facts of what happened — loosened from "what went wrong <em>once</em>" to also
+  cover a recurring issue's factual log. Split the OOM doc: <code>php-oom-fatals.md</code> moved (<code>git
+  mv</code>) to Troubleshooting (active investigation, next steps), and a new
+  <code>2026-07-06-php-oom-fatal-occurrences.md</code> in Incidents holds the factual scan data
+  (counts, day-clustering, signatures), meant to be appended to on future re-scans rather
+  than duplicated across both docs.</li>
+<li><strong>Maintenance</strong> = two-fold: regular recurring upkeep (upgrades, patches, module
+  churn) <strong>and</strong> planned risk-mitigation/gradual-improvement work that isn't a new feature
+  (e.g. the Redis cache backend, NetBadge refactoring). Rewrote its README to this effect.</li>
+<li><strong>Proposals</strong>, cross-listing: rather than moving <code>config-sync-mechanism-review.md</code> and
+  <code>redis-cache-backend.md</code> out of Maintenance, marked both <strong>(proposal)</strong> in Maintenance's
+  table (their permanent home doesn't change once decided, unlike a "pure" proposal) and
+  added a "Proposals that already have a home" section in Proposals' README pointing back to
+  them — dual-listed, clearly labeled, single source of truth.</li>
+</ul>
+<h2 id="5-future-jira-integration-planned-for-not-built">5. Future Jira integration — planned for, not built</h2>
+<p>The user flagged that this documentation will eventually integrate with Atlassian Jira.
+Risk identified: status was being tracked only as free-text (<code>**Status:** open</code>) plus
+hand-maintained README tables — fine now, but two/three places that could silently drift once
+Jira becomes an actual source of truth, and no stable field for a future ticket key.</p>
+<p>Added lightweight YAML frontmatter (<code>status</code>, <code>opened</code>, <code>jira: null</code>, <code>priority</code> where already
+stated) to all 9 status-bearing docs, sourcing <code>opened</code> dates from git history rather than
+guessing. Purely additive — mkdocs-material ignores unknown frontmatter keys, verified no
+leakage into rendered output. The prose Status lines stay as the human-readable version;
+frontmatter is what a future sync job would read. Nothing else was built for the Jira
+integration — deliberately deferred until that work actually starts.</p>
+<hr />
+<h2 id="open-items-carried-forward">Open items (carried forward)</h2>
+<ul>
+<li><strong>PHP OOM root cause</strong> — not identified. Next: isolate the template/view behind the
+  no-referer / <code>/teams/&lt;uuid&gt;</code> renders; confirm or rule out the Jun 25/29 deploys as the
+  Jun 19–30 storm's trigger; separately investigate the KCFinder upload path.</li>
+<li><strong><code>scan-alerts</code></strong> lives in <code>ys2n/scripts</code> now — re-run periodically
+  (<code>scan-alerts -d 30 -q 'Allowed memory size' uva-library-drupal-production</code>) to check
+  whether the OOM rate is climbing again; append results to the Incidents occurrence log.</li>
+<li><strong>Mandala Solr 400s</strong> (<code>thlib.org</code> / <code>kmassets</code> faceted query) — flagged, not investigated
+  further; may be a client-side query-shape issue against Solr rather than a Mandala bug.</li>
+<li><strong>Redis cache backend</strong> and <strong>config-sync mechanism redesign</strong> — both still open proposals,
+  now clearly marked as such in Maintenance + cross-listed in Proposals.</li>
+<li><strong>Operations vs. Maintenance README overlap</strong> — noted but not addressed this session
+  (both describe "running/maintaining the site"); flagged for a future pass if it becomes
+  confusing in practice.</li>
+</ul>
 
 
 
@@ -2268,7 +2421,7 @@ and that <code>/simplesaml/</code> is proxied to the <code>sp</code> container.<
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-datetime" title="June 18, 2026 15:56:36 UTC">June 18, 2026 15:56:36</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-datetime" title="July 6, 2026 16:25:22 UTC">July 6, 2026 16:25:22</span>
   </span>
 
     
