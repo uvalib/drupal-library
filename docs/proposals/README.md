@@ -14,6 +14,7 @@ Nothing here is adopted or committed to.
 | [Environment purposes & contracts](environment-contracts.md) *(stub)* | Give dev / devops / staging / prod each an explicit contract, so staging stops doubling as a devops scratch box. |
 | [Rethink the baked-in util checkout](util-checkout-rethink.md) *(stub)* | Replace the 166 MB full-repo clone in the image (90 MB is `.git`) with a `COPY` of just the paths used; keep the "live repo" convenience as an optional host mount. |
 | [SimpleSAMLphp version-compat check](saml-version-compat-check.md) | Advisory deploy-time check that the SP container and the Drupal-side SimpleSAMLphp share a `saml2` major (session-format compatibility); one shared Ansible task, no API/module. |
+| [SAML timezone-clobber guard](saml-timezone-clobber-guard.md) | Long-term follow-up to DLS-67: file an **upstream bug report** to `drupal/simplesamlphp_auth` — the in-process session validation silently clobbers the host's default timezone. Floor ask: a WARNING; preferred: save/restore around the SAML boundary. The shipped env fix stays; includes a ready-to-post draft issue. |
 
 ## Proposals that already have a home (cross-listed)
 
