@@ -7,8 +7,13 @@ FROM public.ecr.aws/docker/library/drupal:10.6.10
 RUN apt-get -y update && apt-get -y upgrade && apt-get -y install default-mysql-client git less vim msmtp-mta \
 	&& apt-get -y install rsync
 
-# set the timezone appropriatly
-ENV TZ=UTC
+# set the timezone appropriatly.
+# NOTE: must be America/New_York, not UTC. SimpleSAMLphp runs in-process here (via
+# simplesamlphp_auth) and its config reads 'timezone' => getenv('TZ') ?: 'UTC', then calls
+# date_default_timezone_set() on every authenticated request -- clobbering Drupal's own
+# America/New_York and skewing all timestamps by the ET offset. See
+# docs/incidents/2026-07-10-scheduler-timezone-utc-clobber.md
+ENV TZ=America/New_York
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
 # Specify home
