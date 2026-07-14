@@ -11,10 +11,10 @@
       
       
       
-        <link rel="prev" href="../syncing-data/">
+        <link rel="prev" href="../deploy-strategy-exploration/">
       
       
-        <link rel="next" href="../theme-deployment/">
+        <link rel="next" href="../../maintenance/">
       
       
         
@@ -25,7 +25,7 @@
     
     
       
-        <title>Deployment - library.virginia.edu Drupal Site</title>
+        <title>DLS-67 Timezone Fix — Deploy Runbook - library.virginia.edu Drupal Site</title>
       
     
     
@@ -76,7 +76,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#deployment" class="md-skip">
+        <a href="#dls-67-timezone-fix-deploy-runbook" class="md-skip">
           Skip to content
         </a>
       
@@ -112,7 +112,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Deployment
+              DLS-67 Timezone Fix — Deploy Runbook
             
           </span>
         </div>
@@ -611,37 +611,10 @@
                 
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Deployment
-  
-
-    
-  </span>
-  
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../deployment/" class="md-nav__link">
         
   
   
@@ -657,92 +630,6 @@
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#branch-strategy" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Branch strategy
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#build-pipelinebuildspecyml" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Build — pipeline/buildspec.yml
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#deploy-pipelinedeployspecyml" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Deploy — pipeline/deployspec.yml
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#release-tracking" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Release tracking
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#themes-deploy-on-a-separate-track" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Themes deploy on a separate track
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#where-smoke-tests-fit" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Where smoke tests fit
-      
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -836,10 +723,37 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="../dls-67-timezone-fix-runbook/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DLS-67 Timezone Fix — Deploy Runbook
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   
@@ -855,6 +769,147 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#what-ships" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What ships
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-crux-that-shapes-verification" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The crux that shapes verification
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#decisions-locked-for-this-deploy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Decisions locked for this deploy
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#phase-a-pre-flight" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase A — Pre-flight
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#phase-b-ship-to-staging" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase B — Ship to staging
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#phase-c-verify-staging" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase C — Verify staging
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#phase-d-ship-to-prod" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase D — Ship to prod
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#phase-e-correct-node-3172-only-after-the-fix-is-live-on-prod" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase E — Correct node 3172 (only after the fix is live on prod)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#phase-f-close-out" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase F — Close out
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#rollback" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Rollback
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#related" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Related
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -2352,10 +2407,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#branch-strategy" class="md-nav__link">
+  <a href="#what-ships" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Branch strategy
+        What ships
       
     </span>
   </a>
@@ -2363,10 +2418,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#build-pipelinebuildspecyml" class="md-nav__link">
+  <a href="#the-crux-that-shapes-verification" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Build — pipeline/buildspec.yml
+        The crux that shapes verification
       
     </span>
   </a>
@@ -2374,10 +2429,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#deploy-pipelinedeployspecyml" class="md-nav__link">
+  <a href="#decisions-locked-for-this-deploy" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Deploy — pipeline/deployspec.yml
+        Decisions locked for this deploy
       
     </span>
   </a>
@@ -2385,10 +2440,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#release-tracking" class="md-nav__link">
+  <a href="#phase-a-pre-flight" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Release tracking
+        Phase A — Pre-flight
       
     </span>
   </a>
@@ -2396,10 +2451,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#themes-deploy-on-a-separate-track" class="md-nav__link">
+  <a href="#phase-b-ship-to-staging" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Themes deploy on a separate track
+        Phase B — Ship to staging
       
     </span>
   </a>
@@ -2407,10 +2462,65 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#where-smoke-tests-fit" class="md-nav__link">
+  <a href="#phase-c-verify-staging" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Where smoke tests fit
+        Phase C — Verify staging
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#phase-d-ship-to-prod" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase D — Ship to prod
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#phase-e-correct-node-3172-only-after-the-fix-is-live-on-prod" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase E — Correct node 3172 (only after the fix is live on prod)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#phase-f-close-out" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase F — Close out
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#rollback" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Rollback
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#related" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Related
       
     </span>
   </a>
@@ -2437,39 +2547,179 @@
   
 
 
-<h1 id="deployment">Deployment</h1>
-<h2 id="branch-strategy">Branch strategy</h2>
-<p><code>main</code> → <code>release</code> (via PR). Merging <code>release</code> triggers CI.</p>
-<h2 id="build-pipelinebuildspecyml">Build — <code>pipeline/buildspec.yml</code></h2>
-<p>Runs on AWS CodeBuild. Builds <code>package/Dockerfile</code>, pushes the image to AWS ECR tagged
-with a build timestamp and the git SHA. The latest build tag is stored in AWS SSM
-Parameter Store at <code>/containers/$CONTAINER_IMAGE/latest</code>.</p>
-<h2 id="deploy-pipelinedeployspecyml">Deploy — <code>pipeline/deployspec.yml</code></h2>
-<p>Runs on AWS CodeBuild:</p>
-<ol>
-<li>Clones <code>uvalib/terraform-infrastructure</code>
-   (local checkout: <code>/Users/ys2n/Code/uvalib/terraform-infrastructure</code>).</li>
-<li>Decrypts keys with <code>ccrypt</code>.</li>
-<li>Runs Terraform in <code>library.virginia.edu/staging/</code>.</li>
-<li>Runs Ansible playbooks (<code>deploy_netbadge.yml</code>, <code>deploy_backend.yml</code>) from
-   <code>library.virginia.edu/staging/ansible/</code>.</li>
-</ol>
-<div class="admonition warning">
-<p class="admonition-title">Scope restriction in the terraform repo</p>
-<p>The <code>terraform-infrastructure</code> repo contains many projects sharing resources. Edits
-there are restricted to the <code>library.virginia.edu/</code> subdirectory.</p>
+<h1 id="dls-67-timezone-fix-deploy-runbook">DLS-67 Timezone Fix — Deploy Runbook</h1>
+<div class="admonition info">
+<p class="admonition-title">Scope</p>
+<p>A <strong>change-specific</strong> runbook for shipping the DLS-67 timezone fix. It layers on top of the
+generic <a href="../production-deploy-runbook/">Production Deploy Runbook</a> — that page owns the
+zero-downtime rolling mechanics; this page owns what's <em>specific</em> to this change (what to
+verify, the one data correction, the sequencing traps). Background:
+<a href="../../incidents/2026-07-10-scheduler-timezone-utc-clobber/">incident writeup</a>.</p>
 </div>
-<h2 id="release-tracking">Release tracking</h2>
-<p>Releases are tracked by <strong>ECR image tags</strong>, not git tags.</p>
-<h2 id="themes-deploy-on-a-separate-track">Themes deploy on a separate track</h2>
-<p>The active theme is <strong>not</strong> promoted by image tag — it's pinned to a git tag at
-deploy time via an SSM parameter, independently of the container. See
-<a href="../theme-deployment/">Theme deployment</a> for the full mechanism and runbook.</p>
-<h2 id="where-smoke-tests-fit">Where smoke tests fit</h2>
-<p>Post-deploy smoke tests (homepage, <a href="../../architecture/search-solr/">search/Solr</a>, a
-JSON:API endpoint, the NetBadge redirect) belong against the staging URL after the
-deploy step — the highest-ROI automated check for this site. See
-<a href="../../maintenance/">Maintenance</a>.</p>
+<h2 id="what-ships">What ships</h2>
+<ul>
+<li><strong><code>package/Dockerfile</code></strong> — <code>ENV TZ=UTC</code> → <code>ENV TZ=America/New_York</code>. This one line <em>is</em> the fix:
+  it makes the in-process SimpleSAMLphp (<code>getenv('TZ')</code>) agree with Drupal's <code>America/New_York</code>
+  instead of clobbering it to UTC on every authenticated request.</li>
+<li><strong><code>/devops-docs</code> static rebuild</strong> — the deferred <code>build-docs.sh</code> output for the docs already
+  committed in <code>3d37cad</code>.</li>
+</ul>
+<p><strong>Commit structure</strong> — keep the code fix isolated and reviewable:</p>
+<ol>
+<li><code>fix: DLS-67 set container TZ to America/New_York</code> — <code>package/Dockerfile</code> only</li>
+<li><code>docs: rebuild devops-docs static site</code> — <code>scripts/build-docs.sh</code> output
+   (<code>package/data/opt/drupal/web/modules/custom/devops_docs/static</code>)</li>
+</ol>
+<h2 id="the-crux-that-shapes-verification">The crux that shapes verification</h2>
+<div class="admonition danger">
+<p class="admonition-title">The bug only exists on authenticated <em>web</em> requests</p>
+<p>SimpleSAMLphp is booted in-process only on authenticated requests, so:</p>
+<ul>
+<li><strong>drush/CLI cannot reproduce or verify the fix.</strong> drush never boots SAML, so a scheduled
+  node created via drush stores correctly <em>regardless</em> of whether the fix is in — it proves
+  nothing. The CLI-vs-web split is the whole nature of this bug.</li>
+<li><strong>True behavioral verification needs a real NetBadge login.</strong> Per
+  [auth is user-driven], that's an editor's job, not an automated step.</li>
+</ul>
+<p>We already have strong indirect proof from the local reproduction (<code>TZ=America/New_York</code> →
+SAML sets Eastern → noon stores as <code>16:00 UTC</code> / <code>1784736000</code>). So the container-level
+<code>printenv TZ</code> check is high-confidence; the authenticated-node check is gold-standard
+confirmation.</p>
+</div>
+<h2 id="decisions-locked-for-this-deploy">Decisions locked for this deploy</h2>
+<table>
+<thead>
+<tr>
+<th>Decision</th>
+<th>Choice</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Prod cache rebuild</td>
+<td><strong>Skip <code>drush cr</code></strong> — pure env swap (not structural; anonymous pages were never affected). Roll the nodes, no <code>cr</code>.</td>
+</tr>
+<tr>
+<td>Node 3172 correction</td>
+<td><strong>UI re-save to noon</strong> — uses the now-correct code path and validates the fix on real data.</td>
+</tr>
+<tr>
+<td>Interactive verify + 3172 re-save</td>
+<td><strong>An editor (akl3b)</strong> — the DLS-67 reporter confirms the fix, closing the loop. Phases C-Tier2 and E gate on their availability.</td>
+</tr>
+</tbody>
+</table>
+<p>There is <strong>no config/DB change</strong> in this deploy — the fix is Dockerfile-only. No <code>cex</code>/<code>cim</code>,
+no config-sync branch update, no <code>drush updb</code>.</p>
+<h2 id="phase-a-pre-flight">Phase A — Pre-flight</h2>
+<ul>
+<li>On the <strong>UVA VPN</strong>.</li>
+<li><strong>Capture the current prod image tag from BOTH nodes</strong> — this is the rollback anchor:
+  <div class="highlight"><pre><span></span><code><span class="k">for</span><span class="w"> </span>h<span class="w"> </span><span class="k">in</span><span class="w"> </span>library-drupal-0<span class="w"> </span>library-drupal-1<span class="p">;</span><span class="w"> </span><span class="k">do</span>
+<span class="w">  </span>ssh<span class="w"> </span><span class="nv">$h</span>.internal.lib.virginia.edu<span class="w"> </span><span class="s1">&#39;sudo docker ps --format &quot;{{.Image}} {{.Names}}&quot; | grep drupal-0&#39;</span>
+<span class="k">done</span>
+</code></pre></div></li>
+<li><strong>Confirm node 3172 is untouched</strong> (raw <code>unpublish_on</code> still the bad value; nothing re-saved it):
+  <div class="highlight"><pre><span></span><code>ssh<span class="w"> </span>library-drupal-0.internal.lib.virginia.edu<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span><span class="s1">&#39;sudo docker exec -i drupal-0 /opt/drupal/vendor/bin/drush php:script -&#39;</span><span class="w"> </span><span class="s">&lt;&lt;&#39;PHP&#39;</span>
+<span class="s">$u = (int) \Drupal\node\Entity\Node::load(3172)-&gt;get(&#39;unpublish_on&#39;)-&gt;value;</span>
+<span class="s">print(&quot;nid=3172 unpublish_on=$u | ET=&quot;.date(&#39;Y-m-d H:i:s T&#39;, $u).PHP</span>_EOL<span class="o">)</span><span class="p">;</span>
+PHP
+<span class="c1"># expect 1784721600  (2026-07-22 08:00 EDT — the bad value; 1784736000 = already corrected)</span>
+</code></pre></div></li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Why <code>php:script</code> and not <code>drush sql:query</code></p>
+<p><code>drush sql:query</code> / <code>sql:cli</code> currently <strong>fail</strong> against the RDS server's TLS cert
+(<code>ERROR 2026: self-signed certificate in certificate chain</code>) — the MariaDB CLI verifies the
+chain and lacks the RDS CA, while PHP's PDO doesn't verify, so <code>php:script</code> (which rides
+Drupal's PDO) reads the DB fine. <strong>That TLS issue is a separate concern with its own fix and
+deploy — it is deliberately <em>not</em> part of this runbook.</strong> Use <code>php:script</code> for the reads here;
+do not try to fix the cert inline.</p>
+</div>
+<h2 id="phase-b-ship-to-staging">Phase B — Ship to staging</h2>
+<ol>
+<li>Make the two commits above; run <code>./scripts/build-docs.sh</code> and commit the <code>static/</code> output.</li>
+<li><strong>Push <code>main</code></strong> → triggers build (~2.5 min) + staging deploy (~5 min); ~7–9 min to live.
+   <em>This push auto-deploys to staging — do it only with explicit go-ahead.</em></li>
+<li>Confirm the CodeBuild <strong>deploy</strong> went green — don't assume (≈2 of last 12 deploys failed):
+   <div class="highlight"><pre><span></span><code>aws-vault<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>staging<span class="w"> </span>--<span class="w"> </span>aws<span class="w"> </span>codebuild<span class="w"> </span>list-builds-for-project<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--project-name<span class="w"> </span>uva-drupal-library-project-deploy<span class="w"> </span>--sort-order<span class="w"> </span>DESCENDING<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--query<span class="w"> </span><span class="s1">&#39;ids[0:3]&#39;</span><span class="w"> </span>--output<span class="w"> </span>json
+</code></pre></div></li>
+</ol>
+<h2 id="phase-c-verify-staging">Phase C — Verify staging</h2>
+<p><strong>Tier 1 — container-level (non-interactive, over VPN):</strong></p>
+<div class="highlight"><pre><span></span><code>ssh<span class="w"> </span>library-drupal-staging-0.internal.lib.virginia.edu<span class="w"> </span><span class="s1">&#39;</span>
+<span class="s1">  sudo docker ps --format &quot;{{.Image}} {{.Names}}&quot; | grep drupal-0   # = the new build tag</span>
+<span class="s1">  sudo docker exec drupal-0 printenv TZ                             # = America/New_York</span>
+<span class="s1">  sudo docker exec drupal-0 date                                    # = EDT</span>
+<span class="s1">&#39;</span>
+</code></pre></div>
+<p>Staging's <code>deploy_backend.yml</code> runs <strong>no <code>drush cr</code></strong>, so clear rendered-timestamp caches once
+(single node — safe here):</p>
+<div class="highlight"><pre><span></span><code>ssh<span class="w"> </span>library-drupal-staging-0.internal.lib.virginia.edu<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span><span class="s1">&#39;sudo docker exec drupal-0 /opt/drupal/vendor/bin/drush cr&#39;</span>
+</code></pre></div>
+<p><strong>Tier 2 — behavioral (editor, interactive NetBadge login):</strong> as an authenticated editor,
+create a <strong>date-only</strong> scheduled node → confirm the stored <code>unpublish_on</code> = <code>16:00:00 UTC</code>
+(not <code>12:00:00</code>), and the admin content list renders Eastern. Verify the raw value with the
+<code>php:script</code> read from Phase A (swap in the new nid).</p>
+<h2 id="phase-d-ship-to-prod">Phase D — Ship to prod</h2>
+<ol>
+<li>Open + merge the <strong><code>main → release</code> PR</strong> to build the production image.</li>
+<li>Run the <strong>rolling deploy</strong> per the <a href="../production-deploy-runbook/">Production Deploy Runbook</a>
+   (drain node 1 → deploy that node → verify → re-add → repeat node 0). Change-specific check at
+   step 3 of each node (direct on <code>:8080</code>, out of rotation):
+   <div class="highlight"><pre><span></span><code>ssh<span class="w"> </span>library-drupal-1.internal.lib.virginia.edu<span class="w"> </span><span class="s1">&#39;</span>
+<span class="s1">  sudo docker ps --format &quot;{{.Image}} {{.Names}}&quot; | grep drupal-0   # = your deploy_tag</span>
+<span class="s1">  sudo docker exec drupal-0 printenv TZ                             # = America/New_York</span>
+<span class="s1">&#39;</span>
+</code></pre></div></li>
+<li><strong>Skip <code>drush cr</code></strong> (locked decision). This is a pure env swap, not structural, and anonymous
+   pages were never affected — so the generic runbook's "pure code swap → roll, skip <code>cr</code>" applies.
+   Do <strong>not</strong> <code>cr</code> per-node mid-rollout (that's the [2026-06-26 WSOD] trap).</li>
+</ol>
+<h2 id="phase-e-correct-node-3172-only-after-the-fix-is-live-on-prod">Phase E — Correct node 3172 (only <em>after</em> the fix is live on prod)</h2>
+<div class="admonition warning">
+<p class="admonition-title">Sequencing</p>
+<p>Re-save node 3172 <strong>only after</strong> the TZ fix is live on the serving node. Under the old
+clobber the edit form re-corrupts the value. It fires <strong>2026-07-22</strong>, so there is runway —
+do not rush this ahead of the fix.</p>
+</div>
+<ul>
+<li><strong>Editor (akl3b):</strong> open node 3172, re-enter the unpublish date as <strong>noon</strong>, save. Under the
+  fixed TZ it stores <code>16:00 UTC</code> = <code>1784736000</code>.</li>
+<li><strong>Verify</strong> the stored raw value (same <code>php:script</code> read as Phase A):
+  <div class="highlight"><pre><span></span><code>ssh<span class="w"> </span>library-drupal-0.internal.lib.virginia.edu<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span><span class="s1">&#39;sudo docker exec -i drupal-0 /opt/drupal/vendor/bin/drush php:script -&#39;</span><span class="w"> </span><span class="s">&lt;&lt;&#39;PHP&#39;</span>
+<span class="s">$u = (int) \Drupal\node\Entity\Node::load(3172)-&gt;get(&#39;unpublish_on&#39;)-&gt;value;</span>
+<span class="s">print(&quot;nid=3172 unpublish_on=$u | ET=&quot;.date(&#39;Y-m-d H:i:s T&#39;, $u).PHP</span>_EOL<span class="o">)</span><span class="p">;</span>
+PHP
+<span class="c1"># expect 1784736000  (= 2026-07-22 12:00 EDT)</span>
+</code></pre></div></li>
+</ul>
+<h2 id="phase-f-close-out">Phase F — Close out</h2>
+<ul>
+<li>Post the <strong>DLS-67 resolution comment</strong> (root cause + one-line fix + the single corrected entry).</li>
+<li>File the upstream <strong><code>drupal/simplesamlphp_auth</code> bug report</strong> — draft ready in
+  <a href="../../proposals/saml-timezone-clobber-guard/">the proposal</a>; outward-facing, so filed by a human.</li>
+<li>Write the session log; update the DLS-67 project memory to closed.</li>
+</ul>
+<h2 id="rollback">Rollback</h2>
+<p>One-line env change — very low risk. If needed, re-deploy the <strong>pre-flight-captured previous prod
+tag</strong> the same rolling way (per the generic runbook).</p>
+<div class="admonition warning">
+<p class="admonition-title">Don't correct 3172 before you're confident the fix stays</p>
+<p>If node 3172 is corrected to <code>1784736000</code> and the TZ fix is then rolled back, the returned
+clobber re-corrupts its <em>display/handling</em>. Only do Phase E once the fix is settled on prod.</p>
+</div>
+<h2 id="related">Related</h2>
+<ul>
+<li><a href="../production-deploy-runbook/">Production Deploy Runbook</a> — the generic rolling mechanics</li>
+<li><a href="../../incidents/2026-07-10-scheduler-timezone-utc-clobber/">Incident: 2026-07-10 timezone UTC clobber</a></li>
+<li><a href="../../proposals/saml-timezone-clobber-guard/">Proposal: SAML timezone-clobber guard</a> — the long-term upstream fix</li>
+</ul>
 
 
 
@@ -2490,7 +2740,7 @@ deploy step — the highest-ROI automated check for this site. See
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-datetime" title="July 2, 2026 16:29:04 UTC">July 2, 2026 16:29:04</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-datetime" title="July 13, 2026 20:58:36 UTC">July 13, 2026 20:58:36</span>
   </span>
 
     

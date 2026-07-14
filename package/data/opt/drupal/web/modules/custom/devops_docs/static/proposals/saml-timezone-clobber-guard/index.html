@@ -11,10 +11,10 @@
       
       
       
-        <link rel="prev" href="../syncing-data/">
+        <link rel="prev" href="../saml-version-compat-check/">
       
       
-        <link rel="next" href="../theme-deployment/">
+        <link rel="next" href="../../adr/">
       
       
         
@@ -25,7 +25,7 @@
     
     
       
-        <title>Deployment - library.virginia.edu Drupal Site</title>
+        <title>Proposal: Guard the request timezone across the in-process SimpleSAMLphp boundary - library.virginia.edu Drupal Site</title>
       
     
     
@@ -76,7 +76,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#deployment" class="md-skip">
+        <a href="#proposal-guard-the-request-timezone-across-the-in-process-simplesamlphp-boundary" class="md-skip">
           Skip to content
         </a>
       
@@ -112,7 +112,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Deployment
+              Proposal: Guard the request timezone across the in-process SimpleSAMLphp boundary
             
           </span>
         </div>
@@ -478,20 +478,18 @@
       
   
   
-    
   
   
-  
     
     
     
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
         
           
           <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
@@ -512,7 +510,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_3">
             <span class="md-nav__icon md-icon"></span>
             
@@ -530,7 +528,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../" class="md-nav__link">
+      <a href="../../operations/" class="md-nav__link">
         
   
   
@@ -558,7 +556,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../local-development/" class="md-nav__link">
+      <a href="../../operations/local-development/" class="md-nav__link">
         
   
   
@@ -586,7 +584,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../syncing-data/" class="md-nav__link">
+      <a href="../../operations/syncing-data/" class="md-nav__link">
         
   
   
@@ -611,37 +609,10 @@
                 
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Deployment
-  
-
-    
-  </span>
-  
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../../operations/deployment/" class="md-nav__link">
         
   
   
@@ -657,92 +628,6 @@
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#branch-strategy" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Branch strategy
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#build-pipelinebuildspecyml" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Build — pipeline/buildspec.yml
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#deploy-pipelinedeployspecyml" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Deploy — pipeline/deployspec.yml
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#release-tracking" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Release tracking
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#themes-deploy-on-a-separate-track" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Themes deploy on a separate track
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#where-smoke-tests-fit" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Where smoke tests fit
-      
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -755,7 +640,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../theme-deployment/" class="md-nav__link">
+      <a href="../../operations/theme-deployment/" class="md-nav__link">
         
   
   
@@ -783,7 +668,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../production-deploy-runbook/" class="md-nav__link">
+      <a href="../../operations/production-deploy-runbook/" class="md-nav__link">
         
   
   
@@ -811,7 +696,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../deploy-strategy-exploration/" class="md-nav__link">
+      <a href="../../operations/deploy-strategy-exploration/" class="md-nav__link">
         
   
   
@@ -839,7 +724,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../dls-67-timezone-fix-runbook/" class="md-nav__link">
+      <a href="../../operations/dls-67-timezone-fix-runbook/" class="md-nav__link">
         
   
   
@@ -1170,18 +1055,20 @@
       
   
   
+    
   
   
+  
     
     
     
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" checked>
         
           
           <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
@@ -1202,7 +1089,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_5">
             <span class="md-nav__icon md-icon"></span>
             
@@ -1220,7 +1107,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../proposals/" class="md-nav__link">
+      <a href="../" class="md-nav__link">
         
   
   
@@ -1248,7 +1135,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../proposals/ephemeral-environments/" class="md-nav__link">
+      <a href="../ephemeral-environments/" class="md-nav__link">
         
   
   
@@ -1276,7 +1163,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../proposals/environment-contracts/" class="md-nav__link">
+      <a href="../environment-contracts/" class="md-nav__link">
         
   
   
@@ -1304,7 +1191,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../proposals/util-checkout-rethink/" class="md-nav__link">
+      <a href="../util-checkout-rethink/" class="md-nav__link">
         
   
   
@@ -1332,7 +1219,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../proposals/saml-version-compat-check/" class="md-nav__link">
+      <a href="../saml-version-compat-check/" class="md-nav__link">
         
   
   
@@ -1357,10 +1244,37 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="../../proposals/saml-timezone-clobber-guard/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Proposal: Guard the request timezone across the in-process SimpleSAMLphp boundary
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   
@@ -1376,6 +1290,98 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#the-problem-recap-from-dls-67" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The problem (recap from DLS-67)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#why-the-module-is-the-correct-home-not-the-library-not-drupal-core" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Why the module is the correct home (not the library, not Drupal core)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#our-role-an-upstream-bug-report-with-an-escalating-ask" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Our role: an upstream bug report (with an escalating ask)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Our role: an upstream bug report (with an escalating ask)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#draft-issue-for-the-drupalsimplesamlphp_auth-queue" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Draft issue (for the drupal/simplesamlphp_auth queue)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-preferred-fix-snapshotrestore-around-the-saml-boundary" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The preferred fix: snapshot/restore around the SAML boundary
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#to-iterate-open-questions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        To iterate / open questions
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -2352,10 +2358,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#branch-strategy" class="md-nav__link">
+  <a href="#the-problem-recap-from-dls-67" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Branch strategy
+        The problem (recap from DLS-67)
       
     </span>
   </a>
@@ -2363,10 +2369,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#build-pipelinebuildspecyml" class="md-nav__link">
+  <a href="#why-the-module-is-the-correct-home-not-the-library-not-drupal-core" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Build — pipeline/buildspec.yml
+        Why the module is the correct home (not the library, not Drupal core)
       
     </span>
   </a>
@@ -2374,10 +2380,38 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#deploy-pipelinedeployspecyml" class="md-nav__link">
+  <a href="#our-role-an-upstream-bug-report-with-an-escalating-ask" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Deploy — pipeline/deployspec.yml
+        Our role: an upstream bug report (with an escalating ask)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Our role: an upstream bug report (with an escalating ask)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#draft-issue-for-the-drupalsimplesamlphp_auth-queue" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Draft issue (for the drupal/simplesamlphp_auth queue)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-preferred-fix-snapshotrestore-around-the-saml-boundary" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The preferred fix: snapshot/restore around the SAML boundary
       
     </span>
   </a>
@@ -2385,32 +2419,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#release-tracking" class="md-nav__link">
+  <a href="#to-iterate-open-questions" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Release tracking
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#themes-deploy-on-a-separate-track" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Themes deploy on a separate track
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#where-smoke-tests-fit" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Where smoke tests fit
+        To iterate / open questions
       
     </span>
   </a>
@@ -2437,39 +2449,197 @@
   
 
 
-<h1 id="deployment">Deployment</h1>
-<h2 id="branch-strategy">Branch strategy</h2>
-<p><code>main</code> → <code>release</code> (via PR). Merging <code>release</code> triggers CI.</p>
-<h2 id="build-pipelinebuildspecyml">Build — <code>pipeline/buildspec.yml</code></h2>
-<p>Runs on AWS CodeBuild. Builds <code>package/Dockerfile</code>, pushes the image to AWS ECR tagged
-with a build timestamp and the git SHA. The latest build tag is stored in AWS SSM
-Parameter Store at <code>/containers/$CONTAINER_IMAGE/latest</code>.</p>
-<h2 id="deploy-pipelinedeployspecyml">Deploy — <code>pipeline/deployspec.yml</code></h2>
-<p>Runs on AWS CodeBuild:</p>
+<h1 id="proposal-guard-the-request-timezone-across-the-in-process-simplesamlphp-boundary">Proposal: Guard the request timezone across the in-process SimpleSAMLphp boundary</h1>
+<p><strong>Status:</strong> Proposal / discussion — long-term follow-up to DLS-67. Nothing adopted.
+<strong>Relationship to the shipped fix:</strong> This does <strong>not</strong> replace the DLS-67 fix. That fix
+(<code>package/Dockerfile</code>: <code>ENV TZ=America/New_York</code>) is the current, operational remedy and stays.
+This is about the <strong>durable, construction-level defense</strong> — and, realistically, our role in it.
+<strong>Our action:</strong> file an <strong>upstream bug report</strong> against <code>drupal/simplesamlphp_auth</code>. We are not
+the right party to carry a patch for a general contrib defect; the honest deliverable is a good
+report. <strong>Minimum ask: a WARNING</strong> when the module changes the host's process timezone out from
+under it. <strong>Preferred: save/restore</strong> around the SAML boundary (below). A carried composer patch in
+<code>local/ddev/patches/</code> is only a fallback if the issue stalls upstream <em>and</em> we hit the bug again
+despite the env fix.
+<strong>Related:</strong> <a href="../../incidents/2026-07-10-scheduler-timezone-utc-clobber/">Incident 2026-07-10 — timezone UTC clobber</a>,
+<a href="../saml-version-compat-check/">SimpleSAMLphp version-compat check</a>,
+<code>docs/architecture/authentication-netbadge.md</code>.</p>
+<h2 id="the-problem-recap-from-dls-67">The problem (recap from DLS-67)</h2>
+<p>SimpleSAMLphp runs <strong>in-process</strong> inside the Drupal container via <code>drupal/simplesamlphp_auth</code>.
+On every authenticated request its <code>Utils/Time::initTimezone()</code> calls
+<code>date_default_timezone_set(getenv('TZ') ?: 'UTC')</code> and <strong>never restores</strong> the previous value —
+clobbering the <code>America/New_York</code> that Drupal's <code>TimeZoneResolver</code> set moments earlier, and
+skewing all timestamp reads/writes by the ET offset for the rest of the request.</p>
+<p>The shipped DLS-67 fix removes the <em>disagreement</em> by making <code>getenv('TZ')</code> resolve to Eastern in
+<code>drupal-0</code> (matching <code>netbadge-0</code>). That works, but it fixes the symptom by <strong>convention</strong>: it
+depends on the two containers' <code>TZ</code> defaults staying identical forever. If they ever drift apart
+again, the bug returns. This proposal fixes it by <strong>construction</strong>.</p>
+<h2 id="why-the-module-is-the-correct-home-not-the-library-not-drupal-core">Why the module is the correct home (not the library, not Drupal core)</h2>
+<p>The insight that DLS-67 surfaced: <strong>SimpleSAMLphp clobbering the process timezone is correct when
+it runs standalone, and wrong only when it runs embedded.</strong></p>
+<ul>
+<li>In <strong><code>netbadge-0</code></strong> (standalone SP) SimpleSAMLphp <em>owns</em> the process — it <em>should</em> set its own
+  configured timezone; there is no host to trample.</li>
+<li>In <strong><code>drupal-0</code></strong> (embedded via <code>simplesamlphp_auth</code>) it is a <strong>guest</strong> inside Drupal's request
+  — it must not trample the host's global state.</li>
+</ul>
+<p>The <strong>library</strong> can't cheaply tell which mode it is in, so a fix in <code>Utils/Time.php</code> would break
+the legitimate standalone case. <strong>Drupal core</strong> can't anticipate a rude guest. But
+<strong><code>simplesamlphp_auth</code> is the seam</strong> — it is the exact code that boots the library from inside a
+Drupal request, and it <em>knows</em> it is the embedded case. The save/restore responsibility belongs
+at the boundary where control crosses from host into guest, and the module is that boundary. This
+is the "views and awareness of both environments" argument: only the module sees both Drupal's
+intent and the library's override.</p>
+<h2 id="our-role-an-upstream-bug-report-with-an-escalating-ask">Our role: an upstream bug report (with an escalating ask)</h2>
+<p>We won't own this fix — it's a general defect in a contrib module (any Drupal site with a non-UTC
+site timezone is exposed), so the right move is to <strong>report it upstream</strong> and let the maintainers
+choose the remedy. The report should present two tiers:</p>
 <ol>
-<li>Clones <code>uvalib/terraform-infrastructure</code>
-   (local checkout: <code>/Users/ys2n/Code/uvalib/terraform-infrastructure</code>).</li>
-<li>Decrypts keys with <code>ccrypt</code>.</li>
-<li>Runs Terraform in <code>library.virginia.edu/staging/</code>.</li>
-<li>Runs Ansible playbooks (<code>deploy_netbadge.yml</code>, <code>deploy_backend.yml</code>) from
-   <code>library.virginia.edu/staging/ansible/</code>.</li>
+<li><strong>Floor — a WARNING (the minimum we're asking for).</strong> Today the clobber is <em>silent</em>: session
+   validation changes the process default timezone as a side effect and nothing says so, which is
+   exactly why DLS-67 took a CLI-vs-web diagnostic split to find. At minimum, when the module boots
+   SimpleSAMLphp and the timezone it's about to set differs from the host's current default, it
+   should <strong>log a warning</strong> — e.g. <em>"SimpleSAMLphp changed the process default timezone from
+   <code>America/New_York</code> to <code>UTC</code>; this can skew host-application timestamps for the rest of the
+   request."</em> Non-breaking, and it makes the failure mode diagnosable instead of invisible.</li>
+<li><strong>Preferred — save/restore</strong> the host's timezone around the boundary (below), which removes the
+   clobber entirely.</li>
 </ol>
-<div class="admonition warning">
-<p class="admonition-title">Scope restriction in the terraform repo</p>
-<p>The <code>terraform-infrastructure</code> repo contains many projects sharing resources. Edits
-there are restricted to the <code>library.virginia.edu/</code> subdirectory.</p>
-</div>
-<h2 id="release-tracking">Release tracking</h2>
-<p>Releases are tracked by <strong>ECR image tags</strong>, not git tags.</p>
-<h2 id="themes-deploy-on-a-separate-track">Themes deploy on a separate track</h2>
-<p>The active theme is <strong>not</strong> promoted by image tag — it's pinned to a git tag at
-deploy time via an SSM parameter, independently of the container. See
-<a href="../theme-deployment/">Theme deployment</a> for the full mechanism and runbook.</p>
-<h2 id="where-smoke-tests-fit">Where smoke tests fit</h2>
-<p>Post-deploy smoke tests (homepage, <a href="../../architecture/search-solr/">search/Solr</a>, a
-JSON:API endpoint, the NetBadge redirect) belong against the staging URL after the
-deploy step — the highest-ROI automated check for this site. See
-<a href="../../maintenance/">Maintenance</a>.</p>
+<p>The report's value is the <strong>diagnosis and reproducer</strong>, which this incident already has in full
+(see the linked incident doc): the standalone-vs-embedded distinction, the exact call site
+(<code>Utils/Time::initTimezone()</code>), the interaction with Drupal's <code>TimeZoneResolver</code>, and a minimal
+reproduction against the stock base image.</p>
+<h3 id="draft-issue-for-the-drupalsimplesamlphp_auth-queue">Draft issue (for the <code>drupal/simplesamlphp_auth</code> queue)</h3>
+<p>Formatted to the drupal.org issue-summary template. Fill the <code>Version</code> from the module release
+actually running (check <code>composer show drupal/simplesamlphp_auth</code>) before posting.</p>
+<blockquote>
+<p><strong>Title:</strong> In-process session validation silently clobbers the host's default timezone</p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Project</td>
+<td>SimpleSAMLphp Authentication (<code>simplesamlphp_auth</code>)</td>
+</tr>
+<tr>
+<td>Version</td>
+<td><em>(fill from the running release, e.g. <code>4.0.x-dev</code> / <code>4.0.5</code>)</em></td>
+</tr>
+<tr>
+<td>Component</td>
+<td>Code</td>
+</tr>
+<tr>
+<td>Category</td>
+<td>Bug report</td>
+</tr>
+<tr>
+<td>Priority</td>
+<td>Normal</td>
+</tr>
+<tr>
+<td>Status</td>
+<td>Active</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Problem/Motivation</strong></p>
+<p>When the module validates a SAML session it boots the SimpleSAMLphp library in-process. The
+library's <code>SimpleSAML\Utils\Time::initTimezone()</code> calls
+<code>date_default_timezone_set(getenv('TZ') ?: 'UTC')</code> and never restores the previous value. On a
+Drupal site whose timezone is not UTC, this overwrites the <code>date_default_timezone_set()</code> that
+core's <code>TimeZoneResolver</code> set earlier in the same request (subscribes to <code>KernelEvents::REQUEST</code>,
+priority 299), so every subsequent timestamp read/write in that request runs under the wrong zone
+— skewed by the offset. The change is completely silent: nothing logs that the process default
+timezone moved.</p>
+<p>This is arguably the <em>module's</em> concern rather than the library's: SimpleSAMLphp setting the
+process timezone is correct when it runs standalone (it owns the process), and wrong only when it
+runs <strong>embedded</strong> in a host request. The library can't tell which mode it's in; the module, being
+the code that embeds it, can.</p>
+<p>Real-world impact on a production site (site timezone <code>America/New_York</code>): authenticated editors
+saw all admin-side dates shifted +4h, and the Scheduler module unpublished content 4h early
+(values stored at the wrong epoch). Any site with a non-UTC site timezone is exposed. Note drush
+/CLI never boots SimpleSAMLphp, so every CLI diagnostic reports the correct timezone — the
+web-vs-CLI split is the only outward tell.</p>
+<p><strong>Steps to reproduce</strong></p>
+<ol>
+<li>Drupal site with a non-UTC site timezone (e.g. <code>America/New_York</code>) and <code>simplesamlphp_auth</code>
+   active for authenticated requests.</li>
+<li>As an authenticated user, create a node with a date-only scheduled unpublish (Scheduler) for a
+   future date.</li>
+<li>Observe the stored <code>unpublish_on</code> lands at the UTC wall-clock time rather than the site
+   timezone (fires hours early).</li>
+</ol>
+<p>Minimal alternative: within a single authenticated web request, log
+<code>date_default_timezone_get()</code> before and after the module's auth check — it changes from the site
+timezone to <code>getenv('TZ') ?: 'UTC'</code>.</p>
+<p><strong>Proposed resolution</strong></p>
+<ul>
+<li><em>Minimum:</em> log a <strong>warning</strong> when session validation changes the process default timezone away
+  from the host's current value, so the side effect is diagnosable instead of silent.</li>
+<li><em>Preferred:</em> <strong>snapshot and restore</strong> the host timezone around the in-process SAML calls
+  (<code>$tz = date_default_timezone_get();</code> … <code>date_default_timezone_set($tz);</code> in a <code>finally</code>), or
+  re-assert the host timezone via a low-priority post-auth event subscriber, so the module leaves
+  the process's global state as it found it.</li>
+</ul>
+<p><strong>Remaining tasks</strong></p>
+<ul>
+<li>Confirm the choke point(s) where the module boots the library (single service wrapper vs.
+  multiple entry paths).</li>
+<li>Decide between call-site save/restore and a re-asserting event subscriber.</li>
+<li>Patch + test coverage (assert the default timezone is unchanged across an authenticated
+  request).</li>
+</ul>
+<p><strong>User interface changes:</strong> None.</p>
+<p><strong>API changes:</strong> None.</p>
+<p><strong>Data model changes:</strong> None.</p>
+</blockquote>
+<h2 id="the-preferred-fix-snapshotrestore-around-the-saml-boundary">The preferred fix: snapshot/restore around the SAML boundary</h2>
+<p>The fix is environment-agnostic — it hardcodes no timezone and does not depend on <code>TZ</code> matching.
+The module snapshots whatever the host currently has and restores it around its calls into
+SimpleSAMLphp:</p>
+<div class="highlight"><pre><span></span><code><span class="x">$hostTz = date_default_timezone_get();   // Drupal already set America/New_York (REQUEST prio 299)</span>
+<span class="x">try {</span>
+<span class="x">    // ... boot SimpleSAMLphp / validate the session ...</span>
+<span class="x">} finally {</span>
+<span class="x">    date_default_timezone_set($hostTz);  // undo the guest&#39;s clobber</span>
+<span class="x">}</span>
+</code></pre></div>
+<p>Because it captures the <em>current</em> default rather than a literal zone, it keeps working even if the
+containers' <code>TZ</code> defaults drift — which is precisely the fragility the DLS-67 convention leaves
+open.</p>
+<h2 id="to-iterate-open-questions">To iterate / open questions</h2>
+<ul>
+<li><strong>Find the choke point.</strong> Does all in-process SAML access funnel through a single service/helper
+  in <code>simplesamlphp_auth</code> (so one wrapper covers it), or does session validation enter via multiple
+  paths (request subscriber, access checks, user-login) that each boot the library? Needs a read of
+  the module source (cloned into the gitignored webroot at runtime; not present without ddev up).
+  If there is no single boundary, look for the lowest common one — ideally the wrapper around
+  <code>\SimpleSAML\Auth\Simple</code> instantiation/<code>isAuthenticated()</code>.</li>
+<li><strong>Timing of the snapshot.</strong> Confirm the module's auth check runs <em>after</em> <code>TimeZoneResolver</code>
+  (REQUEST priority 299) so that <code>date_default_timezone_get()</code> at module entry already returns
+  Eastern rather than the raw UTC baseline. (Expected true — the resolver runs very early — but
+  verify.)</li>
+<li><strong>File the report.</strong> Post the draft above to the <code>drupal/simplesamlphp_auth</code> issue queue on
+  drupal.org (outward-facing — the user files it, not us). Attach the incident doc's reproducer.
+  The choke-point and snapshot-timing notes above strengthen the report but aren't blockers to
+  filing — the maintainers own the final placement.</li>
+<li><strong>Does upstream want it framed differently?</strong> They may prefer the guard live in a dedicated
+  event subscriber that re-asserts Drupal's timezone at a low priority after auth, rather than
+  wrapping call sites. Either satisfies the "host defends its global state" principle — the report
+  suggests both and leaves the choice to them.</li>
+<li><strong>Carried patch is fallback only.</strong> Only if the issue stalls upstream <em>and</em> we hit the bug again
+  despite the env fix: a composer patch in <code>local/ddev/patches/</code> + the package build, carried and
+  re-verified on every module update.</li>
+<li><strong>Keep the env fix regardless.</strong> Even with this in place, keeping <code>drupal-0</code> and <code>netbadge-0</code> on
+  the same <code>TZ</code> default remains good hygiene (and is what the incident doc's future-proofing rule
+  calls for). This proposal makes the system <em>robust to</em> drift; it is not a license to let the
+  defaults diverge.</li>
+</ul>
 
 
 
@@ -2490,7 +2660,7 @@ deploy step — the highest-ROI automated check for this site. See
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-datetime" title="July 2, 2026 16:29:04 UTC">July 2, 2026 16:29:04</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-datetime" title="July 13, 2026 12:42:48 UTC">July 13, 2026 12:42:48</span>
   </span>
 
     

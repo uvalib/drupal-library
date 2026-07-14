@@ -717,6 +717,34 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../operations/dls-67-timezone-fix-runbook/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DLS-67 Timezone Fix — Deploy Runbook
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -945,6 +973,34 @@
     <span class="md-status md-status--proposed"></span>
   
 
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../maintenance/drush-rds-tls-cert/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    drush SQL commands fail against RDS TLS (self-signed cert in chain)
+  
+
+    
+  </span>
+  
   
 
       </a>
@@ -1229,6 +1285,34 @@
     
   
     Proposal: SimpleSAMLphp version-compatibility check at deploy time
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="saml-timezone-clobber-guard/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Proposal: Guard the request timezone across the in-process SimpleSAMLphp boundary
   
 
     
@@ -1838,6 +1922,41 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../incidents/2026-07-10-scheduler-timezone-utc-clobber/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2026-07-10 — Site timezone off by 4h (SimpleSAMLphp clobbers the request timezone to UTC)
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--diagnosed"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -2116,6 +2235,34 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../session-logs/2026-07-10-scheduler-timezone-saml-clobber/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Session Log: DLS-67 — Scheduler/timezone skew traced to SimpleSAMLphp clobbering the request TZ
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -2211,6 +2358,10 @@ the mechanism moves into <a href="../operations/">Operations</a> or
 <td><a href="saml-version-compat-check/">SimpleSAMLphp version-compat check</a></td>
 <td>Advisory deploy-time check that the SP container and the Drupal-side SimpleSAMLphp share a <code>saml2</code> major (session-format compatibility); one shared Ansible task, no API/module.</td>
 </tr>
+<tr>
+<td><a href="saml-timezone-clobber-guard/">SAML timezone-clobber guard</a></td>
+<td>Long-term follow-up to DLS-67: file an <strong>upstream bug report</strong> to <code>drupal/simplesamlphp_auth</code> — the in-process session validation silently clobbers the host's default timezone. Floor ask: a WARNING; preferred: save/restore around the SAML boundary. The shipped env fix stays; includes a ready-to-post draft issue.</td>
+</tr>
 </tbody>
 </table>
 <h2 id="proposals-that-already-have-a-home-cross-listed">Proposals that already have a home (cross-listed)</h2>
@@ -2258,7 +2409,7 @@ for visibility. Once decided, these stay in Maintenance rather than moving elsew
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-datetime" title="July 2, 2026 20:01:27 UTC">July 2, 2026 20:01:27</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-datetime" title="July 13, 2026 12:42:48 UTC">July 13, 2026 12:42:48</span>
   </span>
 
     

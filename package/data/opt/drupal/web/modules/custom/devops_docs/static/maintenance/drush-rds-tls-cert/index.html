@@ -11,10 +11,10 @@
       
       
       
-        <link rel="prev" href="../syncing-data/">
+        <link rel="prev" href="../redis-cache-backend/">
       
       
-        <link rel="next" href="../theme-deployment/">
+        <link rel="next" href="../staging-saml-standardization-followup/">
       
       
         
@@ -25,7 +25,7 @@
     
     
       
-        <title>Deployment - library.virginia.edu Drupal Site</title>
+        <title>drush SQL commands fail against RDS TLS (self-signed cert in chain) - library.virginia.edu Drupal Site</title>
       
     
     
@@ -76,7 +76,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#deployment" class="md-skip">
+        <a href="#drush-sql-commands-fail-against-rds-tls-self-signed-cert-in-chain" class="md-skip">
           Skip to content
         </a>
       
@@ -112,7 +112,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Deployment
+              drush SQL commands fail against RDS TLS (self-signed cert in chain)
             
           </span>
         </div>
@@ -478,20 +478,18 @@
       
   
   
-    
   
   
-  
     
     
     
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
         
           
           <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
@@ -512,7 +510,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_3">
             <span class="md-nav__icon md-icon"></span>
             
@@ -530,7 +528,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../" class="md-nav__link">
+      <a href="../../operations/" class="md-nav__link">
         
   
   
@@ -558,7 +556,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../local-development/" class="md-nav__link">
+      <a href="../../operations/local-development/" class="md-nav__link">
         
   
   
@@ -586,7 +584,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../syncing-data/" class="md-nav__link">
+      <a href="../../operations/syncing-data/" class="md-nav__link">
         
   
   
@@ -611,37 +609,10 @@
                 
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Deployment
-  
-
-    
-  </span>
-  
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../../operations/deployment/" class="md-nav__link">
         
   
   
@@ -657,92 +628,6 @@
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#branch-strategy" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Branch strategy
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#build-pipelinebuildspecyml" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Build — pipeline/buildspec.yml
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#deploy-pipelinedeployspecyml" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Deploy — pipeline/deployspec.yml
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#release-tracking" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Release tracking
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#themes-deploy-on-a-separate-track" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Themes deploy on a separate track
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#where-smoke-tests-fit" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Where smoke tests fit
-      
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -755,7 +640,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../theme-deployment/" class="md-nav__link">
+      <a href="../../operations/theme-deployment/" class="md-nav__link">
         
   
   
@@ -783,7 +668,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../production-deploy-runbook/" class="md-nav__link">
+      <a href="../../operations/production-deploy-runbook/" class="md-nav__link">
         
   
   
@@ -811,7 +696,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../deploy-strategy-exploration/" class="md-nav__link">
+      <a href="../../operations/deploy-strategy-exploration/" class="md-nav__link">
         
   
   
@@ -839,7 +724,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../dls-67-timezone-fix-runbook/" class="md-nav__link">
+      <a href="../../operations/dls-67-timezone-fix-runbook/" class="md-nav__link">
         
   
   
@@ -871,18 +756,20 @@
       
   
   
+    
   
   
+  
     
     
     
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
         
           
           <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
@@ -903,7 +790,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_4">
             <span class="md-nav__icon md-icon"></span>
             
@@ -921,7 +808,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../maintenance/" class="md-nav__link">
+      <a href="../" class="md-nav__link">
         
   
   
@@ -949,7 +836,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../maintenance/module-updates/" class="md-nav__link">
+      <a href="../module-updates/" class="md-nav__link">
         
   
   
@@ -977,7 +864,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../maintenance/ckeditor4-to-ckeditor5/" class="md-nav__link">
+      <a href="../ckeditor4-to-ckeditor5/" class="md-nav__link">
         
   
   
@@ -1005,7 +892,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../maintenance/drupal-11-upgrade/" class="md-nav__link">
+      <a href="../drupal-11-upgrade/" class="md-nav__link">
         
   
   
@@ -1033,7 +920,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../maintenance/config-sync-mechanism-review/" class="md-nav__link">
+      <a href="../config-sync-mechanism-review/" class="md-nav__link">
         
   
   
@@ -1068,7 +955,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../maintenance/redis-cache-backend/" class="md-nav__link">
+      <a href="../redis-cache-backend/" class="md-nav__link">
         
   
   
@@ -1100,10 +987,37 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="../../maintenance/drush-rds-tls-cert/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    drush SQL commands fail against RDS TLS (self-signed cert in chain)
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   
@@ -1119,6 +1033,109 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#symptom" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Symptom
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#root-cause" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Root cause
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-fix" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The fix
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="The fix">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#why-not-just-skip-verification" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Why not "just skip verification"?
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#risk-how-to-de-risk" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Risk &amp; how to de-risk
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#current-workaround-until-this-ships" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Current workaround (until this ships)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#related" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Related
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -1131,7 +1148,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../maintenance/staging-saml-standardization-followup/" class="md-nav__link">
+      <a href="../staging-saml-standardization-followup/" class="md-nav__link">
         
   
   
@@ -2352,10 +2369,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#branch-strategy" class="md-nav__link">
+  <a href="#symptom" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Branch strategy
+        Symptom
       
     </span>
   </a>
@@ -2363,10 +2380,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#build-pipelinebuildspecyml" class="md-nav__link">
+  <a href="#root-cause" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Build — pipeline/buildspec.yml
+        Root cause
       
     </span>
   </a>
@@ -2374,10 +2391,38 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#deploy-pipelinedeployspecyml" class="md-nav__link">
+  <a href="#the-fix" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Deploy — pipeline/deployspec.yml
+        The fix
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="The fix">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#why-not-just-skip-verification" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Why not "just skip verification"?
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#risk-how-to-de-risk" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Risk &amp; how to de-risk
       
     </span>
   </a>
@@ -2385,10 +2430,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#release-tracking" class="md-nav__link">
+  <a href="#current-workaround-until-this-ships" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Release tracking
+        Current workaround (until this ships)
       
     </span>
   </a>
@@ -2396,21 +2441,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#themes-deploy-on-a-separate-track" class="md-nav__link">
+  <a href="#related" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Themes deploy on a separate track
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#where-smoke-tests-fit" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Where smoke tests fit
+        Related
       
     </span>
   </a>
@@ -2437,39 +2471,116 @@
   
 
 
-<h1 id="deployment">Deployment</h1>
-<h2 id="branch-strategy">Branch strategy</h2>
-<p><code>main</code> → <code>release</code> (via PR). Merging <code>release</code> triggers CI.</p>
-<h2 id="build-pipelinebuildspecyml">Build — <code>pipeline/buildspec.yml</code></h2>
-<p>Runs on AWS CodeBuild. Builds <code>package/Dockerfile</code>, pushes the image to AWS ECR tagged
-with a build timestamp and the git SHA. The latest build tag is stored in AWS SSM
-Parameter Store at <code>/containers/$CONTAINER_IMAGE/latest</code>.</p>
-<h2 id="deploy-pipelinedeployspecyml">Deploy — <code>pipeline/deployspec.yml</code></h2>
-<p>Runs on AWS CodeBuild:</p>
-<ol>
-<li>Clones <code>uvalib/terraform-infrastructure</code>
-   (local checkout: <code>/Users/ys2n/Code/uvalib/terraform-infrastructure</code>).</li>
-<li>Decrypts keys with <code>ccrypt</code>.</li>
-<li>Runs Terraform in <code>library.virginia.edu/staging/</code>.</li>
-<li>Runs Ansible playbooks (<code>deploy_netbadge.yml</code>, <code>deploy_backend.yml</code>) from
-   <code>library.virginia.edu/staging/ansible/</code>.</li>
-</ol>
-<div class="admonition warning">
-<p class="admonition-title">Scope restriction in the terraform repo</p>
-<p>The <code>terraform-infrastructure</code> repo contains many projects sharing resources. Edits
-there are restricted to the <code>library.virginia.edu/</code> subdirectory.</p>
+<h1 id="drush-sql-commands-fail-against-rds-tls-self-signed-cert-in-chain">drush SQL commands fail against RDS TLS (self-signed cert in chain)</h1>
+<div class="admonition info">
+<p class="admonition-title">Status</p>
+<p><strong>Diagnosed, fix identified, not yet done.</strong> Small change, but it touches the DB connection
+(<code>$databases</code>), so it needs live CA validation + its own deploy. <strong>Should be entered in Jira
+as its own ticket</strong> — it surfaced during the DLS-67 work (2026-07-13) but is an entirely
+separate concern and should not ride along with that fix.</p>
 </div>
-<h2 id="release-tracking">Release tracking</h2>
-<p>Releases are tracked by <strong>ECR image tags</strong>, not git tags.</p>
-<h2 id="themes-deploy-on-a-separate-track">Themes deploy on a separate track</h2>
-<p>The active theme is <strong>not</strong> promoted by image tag — it's pinned to a git tag at
-deploy time via an SSM parameter, independently of the container. See
-<a href="../theme-deployment/">Theme deployment</a> for the full mechanism and runbook.</p>
-<h2 id="where-smoke-tests-fit">Where smoke tests fit</h2>
-<p>Post-deploy smoke tests (homepage, <a href="../../architecture/search-solr/">search/Solr</a>, a
-JSON:API endpoint, the NetBadge redirect) belong against the staging URL after the
-deploy step — the highest-ROI automated check for this site. See
-<a href="../../maintenance/">Maintenance</a>.</p>
+<h2 id="symptom">Symptom</h2>
+<p><code>drush sql:query</code>, <code>drush sql:cli</code>, and <code>drush sql:dump</code> fail against the environment databases:</p>
+<div class="highlight"><pre><span></span><code>ERROR 2026 (HY000): TLS/SSL error: self-signed certificate in certificate chain
+</code></pre></div>
+<p>The site itself is unaffected — pages load, <code>php:script</code> reads the DB fine. Only the drush
+<code>sql:*</code> family breaks. (Discovered reading node 3172 during the
+<a href="../../incidents/2026-07-10-scheduler-timezone-utc-clobber/">DLS-67 timezone incident</a>; the
+DLS-67 runbook works around it with <code>php:script</code>.)</p>
+<h2 id="root-cause">Root cause</h2>
+<p>The database is <strong>AWS RDS MySQL 8</strong> (<code>MYSQL_HOST</code> → <code>rds-mysql8-&lt;env&gt;.internal.lib.virginia.edu</code>).
+RDS presents a TLS cert signed by the <strong>Amazon RDS CA</strong>, which is not in the container's trust
+store — so any client that <em>verifies</em> the chain sees a "self-signed certificate in certificate
+chain." Two clients, opposite defaults:</p>
+<table>
+<thead>
+<tr>
+<th>Client</th>
+<th>Verifies server cert?</th>
+<th>Result</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>PHP PDO</strong> (the site, <code>php:script</code>)</td>
+<td><strong>No</strong> by default, and <code>settings.php</code> sets no SSL config</td>
+<td>connects fine</td>
+</tr>
+<tr>
+<td><strong>MariaDB CLI</strong> (<code>11.8.x</code>, what drush shells out to)</td>
+<td><strong>Yes</strong> by default</td>
+<td>rejects the RDS chain</td>
+</tr>
+</tbody>
+</table>
+<p><code>settings.php</code> (in-repo, <code>package/data/opt/drupal/web/sites/default/settings.php</code>, baked via
+<code>package/Dockerfile</code>) builds the connection purely from <code>MYSQL_*</code> env vars with <strong>no SSL keys</strong>,
+so nothing tells either client where the RDS CA is.</p>
+<p>Crucially, drush invokes the client as <code>mysql --defaults-file=/tmp/drush_XXXX …</code>. <strong><code>--defaults-file</code>
+suppresses all other option files</strong> (<code>~/.my.cnf</code>, <code>/etc/mysql/my.cnf</code>), so a dropped-in <code>my.cnf</code>
+would be <em>ignored</em> — the SSL option has to land in the temp file drush itself writes.</p>
+<h2 id="the-fix">The fix</h2>
+<p>Drush builds that temp file in <code>Drush\Sql\SqlMysql::creds()</code>, which maps a specific set of
+<code>pdo</code> keys onto the <code>mysql</code> CLI — <code>PDO::MYSQL_ATTR_SSL_CA</code> → <code>ssl-ca=…</code> (also <code>SSL_CAPATH</code>,
+<code>SSL_CERT</code>, <code>SSL_KEY</code>, <code>SSL_CIPHER</code>). So a single <code>pdo</code> block in <code>settings.php</code> fixes the CLI
+across <strong>all</strong> environments (all use RDS via <code>MYSQL_HOST</code>):</p>
+<div class="highlight"><pre><span></span><code><span class="x">// package/data/opt/drupal/web/sites/default/settings.php — in $databases[&#39;default&#39;][&#39;default&#39;]</span>
+<span class="x">&#39;pdo&#39; =&gt; array(</span>
+<span class="x">  PDO::MYSQL_ATTR_SSL_CA                 =&gt; &#39;/opt/drupal/rds-global-bundle.pem&#39;,</span>
+<span class="x">  PDO::MYSQL_ATTR_SSL_VERIFY_SERVER_CERT =&gt; false,   // pin PDO&#39;s current behavior — see risk note</span>
+<span class="x">),</span>
+</code></pre></div>
+<p>Plus ship the RDS CA bundle in <code>package/Dockerfile</code>:</p>
+<div class="highlight"><pre><span></span><code><span class="k">RUN</span><span class="w"> </span>mkdir<span class="w"> </span>-p<span class="w"> </span>/opt/drupal<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>curl<span class="w"> </span>-fsSL<span class="w"> </span>https://truststore.pki.rds.amazonaws.com/global/global-bundle.pem<span class="w"> </span><span class="se">\</span>
+<span class="w">      </span>-o<span class="w"> </span>/opt/drupal/rds-global-bundle.pem
+</code></pre></div>
+<p>Effect:</p>
+<ul>
+<li><strong>drush</strong> gets <code>ssl-ca=/opt/drupal/rds-global-bundle.pem</code> in its temp defaults file → the
+  MariaDB CLI verifies the RDS chain → <code>sql:query</code> / <code>sql:cli</code> / <code>sql:dump</code> work, no flags, no
+  <code>php:script</code> workaround.</li>
+<li>Providing only <code>ssl-ca</code> makes the CLI verify the <strong>chain</strong> but not the hostname, so the internal
+  CNAME (<code>rds-mysql8-…</code> → the real RDS endpoint) won't trip a hostname mismatch — the current
+  failure is a chain-trust failure specifically.</li>
+</ul>
+<h3 id="why-not-just-skip-verification">Why not "just skip verification"?</h3>
+<p><code>creds()</code> has <strong>no</strong> mapping for <code>MYSQL_ATTR_SSL_VERIFY_SERVER_CERT</code>, so a "skip verify" toggle
+can't be propagated to the CLI through drush. The CA-trust route is the only clean lever — which
+is fine, because it's the more correct one (encrypted <strong>and</strong> authenticated).</p>
+<h2 id="risk-how-to-de-risk">Risk &amp; how to de-risk</h2>
+<p><code>$databases</code> is the site's lifeline. A wrong bundle path or a CA that doesn't match this RDS
+server would be a <strong>full DB-connection outage</strong>, not a cosmetic failure. Therefore:</p>
+<ol>
+<li><strong>Separate deploy from DLS-67</strong> (different blast radius — DLS-67 is a harmless env var; this is
+   the DB connection).</li>
+<li><strong>Setting <code>MYSQL_ATTR_SSL_VERIFY_SERVER_CERT =&gt; false</code></strong> deliberately pins PDO to its current
+   "connect, don't verify" behavior so the running site's connection is unchanged; only the CLI
+   starts verifying (via <code>ssl-ca</code>).</li>
+<li><strong>Validate the CA against the live server first — no deploy needed.</strong> Inside the container, run
+   the MariaDB CLI manually with the bundle (password via <code>MYSQL_PWD</code> so it's not in <code>argv</code>):
+   <div class="highlight"><pre><span></span><code><span class="c1"># download the bundle to /tmp first (or curl it if the container has egress)</span>
+<span class="nv">MYSQL_PWD</span><span class="o">=</span><span class="s2">&quot;</span><span class="nv">$MYSQL_PASSWORD</span><span class="s2">&quot;</span><span class="w"> </span>mysql<span class="w"> </span>-h<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$MYSQL_HOST</span><span class="s2">&quot;</span><span class="w"> </span>-u<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$MYSQL_USER</span><span class="s2">&quot;</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$MYSQL_DATABASE</span><span class="s2">&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--ssl-ca<span class="o">=</span>/tmp/rds-global-bundle.pem<span class="w"> </span>-e<span class="w"> </span><span class="s1">&#39;SELECT 1&#39;</span>
+</code></pre></div>
+   <code>SELECT 1</code> succeeding with the bundle (and failing without it) confirms the bundle is the right
+   trust anchor before any <code>settings.php</code> change.</li>
+<li>Roll out per the <a href="../../operations/production-deploy-runbook/">production deploy runbook</a>; verify
+   <code>drush sql:query "SELECT 1"</code> works on each node after.</li>
+</ol>
+<h2 id="current-workaround-until-this-ships">Current workaround (until this ships)</h2>
+<p>Read the DB through Drupal's PDO instead of the CLI — <code>drush php:script -</code> on stdin:</p>
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>docker<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>-i<span class="w"> </span>drupal-0<span class="w"> </span>/opt/drupal/vendor/bin/drush<span class="w"> </span>php:script<span class="w"> </span>-<span class="w"> </span><span class="s">&lt;&lt;&#39;PHP&#39;</span>
+<span class="s">print(\Drupal::database()-&gt;query(&#39;SELECT 1&#39;)-&gt;fetchField().PHP</span>_EOL<span class="o">)</span><span class="p">;</span>
+PHP
+</code></pre></div>
+<h2 id="related">Related</h2>
+<ul>
+<li><a href="../../operations/production-deploy-runbook/">Production deploy runbook</a></li>
+<li><a href="../../operations/dls-67-timezone-fix-runbook/">DLS-67 timezone fix runbook</a> — where this was hit and worked around</li>
+<li><code>package/data/opt/drupal/web/sites/default/settings.php</code> — where the <code>pdo</code> block goes</li>
+<li><code>package/Dockerfile</code> — where the CA bundle is shipped</li>
+</ul>
 
 
 
@@ -2490,7 +2601,7 @@ deploy step — the highest-ROI automated check for this site. See
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-datetime" title="July 2, 2026 16:29:04 UTC">July 2, 2026 16:29:04</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-datetime" title="July 13, 2026 20:53:27 UTC">July 13, 2026 20:53:27</span>
   </span>
 
     
