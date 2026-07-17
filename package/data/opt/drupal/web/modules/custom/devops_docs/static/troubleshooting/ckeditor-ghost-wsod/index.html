@@ -11,28 +11,28 @@
       
       
       
-        <link rel="prev" href="../troubleshooting/ckeditor-ghost-wsod/">
+        <link rel="prev" href="../php-oom-fatals/">
       
       
-        <link rel="next" href="2026-06-26-prod-cache-deadlock-wsod/">
+        <link rel="next" href="../../incidents/">
       
       
         
       
       
-      <link rel="icon" href="../assets/images/favicon.png">
+      <link rel="icon" href="../../assets/images/favicon.png">
       <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
     
     
       
-        <title>Incidents - library.virginia.edu Drupal Site</title>
+        <title>CKEditor 4 "ghost module" WSOD on /admin/modules - library.virginia.edu Drupal Site</title>
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/main.484c7ddc.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
       
         
-        <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
       
       
 
@@ -51,9 +51,9 @@
       
     
     
-      <link rel="stylesheet" href="../stylesheets/extra.css">
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
     
-    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
 
@@ -76,7 +76,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#incidents" class="md-skip">
+        <a href="#ckeditor-4-ghost-module-wsod-on-adminmodules" class="md-skip">
           Skip to content
         </a>
       
@@ -92,7 +92,7 @@
 
 <header class="md-header md-header--shadow" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href=".." title="library.virginia.edu Drupal Site" class="md-header__button md-logo" aria-label="library.virginia.edu Drupal Site" data-md-component="logo">
+    <a href="../.." title="library.virginia.edu Drupal Site" class="md-header__button md-logo" aria-label="library.virginia.edu Drupal Site" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
@@ -112,7 +112,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Incidents
+              CKEditor 4 "ghost module" WSOD on /admin/modules
             
           </span>
         </div>
@@ -202,7 +202,7 @@
 
 <nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href=".." title="library.virginia.edu Drupal Site" class="md-nav__button md-logo" aria-label="library.virginia.edu Drupal Site" data-md-component="logo">
+    <a href="../.." title="library.virginia.edu Drupal Site" class="md-nav__button md-logo" aria-label="library.virginia.edu Drupal Site" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
@@ -232,7 +232,7 @@
   
   
     <li class="md-nav__item">
-      <a href=".." class="md-nav__link">
+      <a href="../.." class="md-nav__link">
         
   
   
@@ -306,7 +306,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../architecture/" class="md-nav__link">
+      <a href="../../architecture/" class="md-nav__link">
         
   
   
@@ -334,7 +334,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../architecture/hostnames-and-urls/" class="md-nav__link">
+      <a href="../../architecture/hostnames-and-urls/" class="md-nav__link">
         
   
   
@@ -362,7 +362,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../architecture/container-and-build/" class="md-nav__link">
+      <a href="../../architecture/container-and-build/" class="md-nav__link">
         
   
   
@@ -390,7 +390,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../architecture/config-management/" class="md-nav__link">
+      <a href="../../architecture/config-management/" class="md-nav__link">
         
   
   
@@ -418,7 +418,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../architecture/authentication-netbadge/" class="md-nav__link">
+      <a href="../../architecture/authentication-netbadge/" class="md-nav__link">
         
   
   
@@ -446,7 +446,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../architecture/search-solr/" class="md-nav__link">
+      <a href="../../architecture/search-solr/" class="md-nav__link">
         
   
   
@@ -528,7 +528,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../operations/" class="md-nav__link">
+      <a href="../../operations/" class="md-nav__link">
         
   
   
@@ -556,7 +556,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../operations/local-development/" class="md-nav__link">
+      <a href="../../operations/local-development/" class="md-nav__link">
         
   
   
@@ -584,7 +584,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../operations/syncing-data/" class="md-nav__link">
+      <a href="../../operations/syncing-data/" class="md-nav__link">
         
   
   
@@ -612,7 +612,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../operations/deployment/" class="md-nav__link">
+      <a href="../../operations/deployment/" class="md-nav__link">
         
   
   
@@ -640,7 +640,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../operations/theme-deployment/" class="md-nav__link">
+      <a href="../../operations/theme-deployment/" class="md-nav__link">
         
   
   
@@ -668,7 +668,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../operations/production-deploy-runbook/" class="md-nav__link">
+      <a href="../../operations/production-deploy-runbook/" class="md-nav__link">
         
   
   
@@ -696,7 +696,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../operations/deploy-strategy-exploration/" class="md-nav__link">
+      <a href="../../operations/deploy-strategy-exploration/" class="md-nav__link">
         
   
   
@@ -724,7 +724,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../operations/dls-67-timezone-fix-runbook/" class="md-nav__link">
+      <a href="../../operations/dls-67-timezone-fix-runbook/" class="md-nav__link">
         
   
   
@@ -806,7 +806,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../maintenance/" class="md-nav__link">
+      <a href="../../maintenance/" class="md-nav__link">
         
   
   
@@ -834,7 +834,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../maintenance/module-updates/" class="md-nav__link">
+      <a href="../../maintenance/module-updates/" class="md-nav__link">
         
   
   
@@ -862,7 +862,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../maintenance/ckeditor4-to-ckeditor5/" class="md-nav__link">
+      <a href="../../maintenance/ckeditor4-to-ckeditor5/" class="md-nav__link">
         
   
   
@@ -890,7 +890,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../maintenance/drupal-11-upgrade/" class="md-nav__link">
+      <a href="../../maintenance/drupal-11-upgrade/" class="md-nav__link">
         
   
   
@@ -918,7 +918,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../maintenance/config-sync-mechanism-review/" class="md-nav__link">
+      <a href="../../maintenance/config-sync-mechanism-review/" class="md-nav__link">
         
   
   
@@ -953,7 +953,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../maintenance/redis-cache-backend/" class="md-nav__link">
+      <a href="../../maintenance/redis-cache-backend/" class="md-nav__link">
         
   
   
@@ -988,7 +988,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../maintenance/drush-rds-tls-cert/" class="md-nav__link">
+      <a href="../../maintenance/drush-rds-tls-cert/" class="md-nav__link">
         
   
   
@@ -1016,7 +1016,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../maintenance/staging-saml-standardization-followup/" class="md-nav__link">
+      <a href="../../maintenance/staging-saml-standardization-followup/" class="md-nav__link">
         
   
   
@@ -1105,7 +1105,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../proposals/" class="md-nav__link">
+      <a href="../../proposals/" class="md-nav__link">
         
   
   
@@ -1133,7 +1133,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../proposals/ephemeral-environments/" class="md-nav__link">
+      <a href="../../proposals/ephemeral-environments/" class="md-nav__link">
         
   
   
@@ -1161,7 +1161,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../proposals/environment-contracts/" class="md-nav__link">
+      <a href="../../proposals/environment-contracts/" class="md-nav__link">
         
   
   
@@ -1189,7 +1189,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../proposals/util-checkout-rethink/" class="md-nav__link">
+      <a href="../../proposals/util-checkout-rethink/" class="md-nav__link">
         
   
   
@@ -1217,7 +1217,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../proposals/saml-version-compat-check/" class="md-nav__link">
+      <a href="../../proposals/saml-version-compat-check/" class="md-nav__link">
         
   
   
@@ -1245,7 +1245,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../proposals/saml-timezone-clobber-guard/" class="md-nav__link">
+      <a href="../../proposals/saml-timezone-clobber-guard/" class="md-nav__link">
         
   
   
@@ -1327,7 +1327,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../adr/" class="md-nav__link">
+      <a href="../../adr/" class="md-nav__link">
         
   
   
@@ -1355,7 +1355,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../adr/001-config-in-separate-repo/" class="md-nav__link">
+      <a href="../../adr/001-config-in-separate-repo/" class="md-nav__link">
         
   
   
@@ -1383,7 +1383,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../adr/002-https-at-load-balancer/" class="md-nav__link">
+      <a href="../../adr/002-https-at-load-balancer/" class="md-nav__link">
         
   
   
@@ -1411,7 +1411,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../adr/003-runtime-cloned-themes-modules/" class="md-nav__link">
+      <a href="../../adr/003-runtime-cloned-themes-modules/" class="md-nav__link">
         
   
   
@@ -1439,7 +1439,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../adr/004-target-drupal-11/" class="md-nav__link">
+      <a href="../../adr/004-target-drupal-11/" class="md-nav__link">
         
   
   
@@ -1467,7 +1467,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../adr/005-theme-asset-delivery-bounded-divergence/" class="md-nav__link">
+      <a href="../../adr/005-theme-asset-delivery-bounded-divergence/" class="md-nav__link">
         
   
   
@@ -1499,18 +1499,20 @@
       
   
   
+    
   
   
+  
     
     
     
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" checked>
         
           
           <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
@@ -1531,7 +1533,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_7">
             <span class="md-nav__icon md-icon"></span>
             
@@ -1549,7 +1551,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../troubleshooting/" class="md-nav__link">
+      <a href="../" class="md-nav__link">
         
   
   
@@ -1577,7 +1579,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../troubleshooting/mariadb-ssl-dump/" class="md-nav__link">
+      <a href="../mariadb-ssl-dump/" class="md-nav__link">
         
   
   
@@ -1612,7 +1614,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../troubleshooting/simplesamlphp-secure-cookie/" class="md-nav__link">
+      <a href="../simplesamlphp-secure-cookie/" class="md-nav__link">
         
   
   
@@ -1647,7 +1649,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../troubleshooting/ddev-one-name-per-directory/" class="md-nav__link">
+      <a href="../ddev-one-name-per-directory/" class="md-nav__link">
         
   
   
@@ -1682,7 +1684,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../troubleshooting/php-oom-fatals/" class="md-nav__link">
+      <a href="../php-oom-fatals/" class="md-nav__link">
         
   
   
@@ -1714,10 +1716,44 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="../troubleshooting/ckeditor-ghost-wsod/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CKEditor 4 "ghost module" WSOD on /admin/modules
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--mitigated"></span>
+  
+
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   
@@ -1740,6 +1776,81 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#symptom" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Symptom
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cause" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cause
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#fix-interim-mitigation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Fix (interim mitigation)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#why-it-refuses-prod" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Why it refuses prod
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#durable-fix" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Durable fix
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -1756,20 +1867,18 @@
       
   
   
-    
   
   
-  
     
     
     
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" >
         
           
           <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
@@ -1790,7 +1899,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_8">
             <span class="md-nav__icon md-icon"></span>
             
@@ -1805,19 +1914,10 @@
                 
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../../incidents/" class="md-nav__link">
         
   
   
@@ -1833,7 +1933,6 @@
   
 
       </a>
-      
     </li>
   
 
@@ -1846,7 +1945,7 @@
   
   
     <li class="md-nav__item">
-      <a href="2026-06-26-prod-cache-deadlock-wsod/" class="md-nav__link">
+      <a href="../../incidents/2026-06-26-prod-cache-deadlock-wsod/" class="md-nav__link">
         
   
   
@@ -1881,7 +1980,7 @@
   
   
     <li class="md-nav__item">
-      <a href="2026-07-06-php-oom-fatal-occurrences/" class="md-nav__link">
+      <a href="../../incidents/2026-07-06-php-oom-fatal-occurrences/" class="md-nav__link">
         
   
   
@@ -1916,7 +2015,7 @@
   
   
     <li class="md-nav__item">
-      <a href="2026-07-10-scheduler-timezone-utc-clobber/" class="md-nav__link">
+      <a href="../../incidents/2026-07-10-scheduler-timezone-utc-clobber/" class="md-nav__link">
         
   
   
@@ -2005,7 +2104,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../session-logs/" class="md-nav__link">
+      <a href="../../session-logs/" class="md-nav__link">
         
   
   
@@ -2033,7 +2132,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../session-logs/2026-06-18-module-assessment-docs-and-config-sync/" class="md-nav__link">
+      <a href="../../session-logs/2026-06-18-module-assessment-docs-and-config-sync/" class="md-nav__link">
         
   
   
@@ -2061,7 +2160,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../session-logs/2026-06-25-deploys-module-upgrades-and-prod-saml-audit/" class="md-nav__link">
+      <a href="../../session-logs/2026-06-25-deploys-module-upgrades-and-prod-saml-audit/" class="md-nav__link">
         
   
   
@@ -2089,7 +2188,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../session-logs/2026-06-29-prod-saml-verify-and-doc-checkin/" class="md-nav__link">
+      <a href="../../session-logs/2026-06-29-prod-saml-verify-and-doc-checkin/" class="md-nav__link">
         
   
   
@@ -2117,7 +2216,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../session-logs/2026-07-01-devops-docs-module/" class="md-nav__link">
+      <a href="../../session-logs/2026-07-01-devops-docs-module/" class="md-nav__link">
         
   
   
@@ -2145,7 +2244,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../session-logs/2026-07-01-preview-hostname-redirect/" class="md-nav__link">
+      <a href="../../session-logs/2026-07-01-preview-hostname-redirect/" class="md-nav__link">
         
   
   
@@ -2173,7 +2272,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../session-logs/2026-07-02-devops-docs-live-and-design-proposals/" class="md-nav__link">
+      <a href="../../session-logs/2026-07-02-devops-docs-live-and-design-proposals/" class="md-nav__link">
         
   
   
@@ -2201,7 +2300,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../session-logs/2026-07-06-oom-investigation-and-doc-taxonomy/" class="md-nav__link">
+      <a href="../../session-logs/2026-07-06-oom-investigation-and-doc-taxonomy/" class="md-nav__link">
         
   
   
@@ -2229,7 +2328,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../session-logs/2026-07-10-scheduler-timezone-saml-clobber/" class="md-nav__link">
+      <a href="../../session-logs/2026-07-10-scheduler-timezone-saml-clobber/" class="md-nav__link">
         
   
   
@@ -2257,7 +2356,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../session-logs/2026-07-17-dls-67-prod-deploy/" class="md-nav__link">
+      <a href="../../session-logs/2026-07-17-dls-67-prod-deploy/" class="md-nav__link">
         
   
   
@@ -2305,6 +2404,69 @@
     
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#symptom" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Symptom
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cause" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cause
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#fix-interim-mitigation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Fix (interim mitigation)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#why-it-refuses-prod" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Why it refuses prod
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#durable-fix" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Durable fix
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -2323,38 +2485,71 @@
   
 
 
-<h1 id="incidents">Incidents</h1>
-<p>The facts of what happened in production: timeline, evidence, and root cause (if known) —
-whether that's a single discrete event or the accumulated occurrences of a recurring issue.
-An incident note is the record; the <a href="../operations/">runbooks</a> capture any
-<em>corrected procedure</em> that came out of it, and an active, unresolved problem's ongoing
-investigation lives in <a href="../troubleshooting/">Troubleshooting</a>.</p>
-<table>
-<thead>
-<tr>
-<th>Date</th>
-<th>Incident</th>
-<th>Root cause</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>2026-06-26</td>
-<td><a href="2026-06-26-prod-cache-deadlock-wsod/">Production WSOD during rolling deploy</a></td>
-<td>Database deadlock on the shared cache (<code>drush cr</code> on one node while the other served live traffic)</td>
-</tr>
-<tr>
-<td>2026-07-06</td>
-<td><a href="2026-07-06-php-oom-fatal-occurrences/">PHP OOM fatals — 30-day occurrence log</a></td>
-<td>Not yet identified — Twig render + KCFinder upload, two distinct signatures</td>
-</tr>
-<tr>
-<td>2026-07-10</td>
-<td><a href="2026-07-10-scheduler-timezone-utc-clobber/">Site timezone off by 4h (DLS-67)</a></td>
-<td>SimpleSAMLphp resets the request timezone to UTC in-process (<code>config.php</code> <code>getenv('TZ')</code>, container <code>TZ=UTC</code>), clobbering Drupal's <code>America/New_York</code>; fix verified locally, deploy pending</td>
-</tr>
-</tbody>
-</table>
+<h1 id="ckeditor-4-ghost-module-wsod-on-adminmodules">CKEditor 4 "ghost module" WSOD on /admin/modules</h1>
+<p><strong>Status:</strong> mitigated (interim helper 2026-07-17); durable fix pending the prod uninstall</p>
+<h2 id="symptom">Symptom</h2>
+<p>A non-prod environment (typically <strong>staging</strong>, or local ddev) throws a white screen of
+death on <strong><code>/admin/modules</code></strong> — and other pages that enumerate the full extension list —
+while normal pages (home, <code>/user/login</code>) still return 200. The container log shows:</p>
+<div class="highlight"><pre><span></span><code>Uncaught PHP Exception Drupal\Core\Extension\Exception\UnknownExtensionException:
+  &quot;The module ckeditor does not exist.&quot; at .../ExtensionList.php
+  referer: .../admin/modules
+</code></pre></div>
+<h2 id="cause">Cause</h2>
+<p>A <strong>mismatch between code and database</strong>:</p>
+<ul>
+<li>The running image is built from <code>main</code> (or any commit after <code>5d9513b</code>), so the CKEditor 4
+  contrib module files (<code>web/modules/contrib/ckeditor</code>) are <strong>removed</strong>.</li>
+<li>The database still has <strong><code>ckeditor</code> enabled</strong> in <code>core.extension</code>.</li>
+</ul>
+<p>Drupal boots fine (it tolerates the missing module as a warning), but any operation that
+enumerates every extension — <code>/admin/modules</code> — calls <code>getName()</code> on the enabled-but-missing
+module and fatals.</p>
+<p>This happens whenever a <strong>prod DB snapshot lands on <code>main</code> code</strong>, because:</p>
+<ul>
+<li><strong>Prod's DB still has <code>ckeditor</code> enabled</strong> (prod deliberately runs a <em>pre-removal</em> image so
+  its files and DB match — see the <a href="../../maintenance/ckeditor4-to-ckeditor5/">CKEditor 4 removal</a>
+  status), and</li>
+<li>the same snapshot also <strong>disables <code>devops_docs</code></strong>, since neither module is in config-as-code
+  (<code>core.extension.yml</code>).</li>
+</ul>
+<p>It is the reverse of the required order: <strong>files were removed before the DB was uninstalled.</strong>
+Live example: the 2026-07-14 prod→staging DB sync, and again after the 2026-07-17 <code>main</code> deploy
+to staging.</p>
+<div class="admonition note">
+<p class="admonition-title">Prod is not affected</p>
+<p>Prod runs an image where the ckeditor files are still present, matching its DB — so prod
+never hits this. This is exactly why the DLS-67 timezone fix shipped a decoupled image to
+prod instead of <code>main</code>.</p>
+</div>
+<h2 id="fix-interim-mitigation">Fix (interim mitigation)</h2>
+<p>A guarded, idempotent helper normalises non-prod module state:</p>
+<div class="highlight"><pre><span></span><code>./local/ddev/backups/ckeditor-ghost-cleanup.sh<span class="w"> </span><span class="o">[</span>local<span class="p">|</span>dev<span class="p">|</span>staging<span class="o">]</span><span class="w">   </span><span class="c1"># default: local</span>
+</code></pre></div>
+<p>It:</p>
+<ul>
+<li>removes <code>ckeditor</code> from <code>core.extension</code> + deletes its <code>system.schema</code> key — <strong>only when it
+  is enabled AND its files are absent</strong> (a genuine ghost). A plain <code>drush pm:uninstall ckeditor</code>
+  cannot be used here: with the files already gone it throws the same <code>UnknownExtensionException</code>.</li>
+<li>re-enables <code>devops_docs</code> when the files are present but it is disabled.</li>
+<li>rebuilds cache only if it changed something.</li>
+<li><strong>refuses <code>prod</code></strong> (exit 2) — see below.</li>
+</ul>
+<p>Because it is guarded, it is a <strong>safe no-op</strong> on a healthy environment (e.g. dev/prod, where
+ckeditor's files are still present), so it can be run any time. It is also invoked automatically
+at the end of <code>update-db-from-remote.sh</code> after a local DB import.</p>
+<h2 id="why-it-refuses-prod">Why it refuses prod</h2>
+<p>On prod's <strong>two live nodes sharing one RDS cache backend</strong>, a config delete + container/discovery
+rebuild is a mass write to the shared <code>cache_*</code> tables — the same deadlock class as <code>drush cr</code>
+that caused the <a href="../../incidents/2026-06-26-prod-cache-deadlock-wsod/">2026-06-26 WSOD</a>. The prod
+uninstall must be done under the maintenance-mode variant of the
+<a href="../../operations/production-deploy-runbook/">Production Deploy Runbook</a>, not this helper.</p>
+<h2 id="durable-fix">Durable fix</h2>
+<p>Uninstall <code>ckeditor</code> on <strong>prod while its files still exist</strong> (maintenance-mode window), then deploy
+the ckeditor-removed image. After that, prod's DB no longer seeds the ghost, every prod→staging
+sync is clean, <code>main</code> becomes deployable to prod, and this helper becomes a permanent no-op that can
+be retired. Tracked with the <a href="../../maintenance/ckeditor4-to-ckeditor5/">CKEditor 4 removal</a> work and
+the <a href="../../maintenance/drupal-11-upgrade/">Drupal 11 upgrade</a>.</p>
 
 
 
@@ -2375,7 +2570,7 @@ investigation lives in <a href="../troubleshooting/">Troubleshooting</a>.</p>
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-datetime" title="July 13, 2026 12:42:48 UTC">July 13, 2026 12:42:48</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-datetime" title="July 17, 2026 13:49:51 UTC">July 17, 2026 13:49:51</span>
   </span>
 
     
@@ -2431,10 +2626,10 @@ investigation lives in <a href="../troubleshooting/">Troubleshooting</a>.</p>
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.top", "search.highlight"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.top", "search.highlight"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
     
     
-      <script src="../assets/javascripts/bundle.79ae519e.min.js"></script>
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
       
     
   </body>
