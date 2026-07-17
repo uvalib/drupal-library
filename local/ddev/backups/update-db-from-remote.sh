@@ -122,4 +122,14 @@ if $IMPORT_DB; then
     gunzip -c "$BACKUP" | ddev import-db
     echo "Clearing cache..."
     ddev drush cr
+
+    # A DB pulled from prod/dev carries `ckeditor` ENABLED (and `devops_docs`
+    # DISABLED). If this branch's code has ckeditor removed, that leaves a ghost
+    # module that WSODs /admin/modules. Normalise local module state. The helper
+    # is guarded/idempotent — a safe no-op when nothing needs fixing.
+    CLEANUP="$SCRIPT_DIR/ckeditor-ghost-cleanup.sh"
+    if [[ -x "$CLEANUP" ]]; then
+        echo "Normalising module state (ckeditor ghost / devops_docs)..."
+        "$CLEANUP" local || echo "Warning: ckeditor-ghost-cleanup returned non-zero — check module state manually."
+    fi
 fi
