@@ -6,9 +6,9 @@
 **Outcome:** Deployed the DLS-67 timezone fix to **both production nodes** via a zero-downtime
 rolling deploy of image tag **`build-20260714134450`** (= `gitcommit-4079ce3`). Both nodes now
 run `TZ=America/New_York`; `https://library.virginia.edu/` served HTTP 200 throughout. `drush cr`
-skipped per the locked decision (pure env swap). Behavioral verification was already done by the
-DLS-67 reporter (Amber / akl3b) on staging against the identical image. Remaining: Amber re-saves
-node 3172 on prod (tracked in DLS-67) and the close-out items.
+skipped per the locked decision (pure env swap). Behavioral verification done by the DLS-67 reporter
+(Amber / akl3b) via NetBadge; the single affected row (node 3172) was re-saved on prod and verified
+corrected. **DLS-67 functionally resolved** — only close-out (resolution comment, upstream bug) left.
 
 Runbook: [operations/dls-67-timezone-fix-runbook.md](../operations/dls-67-timezone-fix-runbook.md).
 Generic mechanics: [operations/production-deploy-runbook.md](../operations/production-deploy-runbook.md).
@@ -72,17 +72,27 @@ every mutating step.
   the identical prod artifact `build-20260714134450` — she reported "everything looked fixed."
   This is the gold-standard proof for the exact image now live on prod. ✓
 
-## 6. State at end of session
+## 6. Node 3172 corrected on prod
 
-- Fix **live on both prod nodes**; site healthy.
-- Node **3172** not yet corrected — Yuji updated DLS-67 asking Amber to re-save it (to noon; the
-  now-live fix will store `1784736000`, replacing the bad `1784721600`) and report back. Fires
-  2026-07-22, so there is runway. Claude to verify the raw value once she saves.
-- No repo changes this session (deploy-only; the fix commits landed 2026-07-14).
+Amber re-saved node 3172 on prod via NetBadge (new revision `vid=22137`, `changed=2026-07-17 09:07`).
+Verified via a direct-DB `php:script` read: `unpublish_on = 1784736000` (2026-07-22 **12:00 EDT**),
+replacing the bad `1784721600` (08:00 EDT). She signed off: *"The times I save items matches our current
+time zone now."* All three closure conditions met — fix live on both nodes, reporter-confirmed behavior,
+and the one affected row corrected.
+
+## 7. Related work this session (spun out of the docs push)
+
+Pushing the docs commits to `main` auto-deployed a `main`-based image to **staging** (ckeditor files
+removed) onto staging's prod-snapshot DB (ckeditor still enabled) → the CKEditor 4 **ghost-module WSOD**
+on `/admin/modules`. Fixed staging via a guarded config removal, then added an interim mitigation
+(`local/ddev/backups/ckeditor-ghost-cleanup.sh`, wired into `update-db-from-remote.sh`) and a
+[troubleshooting page](../troubleshooting/ckeditor-ghost-wsod.md). Prod was never affected. See that page
+and the [CKEditor 4 removal](../maintenance/ckeditor4-to-ckeditor5.md) notes; the durable fix is the prod
+ckeditor uninstall.
 
 ## Next steps
 
-1. Amber re-saves node 3172 on prod via NetBadge → Claude confirms `unpublish_on = 1784736000`.
-2. Post the DLS-67 resolution comment (after 3172 is confirmed corrected).
+1. ~~Amber re-saves node 3172 on prod~~ ✅ done + verified.
+2. Post the DLS-67 resolution comment (drafted 2026-07-17; 3172 confirmed corrected).
 3. File the upstream `drupal/simplesamlphp_auth` bug (draft in
    [proposals/saml-timezone-clobber-guard.md](../proposals/saml-timezone-clobber-guard.md)).
