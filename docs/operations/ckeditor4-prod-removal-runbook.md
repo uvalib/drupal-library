@@ -150,9 +150,51 @@ The gap between prod's `4079ce3` and `main` is 41 commits, but almost all of it 
     treatment.
 
     !!! danger "Restoring is mandatory, not hygiene"
-        While `503` is accepted, a genuinely broken Drupal (fatal → 503) also counts as
-        healthy and the ALB will route users straight into the outage. The exposure lasts
+        While `503` is accepted, an **accidental** maintenance mode becomes invisible — nodes
+        stay in rotation, health checks stay green, and nothing alerts. The exposure lasts
         exactly as long as the matcher stays widened.
+
+### Why accepting 503 does not mask real failures
+
+The obvious worry about widening the matcher is that it blinds the health check to genuine
+faults. On this stack it does not, and it is worth knowing why before running the window.
+
+Exhaustively, in non-test core code, only two things emit 503:
+
+| Source | Trigger |
+|---|---|
+| `MaintenanceModeSubscriber` (+ JSON:API variant) | **Maintenance mode** — the deliberate case |
+| `CKEditor5ImageController`, `FileUploadResource`, `jsonapi/FileUpload`, `TemporaryJsonapiFileFieldUploader` | **File already locked for writing**, sent with `Retry-After: 1` |
+
+The file-lock cases fire only on **upload endpoints**, never on `/`, so they cannot influence
+the health check at all.
+
+The failures that genuinely warrant pulling a node produce something else entirely, and
+therefore **still fail a `200-299,503` matcher**:
+
+| Failure | Status | Node still pulled? |
+|---|---|---|
+| Database / RDS unreachable | **500** | ✅ |
+| PHP fatal, OOM | **500** | ✅ |
+| Apache down, container dead | *no response* (refused / timeout) | ✅ |
+| Drupal bootstrap failure | **500** | ✅ |
+
+There is no 503 path tied to database connection failure anywhere in core — DB failures surface
+as 500. Note too that this image runs **mod_php, not php-fpm**: with FastCGI, Apache emits 503
+when the pool is down or saturated, which *would* be a real signal worth keeping. That failure
+mode does not exist here. The only loaded proxy module serves the `/simplesaml/` `ProxyPass`, so
+a dead netbadge container 503s on `/simplesaml/` while `/` stays healthy — correctly, since the
+rest of the site still works.
+
+**So during the window, the only thing the widened matcher hides is maintenance mode itself** —
+which is precisely what you are trying to hide from it.
+
+!!! tip "The real fix is to stop health-checking a Drupal page"
+    All of this stems from the health check asking `/` — which conflates *"can this node
+    serve?"* with *"is the site in maintenance?"*. A dedicated endpoint that opts out of
+    maintenance mode would let the matcher stay `200-299` permanently and remove the ALB step
+    from this procedure entirely. See
+    [Proposal: a health-check endpoint that survives maintenance mode](../proposals/health-check-endpoint.md).
 
 ### Blast radius of the matcher change
 
