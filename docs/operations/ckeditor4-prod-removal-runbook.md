@@ -92,34 +92,60 @@ The gap between prod's `4079ce3` and `main` is 41 commits, but almost all of it 
   /Users/ys2n/Code/scripts/uvalib/aws/alb-state drupal-prod
   ```
 
-!!! danger "Confirm the ALB health check matcher before enabling maintenance mode"
-    Drupal's maintenance mode serves **HTTP 503** to anonymous requests. If the ALB target
-    group's health check hits a path that goes through Drupal and matches only 200, both
-    targets will flip **unhealthy** during the window — the pool empties and the ALB serves
-    its own error instead of Drupal's maintenance page.
+!!! danger "CONFIRMED: plain maintenance mode will take the production pool down"
+    Drupal's maintenance mode serves **HTTP 503** to anonymous requests. Verified
+    2026-08-06 — the production target group health-checks a Drupal-served path and accepts
+    only 2xx, so maintenance mode fails the health check:
 
-    **Partially confirmed 2026-08-06, and not in the reassuring direction.** The Apache
-    access log shows the health checker requesting **`/`** — a Drupal-served path, which is
-    precisely the risky case:
+    | Target group | Path | Matcher | Interval | Unhealthy threshold |
+    |---|---|---|---|---|
+    | `alb-library-drupal-production` | `/` | **`200-299`** | 120s | 3 |
+    | `alb-library-drupal-production-1` | `/` | **`200-299`** | 120s | 3 |
+
+    Corroborated by the Apache access log, which shows the checker hitting `/`:
     ```
     10.130.109.39 - - [06/Aug/2026:12:43:37 -0400] "GET / HTTP/1.1" 200 14987 "-" "ELB-HealthChecker/2.0"
     ```
-    So the checked path *will* return 503 under maintenance mode. The **only** remaining
-    unknown is whether the target group's success matcher tolerates 503. Treat this as a
-    hard gate: verify the matcher before the window, not during it.
 
-    Check the health check's path and success matcher first:
+    **The budget is as little as 4 minutes.** Three consecutive failures at a 120s interval
+    marks a target unhealthy — failures at t=0, t=120, t=240 means unhealthy at **t=240s**.
+    Phase 1 performs two cache rebuilds; exceeding four minutes is entirely plausible, and
+    when both nodes flip the pool empties and the ALB serves its own error page instead of
+    Drupal's maintenance page.
+
+    Re-verify before the window (things change):
     ```bash
-    aws-vault exec staging -- aws elbv2 describe-target-groups \
-      --query 'TargetGroups[?contains(TargetGroupName,`drupal`)].
-               {Name:TargetGroupName,Path:HealthCheckPath,Port:HealthCheckPort,Matcher:Matcher.HttpCode}' \
+    aws-vault exec staging --prompt=osascript -- aws elbv2 describe-target-groups \
+      --query 'TargetGroups[?contains(TargetGroupName,`library-drupal`)].
+               {Name:TargetGroupName,Path:HealthCheckPath,Matcher:Matcher.HttpCode,
+                Interval:HealthCheckIntervalSeconds,Unhealthy:UnhealthyThresholdCount}' \
       --output table
     ```
-    If the matcher is 200-only on a Drupal-served path, either widen it to accept `200,503`
-    for the window, or **skip maintenance mode** and use the drain-one-node-at-a-time
-    approach instead (accepting that the cache is still shared — see the
-    [one rule](production-deploy-runbook.md#the-one-rule-that-matters-do-not-rebuild-cache-while-the-other-node-serves-traffic)).
-    This has not yet been verified on this target group.
+
+!!! tip "Widen the matcher for the window — the recommended path"
+    Temporarily accept 503 on both production target groups, run the window, then restore.
+    This makes maintenance mode behave as the generic runbook assumes, and removes the
+    four-minute stopwatch entirely.
+
+    ```bash
+    # BEFORE the window — capture the current value first, for restoration
+    for TG in alb-library-drupal-production alb-library-drupal-production-1; do
+      ARN=$(aws-vault exec staging --prompt=osascript -- aws elbv2 describe-target-groups \
+            --names "$TG" --query 'TargetGroups[0].TargetGroupArn' --output text)
+      aws-vault exec staging --prompt=osascript -- aws elbv2 modify-target-group \
+        --target-group-arn "$ARN" --matcher HttpCode=200-299,503
+    done
+
+    # AFTER the window — restore
+    #   --matcher HttpCode=200-299
+    ```
+
+    Restoring is not optional: leaving 503 acceptable means a genuinely broken Drupal keeps
+    passing health checks and the ALB happily serves the outage.
+
+    If modifying the ALB is unacceptable, use the
+    [no-maintenance-mode variant](#alternative-phase-1-without-maintenance-mode) below
+    instead. Do **not** attempt to race the four-minute budget.
 
 ---
 
@@ -192,6 +218,33 @@ automated step.
     The files are still on disk, so the uninstall is reversible with
     `drush pm:enable ckeditor`. **This escape hatch disappears once Phase 2 deploys.**
     That asymmetry is the reason to let Phase 1 bake before deploying.
+
+### Alternative: Phase 1 without maintenance mode
+
+Use this only if modifying the target-group matcher is unacceptable. It trades the ALB change
+for a genuine (if small) deadlock risk, so prefer the matcher widening above.
+
+The hazard being managed is that both nodes share a **database** cache backend, so a `drush cr`
+on one node collides with live traffic served by the other — the
+[2026-06-26 WSOD](../incidents/2026-06-26-prod-cache-deadlock-wsod.md). Draining a node from
+the ALB protects HTTP traffic but **not** the shared cache.
+
+1. Pick a genuine low-traffic window (early morning). Fewer live requests means fewer rows
+   contended.
+2. Drain node 1 from the ALB and wait for the 300s deregistration delay to complete.
+3. Run `drush pm:uninstall ckeditor` **once**, from the drained node. The config write and
+   schema drop are small; the expensive part is the rebuild that follows.
+4. Accept a single `drush cr` here rather than two. The uninstall already invalidates the
+   container, so the pre-emptive `cr` from the maintenance-mode sequence is what you drop.
+5. Verify on the drained node via `:8080`, then re-add it and confirm healthy.
+6. **No second uninstall on node 0** — the change is in the shared database and applies to
+   both nodes at once. Node 0 needs nothing beyond picking up the rebuilt cache.
+
+!!! warning "This is the riskier path"
+    There is a real window where node 0 serves live traffic against a cache being rewritten
+    by node 1. It is smaller than a full `cr` under load, but it is not zero, and it is
+    precisely the failure mode that produced the 2026-06-26 incident. The matcher widening
+    avoids this class of risk rather than minimising it.
 
 ### Config-sync consequence
 

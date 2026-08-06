@@ -864,6 +864,17 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#alternative-phase-1-without-maintenance-mode" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Alternative: Phase 1 without maintenance mode
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#config-sync-consequence" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2655,6 +2666,17 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#alternative-phase-1-without-maintenance-mode" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Alternative: Phase 1 without maintenance mode
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#config-sync-consequence" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2882,30 +2904,74 @@ and looks alarming.)</p>
 </code></pre></div></li>
 </ul>
 <div class="admonition danger">
-<p class="admonition-title">Confirm the ALB health check matcher before enabling maintenance mode</p>
-<p>Drupal's maintenance mode serves <strong>HTTP 503</strong> to anonymous requests. If the ALB target
-group's health check hits a path that goes through Drupal and matches only 200, both
-targets will flip <strong>unhealthy</strong> during the window — the pool empties and the ALB serves
-its own error instead of Drupal's maintenance page.</p>
-<p><strong>Partially confirmed 2026-08-06, and not in the reassuring direction.</strong> The Apache
-access log shows the health checker requesting <strong><code>/</code></strong> — a Drupal-served path, which is
-precisely the risky case:
+<p class="admonition-title">CONFIRMED: plain maintenance mode will take the production pool down</p>
+<p>Drupal's maintenance mode serves <strong>HTTP 503</strong> to anonymous requests. Verified
+2026-08-06 — the production target group health-checks a Drupal-served path and accepts
+only 2xx, so maintenance mode fails the health check:</p>
+<table>
+<thead>
+<tr>
+<th>Target group</th>
+<th>Path</th>
+<th>Matcher</th>
+<th>Interval</th>
+<th>Unhealthy threshold</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>alb-library-drupal-production</code></td>
+<td><code>/</code></td>
+<td><strong><code>200-299</code></strong></td>
+<td>120s</td>
+<td>3</td>
+</tr>
+<tr>
+<td><code>alb-library-drupal-production-1</code></td>
+<td><code>/</code></td>
+<td><strong><code>200-299</code></strong></td>
+<td>120s</td>
+<td>3</td>
+</tr>
+</tbody>
+</table>
+<p>Corroborated by the Apache access log, which shows the checker hitting <code>/</code>:
 <div class="highlight"><pre><span></span><code>10.130.109.39 - - [06/Aug/2026:12:43:37 -0400] &quot;GET / HTTP/1.1&quot; 200 14987 &quot;-&quot; &quot;ELB-HealthChecker/2.0&quot;
-</code></pre></div>
-So the checked path <em>will</em> return 503 under maintenance mode. The <strong>only</strong> remaining
-unknown is whether the target group's success matcher tolerates 503. Treat this as a
-hard gate: verify the matcher before the window, not during it.</p>
-<p>Check the health check's path and success matcher first:
-<div class="highlight"><pre><span></span><code>aws-vault<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>staging<span class="w"> </span>--<span class="w"> </span>aws<span class="w"> </span>elbv2<span class="w"> </span>describe-target-groups<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--query<span class="w"> </span><span class="s1">&#39;TargetGroups[?contains(TargetGroupName,`drupal`)].</span>
-<span class="s1">           {Name:TargetGroupName,Path:HealthCheckPath,Port:HealthCheckPort,Matcher:Matcher.HttpCode}&#39;</span><span class="w"> </span><span class="se">\</span>
+</code></pre></div></p>
+<p><strong>The budget is as little as 4 minutes.</strong> Three consecutive failures at a 120s interval
+marks a target unhealthy — failures at t=0, t=120, t=240 means unhealthy at <strong>t=240s</strong>.
+Phase 1 performs two cache rebuilds; exceeding four minutes is entirely plausible, and
+when both nodes flip the pool empties and the ALB serves its own error page instead of
+Drupal's maintenance page.</p>
+<p>Re-verify before the window (things change):
+<div class="highlight"><pre><span></span><code>aws-vault<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>staging<span class="w"> </span>--prompt<span class="o">=</span>osascript<span class="w"> </span>--<span class="w"> </span>aws<span class="w"> </span>elbv2<span class="w"> </span>describe-target-groups<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--query<span class="w"> </span><span class="s1">&#39;TargetGroups[?contains(TargetGroupName,`library-drupal`)].</span>
+<span class="s1">           {Name:TargetGroupName,Path:HealthCheckPath,Matcher:Matcher.HttpCode,</span>
+<span class="s1">            Interval:HealthCheckIntervalSeconds,Unhealthy:UnhealthyThresholdCount}&#39;</span><span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>--output<span class="w"> </span>table
+</code></pre></div></p>
+</div>
+<div class="admonition tip">
+<p class="admonition-title">Widen the matcher for the window — the recommended path</p>
+<p>Temporarily accept 503 on both production target groups, run the window, then restore.
+This makes maintenance mode behave as the generic runbook assumes, and removes the
+four-minute stopwatch entirely.</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># BEFORE the window — capture the current value first, for restoration</span>
+<span class="k">for</span><span class="w"> </span>TG<span class="w"> </span><span class="k">in</span><span class="w"> </span>alb-library-drupal-production<span class="w"> </span>alb-library-drupal-production-1<span class="p">;</span><span class="w"> </span><span class="k">do</span>
+<span class="w">  </span><span class="nv">ARN</span><span class="o">=</span><span class="k">$(</span>aws-vault<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>staging<span class="w"> </span>--prompt<span class="o">=</span>osascript<span class="w"> </span>--<span class="w"> </span>aws<span class="w"> </span>elbv2<span class="w"> </span>describe-target-groups<span class="w"> </span><span class="se">\</span>
+<span class="w">        </span>--names<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$TG</span><span class="s2">&quot;</span><span class="w"> </span>--query<span class="w"> </span><span class="s1">&#39;TargetGroups[0].TargetGroupArn&#39;</span><span class="w"> </span>--output<span class="w"> </span>text<span class="k">)</span>
+<span class="w">  </span>aws-vault<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>staging<span class="w"> </span>--prompt<span class="o">=</span>osascript<span class="w"> </span>--<span class="w"> </span>aws<span class="w"> </span>elbv2<span class="w"> </span>modify-target-group<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--target-group-arn<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$ARN</span><span class="s2">&quot;</span><span class="w"> </span>--matcher<span class="w"> </span><span class="nv">HttpCode</span><span class="o">=</span><span class="m">200</span>-299,503
+<span class="k">done</span>
+
+<span class="c1"># AFTER the window — restore</span>
+<span class="c1">#   --matcher HttpCode=200-299</span>
 </code></pre></div>
-If the matcher is 200-only on a Drupal-served path, either widen it to accept <code>200,503</code>
-for the window, or <strong>skip maintenance mode</strong> and use the drain-one-node-at-a-time
-approach instead (accepting that the cache is still shared — see the
-<a href="../production-deploy-runbook/#the-one-rule-that-matters-do-not-rebuild-cache-while-the-other-node-serves-traffic">one rule</a>).
-This has not yet been verified on this target group.</p>
+<p>Restoring is not optional: leaving 503 acceptable means a genuinely broken Drupal keeps
+passing health checks and the ALB happily serves the outage.</p>
+<p>If modifying the ALB is unacceptable, use the
+<a href="#alternative-phase-1-without-maintenance-mode">no-maintenance-mode variant</a> below
+instead. Do <strong>not</strong> attempt to race the four-minute budget.</p>
 </div>
 <hr />
 <h2 id="phase-1-uninstall-ckeditor-from-the-db">Phase 1 — Uninstall <code>ckeditor</code> from the DB</h2>
@@ -2965,6 +3031,32 @@ automated step.</p>
 <p>The files are still on disk, so the uninstall is reversible with
 <code>drush pm:enable ckeditor</code>. <strong>This escape hatch disappears once Phase 2 deploys.</strong>
 That asymmetry is the reason to let Phase 1 bake before deploying.</p>
+</div>
+<h3 id="alternative-phase-1-without-maintenance-mode">Alternative: Phase 1 without maintenance mode</h3>
+<p>Use this only if modifying the target-group matcher is unacceptable. It trades the ALB change
+for a genuine (if small) deadlock risk, so prefer the matcher widening above.</p>
+<p>The hazard being managed is that both nodes share a <strong>database</strong> cache backend, so a <code>drush cr</code>
+on one node collides with live traffic served by the other — the
+<a href="../../incidents/2026-06-26-prod-cache-deadlock-wsod/">2026-06-26 WSOD</a>. Draining a node from
+the ALB protects HTTP traffic but <strong>not</strong> the shared cache.</p>
+<ol>
+<li>Pick a genuine low-traffic window (early morning). Fewer live requests means fewer rows
+   contended.</li>
+<li>Drain node 1 from the ALB and wait for the 300s deregistration delay to complete.</li>
+<li>Run <code>drush pm:uninstall ckeditor</code> <strong>once</strong>, from the drained node. The config write and
+   schema drop are small; the expensive part is the rebuild that follows.</li>
+<li>Accept a single <code>drush cr</code> here rather than two. The uninstall already invalidates the
+   container, so the pre-emptive <code>cr</code> from the maintenance-mode sequence is what you drop.</li>
+<li>Verify on the drained node via <code>:8080</code>, then re-add it and confirm healthy.</li>
+<li><strong>No second uninstall on node 0</strong> — the change is in the shared database and applies to
+   both nodes at once. Node 0 needs nothing beyond picking up the rebuilt cache.</li>
+</ol>
+<div class="admonition warning">
+<p class="admonition-title">This is the riskier path</p>
+<p>There is a real window where node 0 serves live traffic against a cache being rewritten
+by node 1. It is smaller than a full <code>cr</code> under load, but it is not zero, and it is
+precisely the failure mode that produced the 2026-06-26 incident. The matcher widening
+avoids this class of risk rather than minimising it.</p>
 </div>
 <h3 id="config-sync-consequence">Config-sync consequence</h3>
 <p>The host cron runs <code>drush cex --commit</code> <strong>every 2 hours</strong>, so this <code>core.extension</code> change
