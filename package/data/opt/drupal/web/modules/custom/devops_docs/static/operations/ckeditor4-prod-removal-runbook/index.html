@@ -2881,12 +2881,20 @@ and looks alarming.)</p>
   <div class="highlight"><pre><span></span><code>/Users/ys2n/Code/scripts/uvalib/aws/alb-state<span class="w"> </span>drupal-prod
 </code></pre></div></li>
 </ul>
-<div class="admonition warning">
-<p class="admonition-title">Confirm the ALB health check before enabling maintenance mode</p>
+<div class="admonition danger">
+<p class="admonition-title">Confirm the ALB health check matcher before enabling maintenance mode</p>
 <p>Drupal's maintenance mode serves <strong>HTTP 503</strong> to anonymous requests. If the ALB target
 group's health check hits a path that goes through Drupal and matches only 200, both
 targets will flip <strong>unhealthy</strong> during the window — the pool empties and the ALB serves
 its own error instead of Drupal's maintenance page.</p>
+<p><strong>Partially confirmed 2026-08-06, and not in the reassuring direction.</strong> The Apache
+access log shows the health checker requesting <strong><code>/</code></strong> — a Drupal-served path, which is
+precisely the risky case:
+<div class="highlight"><pre><span></span><code>10.130.109.39 - - [06/Aug/2026:12:43:37 -0400] &quot;GET / HTTP/1.1&quot; 200 14987 &quot;-&quot; &quot;ELB-HealthChecker/2.0&quot;
+</code></pre></div>
+So the checked path <em>will</em> return 503 under maintenance mode. The <strong>only</strong> remaining
+unknown is whether the target group's success matcher tolerates 503. Treat this as a
+hard gate: verify the matcher before the window, not during it.</p>
 <p>Check the health check's path and success matcher first:
 <div class="highlight"><pre><span></span><code>aws-vault<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>staging<span class="w"> </span>--<span class="w"> </span>aws<span class="w"> </span>elbv2<span class="w"> </span>describe-target-groups<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>--query<span class="w"> </span><span class="s1">&#39;TargetGroups[?contains(TargetGroupName,`drupal`)].</span>

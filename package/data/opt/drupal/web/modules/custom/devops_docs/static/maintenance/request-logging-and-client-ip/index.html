@@ -1167,6 +1167,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#apache-logs-are-a-separate-layer-still-unfixed" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Apache logs are a separate layer — still unfixed
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#follow-ups" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2622,6 +2633,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#apache-logs-are-a-separate-layer-still-unfixed" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Apache logs are a separate layer — still unfixed
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#follow-ups" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2876,6 +2898,36 @@ is deployed to each environment. Confirm afterwards with:
 </code></pre></div>
 Then check that new <code>watchdog</code> rows carry public client addresses rather than <code>10.130.x.x</code>.</p>
 </div>
+<h2 id="apache-logs-are-a-separate-layer-still-unfixed">Apache logs are a separate layer — still unfixed</h2>
+<p><code>$settings['reverse_proxy']</code> is a PHP/Symfony setting. It changes what
+<code>$request-&gt;getClientIp()</code> returns <em>inside Drupal</em> — which is what feeds <code>watchdog</code>, flood
+control, and rate limiting — and nothing else. <strong>Apache's access log is untouched.</strong></p>
+<p><code>mod_remoteip</code> is not loaded, and the vhost uses the stock <code>combined</code> format whose <code>%h</code> is
+the TCP peer, so every line records the load balancer:</p>
+<div class="highlight"><pre><span></span><code>10.130.109.39 - - [06/Aug/2026:12:43:37 -0400] &quot;GET / HTTP/1.1&quot; 200 14987 &quot;-&quot; &quot;ELB-HealthChecker/2.0&quot;
+</code></pre></div>
+<p>Two ways to fix it, if wanted:</p>
+<ul>
+<li><strong><code>%{X-Forwarded-For}i</code> in <code>LogFormat</code></strong> — trivial, but logs the raw header with no trust
+  check, so it is spoofable and may hold a comma-separated chain.</li>
+<li><strong><code>mod_remoteip</code></strong> (<code>RemoteIPHeader X-Forwarded-For</code> + <code>RemoteIPTrustedProxy</code> with the same
+  CIDRs as above) — the proper fix. It rewrites <code>%h</code> <em>and</em> <code>REMOTE_ADDR</code> before PHP runs.
+  The two layers then agree rather than conflict: <code>REMOTE_ADDR</code> becomes the real client,
+  which falls outside the trusted ranges, so Drupal uses it directly.</li>
+</ul>
+<p>Lower priority than <code>watchdog</code> — Apache logs here are ephemeral container stdout, while
+<code>watchdog</code> is what you actually query during an incident.</p>
+<div class="admonition tip">
+<p class="admonition-title">The health-check lines double as CIDR confirmation</p>
+<p>Those <code>ELB-HealthChecker/2.0</code> entries arrive from <code>10.130.109.x</code> and <code>10.130.112.x</code> —
+inside the staging ranges configured in <code>reverse_proxy_addresses</code>, derived independently
+from instance metadata. Two unrelated sources agreeing is a useful sanity check on the
+trusted-proxy list.</p>
+<p>They also reveal that <strong>the ALB health-checks <code>/</code></strong>, a Drupal-served path. That matters
+well beyond logging: under maintenance mode Drupal returns 503 on <code>/</code>, so the health
+check would fail unless the target group's matcher tolerates it. Recorded as a hard gate
+in the <a href="../../operations/ckeditor4-prod-removal-runbook/">CKEditor 4 removal runbook</a>.</p>
+</div>
 <h2 id="follow-ups">Follow-ups</h2>
 <ul>
 <li><strong>Raise <code>dblog.settings row_limit</code></strong> (or stop logging 404s) so retention is measured in days
@@ -2907,7 +2959,7 @@ Then check that new <code>watchdog</code> rows carry public client addresses rat
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-datetime" title="August 6, 2026 15:32:52 UTC">August 6, 2026 15:32:52</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-datetime" title="August 6, 2026 15:33:07 UTC">August 6, 2026 15:33:07</span>
   </span>
 
     
