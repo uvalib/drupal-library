@@ -841,6 +841,17 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#the-matcher-is-terraform-managed-the-cli-change-is-drift" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The matcher is Terraform-managed — the CLI change is drift
+      
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -2660,6 +2671,17 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#the-matcher-is-terraform-managed-the-cli-change-is-drift" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The matcher is Terraform-managed — the CLI change is drift
+      
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -3001,9 +3023,14 @@ aws-vault<span class="w"> </span><span class="nb">exec</span><span class="w"> </
 aws-vault<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>staging<span class="w"> </span>--prompt<span class="o">=</span>osascript<span class="w"> </span>--<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>aws<span class="w"> </span>elbv2<span class="w"> </span>modify-target-group<span class="w"> </span>--target-group-arn<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$TG_ARN</span><span class="s2">&quot;</span><span class="w"> </span>--matcher<span class="w"> </span><span class="nv">HttpCode</span><span class="o">=</span><span class="m">200</span>-299
 </code></pre></div>
-<p><strong>Only this one target group needs changing.</strong> <code>alb-library-drupal-production-1</code> is
-orphaned — <code>LoadBalancerArns</code> is <code>null</code> and its registered target reports <code>unused</code>, so it
-is attached to no load balancer and modifying it accomplishes nothing.</p>
+<p><strong>Only this one target group needs changing</strong> <em>in the current configuration</em>.
+<code>alb-library-drupal-production-1</code> is the <strong>preview</strong> target group
+(<code>alb-routing.tf:172</code>). It reports <code>LoadBalancerArns: null</code> and target state <code>unused</code>
+only because <code>preview_passthrough_enabled</code> defaults to <code>false</code>, which makes the
+<code>preview.library.virginia.edu</code> listener rule a <em>redirect</em> rather than a <em>forward</em>. It is
+dormant by design, <strong>not orphaned — do not delete it.</strong> If preview passthrough is ever
+enabled, that target group carries the same <code>200-299</code> matcher and needs the same
+treatment.</p>
 <div class="admonition danger">
 <p class="admonition-title">Restoring is mandatory, not hygiene</p>
 <p>While <code>503</code> is accepted, a genuinely broken Drupal (fatal → 503) also counts as
@@ -3055,10 +3082,59 @@ are unaffected.</p>
 <p>Every Drupal target group in this account — dh, dsf, mandala, develop, staging — also
 health-checks <code>/</code> with a <code>200-299</code> matcher. Any maintenance-mode window on any of those
 sites carries the identical hazard.</p>
-<p>If modifying the ALB is unacceptable, use the
-<a href="#alternative-phase-1-without-maintenance-mode">no-maintenance-mode variant</a> below
-instead. Do <strong>not</strong> attempt to race the four-minute budget.</p>
 </div>
+<h3 id="the-matcher-is-terraform-managed-the-cli-change-is-drift">The matcher is Terraform-managed — the CLI change is drift</h3>
+<p><code>matcher = "200-299"</code> is declared in <code>terraform-infrastructure</code>:</p>
+<table>
+<thead>
+<tr>
+<th>File</th>
+<th>Target group</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>library.virginia.edu/production/alb-routing.tf:36</code></td>
+<td><code>alb-library-drupal-production</code> (live)</td>
+</tr>
+<tr>
+<td><code>library.virginia.edu/production/alb-routing.tf:172</code></td>
+<td><code>alb-library-drupal-production-1</code> (preview, dormant)</td>
+</tr>
+<tr>
+<td><code>library.virginia.edu/staging/alb-routing.tf:32</code></td>
+<td>staging</td>
+</tr>
+<tr>
+<td><code>library.virginia.edu/develop/alb-routing.tf:32</code></td>
+<td>develop</td>
+</tr>
+</tbody>
+</table>
+<p>So <code>modify-target-group</code> creates <strong>drift that Terraform will heal on the next apply</strong>. That
+cuts both ways:</p>
+<ul>
+<li><strong>Useful:</strong> it is self-restoring. If the explicit restore is somehow missed, the next apply
+  puts <code>200-299</code> back rather than leaving 503 accepted indefinitely.</li>
+<li><strong>Dangerous:</strong> an apply landing <em>mid-window</em> silently re-narrows the matcher while Drupal is
+  still serving 503 — the pool then empties exactly as if the change had never been made.</li>
+</ul>
+<div class="admonition danger">
+<p class="admonition-title">Do not deploy or run Terraform between widening and restoring</p>
+<p>The deploy pipeline runs Terraform against the environment directory before Ansible, so a
+deploy during the window will revert the matcher. Phase 1 is drush-only and triggers no
+Terraform, which is what makes the window safe — but do not let a Phase 2 deploy, or
+anyone else's apply, overlap it.</p>
+</div>
+<p><strong>Should this be done in Terraform instead?</strong> For a short, attended window the CLI change is
+the pragmatic choice — it needs no apply, and Terraform heals it afterwards. Doing it properly
+in code would mean parameterising the matcher (mirroring how <code>preview_passthrough_enabled</code>
+already gates preview behaviour) and running two applies, each of which touches the ALB itself.
+That is more moving parts than the problem warrants unless maintenance windows become routine.</p>
+<pre><code>If modifying the ALB is unacceptable, use the
+[no-maintenance-mode variant](#alternative-phase-1-without-maintenance-mode) below
+instead. Do **not** attempt to race the four-minute budget.
+</code></pre>
 <hr />
 <h2 id="phase-1-uninstall-ckeditor-from-the-db">Phase 1 — Uninstall <code>ckeditor</code> from the DB</h2>
 <p>Runs against the <strong>current</strong> image. Nothing is deployed in this phase.</p>
@@ -3234,7 +3310,7 @@ recreates the ghost exactly.</p>
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-datetime" title="August 6, 2026 16:57:31 UTC">August 6, 2026 16:57:31</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-datetime" title="August 6, 2026 17:40:22 UTC">August 6, 2026 17:40:22</span>
   </span>
 
     

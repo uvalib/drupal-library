@@ -140,9 +140,14 @@ The gap between prod's `4079ce3` and `main` is 41 commits, but almost all of it 
       aws elbv2 modify-target-group --target-group-arn "$TG_ARN" --matcher HttpCode=200-299
     ```
 
-    **Only this one target group needs changing.** `alb-library-drupal-production-1` is
-    orphaned — `LoadBalancerArns` is `null` and its registered target reports `unused`, so it
-    is attached to no load balancer and modifying it accomplishes nothing.
+    **Only this one target group needs changing** *in the current configuration*.
+    `alb-library-drupal-production-1` is the **preview** target group
+    (`alb-routing.tf:172`). It reports `LoadBalancerArns: null` and target state `unused`
+    only because `preview_passthrough_enabled` defaults to `false`, which makes the
+    `preview.library.virginia.edu` listener rule a *redirect* rather than a *forward*. It is
+    dormant by design, **not orphaned — do not delete it.** If preview passthrough is ever
+    enabled, that target group carries the same `200-299` matcher and needs the same
+    treatment.
 
     !!! danger "Restoring is mandatory, not hygiene"
         While `503` is accepted, a genuinely broken Drupal (fatal → 503) also counts as
@@ -180,6 +185,37 @@ are unaffected.
     Every Drupal target group in this account — dh, dsf, mandala, develop, staging — also
     health-checks `/` with a `200-299` matcher. Any maintenance-mode window on any of those
     sites carries the identical hazard.
+
+### The matcher is Terraform-managed — the CLI change is drift
+
+`matcher = "200-299"` is declared in `terraform-infrastructure`:
+
+| File | Target group |
+|---|---|
+| `library.virginia.edu/production/alb-routing.tf:36` | `alb-library-drupal-production` (live) |
+| `library.virginia.edu/production/alb-routing.tf:172` | `alb-library-drupal-production-1` (preview, dormant) |
+| `library.virginia.edu/staging/alb-routing.tf:32` | staging |
+| `library.virginia.edu/develop/alb-routing.tf:32` | develop |
+
+So `modify-target-group` creates **drift that Terraform will heal on the next apply**. That
+cuts both ways:
+
+- **Useful:** it is self-restoring. If the explicit restore is somehow missed, the next apply
+  puts `200-299` back rather than leaving 503 accepted indefinitely.
+- **Dangerous:** an apply landing *mid-window* silently re-narrows the matcher while Drupal is
+  still serving 503 — the pool then empties exactly as if the change had never been made.
+
+!!! danger "Do not deploy or run Terraform between widening and restoring"
+    The deploy pipeline runs Terraform against the environment directory before Ansible, so a
+    deploy during the window will revert the matcher. Phase 1 is drush-only and triggers no
+    Terraform, which is what makes the window safe — but do not let a Phase 2 deploy, or
+    anyone else's apply, overlap it.
+
+**Should this be done in Terraform instead?** For a short, attended window the CLI change is
+the pragmatic choice — it needs no apply, and Terraform heals it afterwards. Doing it properly
+in code would mean parameterising the matcher (mirroring how `preview_passthrough_enabled`
+already gates preview behaviour) and running two applies, each of which touches the ALB itself.
+That is more moving parts than the problem warrants unless maintenance windows become routine.
 
     If modifying the ALB is unacceptable, use the
     [no-maintenance-mode variant](#alternative-phase-1-without-maintenance-mode) below
