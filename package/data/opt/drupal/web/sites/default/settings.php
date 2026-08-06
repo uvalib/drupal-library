@@ -385,13 +385,41 @@ $settings['update_free_access'] = FALSE;
  * Be aware, however, that it is likely that this would allow IP
  * address spoofing unless more advanced precautions are taken.
  */
-# $settings['reverse_proxy'] = TRUE;
+/**
+ * UVA: Drupal runs behind an AWS ALB (HTTPS terminates there — see ADR 002), so
+ * without this Drupal treats the load balancer as the client. Every request is
+ * then attributed to an ALB ENI address, which makes watchdog's hostname column
+ * useless for forensics and blinds anything IP-based (flood control, rate
+ * limiting, blocking). See docs/maintenance/request-logging-and-client-ip.md.
+ */
+$settings['reverse_proxy'] = TRUE;
 
 /**
  * Specify every reverse proxy IP address in your environment.
  * This setting is required if $settings['reverse_proxy'] is TRUE.
  */
-# $settings['reverse_proxy_addresses'] = ['a.b.c.d', ...];
+/**
+ * UVA: the VPC CIDR blocks, read from EC2 instance metadata
+ * (network/interfaces/macs/<mac>/vpc-ipv4-cidr-blocks). ALB ENI addresses are
+ * dynamic and rotate within these ranges, so trusting the VPC extent — rather
+ * than individual ALB IPs — is what stays correct over time.
+ *
+ * This file is baked into the image and shared by every environment, so all VPCs
+ * are listed. A range belonging to another VPC can never appear as REMOTE_ADDR
+ * here, so listing them together is safe.
+ *
+ * Deliberately NOT broader (e.g. 10.0.0.0/8): the container is reachable directly
+ * on :8080 from the UVA VPN, bypassing the ALB. VPN clients fall outside these
+ * ranges, so a forged X-Forwarded-For from one is correctly ignored.
+ */
+$settings['reverse_proxy_addresses'] = [
+  // production
+  '10.130.110.0/24',
+  '10.130.113.0/24',
+  // staging + develop (shared VPC)
+  '10.130.109.0/24',
+  '10.130.112.0/24',
+];
 
 /**
  * Reverse proxy trusted headers.
@@ -421,7 +449,17 @@ $settings['update_free_access'] = FALSE;
  * @see \Symfony\Component\HttpFoundation\Request::HEADER_FORWARDED
  * @see \Symfony\Component\HttpFoundation\Request::setTrustedProxies
  */
-# $settings['reverse_proxy_trusted_headers'] = \Symfony\Component\HttpFoundation\Request::HEADER_X_FORWARDED_ALL | \Symfony\Component\HttpFoundation\Request::HEADER_FORWARDED;
+/**
+ * UVA: HEADER_X_FORWARDED_AWS_ELB (= FOR|PROTO|PORT) is Symfony's purpose-built
+ * mask for AWS ELB/ALB. It deliberately omits X-Forwarded-Host, which the ALB
+ * does not set and which would otherwise widen host-header injection surface
+ * (trusted_host_patterns below is the backstop for that).
+ *
+ * WARNING: the Drupal core comment above lists HEADER_X_FORWARDED_ALL as a
+ * "common value". That constant was REMOVED in Symfony 6, which this site runs —
+ * referencing it is a fatal error, not a deprecation. The boilerplate is stale.
+ */
+$settings['reverse_proxy_trusted_headers'] = \Symfony\Component\HttpFoundation\Request::HEADER_X_FORWARDED_AWS_ELB;
 
 
 /**

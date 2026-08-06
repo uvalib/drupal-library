@@ -5,4 +5,5 @@ nav:
   - drupal-11-upgrade.md
   - config-sync-mechanism-review.md
   - redis-cache-backend.md
+  - request-logging-and-client-ip.md
   - ...
