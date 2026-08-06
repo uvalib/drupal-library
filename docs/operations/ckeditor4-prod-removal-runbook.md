@@ -123,25 +123,63 @@ The gap between prod's `4079ce3` and `main` is 41 commits, but almost all of it 
     ```
 
 !!! tip "Widen the matcher for the window — the recommended path"
-    Temporarily accept 503 on both production target groups, run the window, then restore.
-    This makes maintenance mode behave as the generic runbook assumes, and removes the
-    four-minute stopwatch entirely.
+    Temporarily accept 503, run the window, then restore. This makes maintenance mode behave
+    as the generic runbook assumes and removes the four-minute stopwatch entirely. The change
+    causes no target churn — it only alters what the next health check (≤120s later) counts
+    as passing.
 
     ```bash
-    # BEFORE the window — capture the current value first, for restoration
-    for TG in alb-library-drupal-production alb-library-drupal-production-1; do
-      ARN=$(aws-vault exec staging --prompt=osascript -- aws elbv2 describe-target-groups \
-            --names "$TG" --query 'TargetGroups[0].TargetGroupArn' --output text)
-      aws-vault exec staging --prompt=osascript -- aws elbv2 modify-target-group \
-        --target-group-arn "$ARN" --matcher HttpCode=200-299,503
-    done
+    TG_ARN=arn:aws:elasticloadbalancing:us-east-1:115119339709:targetgroup/alb-library-drupal-production/e09a170c0b60c0f6
+
+    # BEFORE the window
+    aws-vault exec staging --prompt=osascript -- \
+      aws elbv2 modify-target-group --target-group-arn "$TG_ARN" --matcher HttpCode=200-299,503
 
     # AFTER the window — restore
-    #   --matcher HttpCode=200-299
+    aws-vault exec staging --prompt=osascript -- \
+      aws elbv2 modify-target-group --target-group-arn "$TG_ARN" --matcher HttpCode=200-299
     ```
 
-    Restoring is not optional: leaving 503 acceptable means a genuinely broken Drupal keeps
-    passing health checks and the ALB happily serves the outage.
+    **Only this one target group needs changing.** `alb-library-drupal-production-1` is
+    orphaned — `LoadBalancerArns` is `null` and its registered target reports `unused`, so it
+    is attached to no load balancer and modifying it accomplishes nothing.
+
+    !!! danger "Restoring is mandatory, not hygiene"
+        While `503` is accepted, a genuinely broken Drupal (fatal → 503) also counts as
+        healthy and the ALB will route users straight into the outage. The exposure lasts
+        exactly as long as the matcher stays widened.
+
+### Blast radius of the matcher change
+
+The matcher is a property of the **target group**, not the ALB or its listeners — which
+matters here because the load balancer is heavily shared:
+
+| | |
+|---|---|
+| Load balancer | `uva-alb-public-production` (shared) |
+| Target groups on it | **83** |
+| Affected by this change | **1** |
+| Instances affected | `i-0a0c51aa81f06a326`, `i-0fed24178c31ea2f8` |
+
+The other 82 target groups — dh, dsf, mandala, and the rest — are untouched; each has its own
+independent health check configuration.
+
+Hostnames routed to this target group, i.e. the full public surface a maintenance window
+takes offline:
+
+```
+library.virginia.edu
+lib.virginia.edu
+library-drupal.internal.lib.virginia.edu
+```
+
+The other production aliases (preview, libra, pressbooks) route to different target groups and
+are unaffected.
+
+!!! note "This trap is account-wide"
+    Every Drupal target group in this account — dh, dsf, mandala, develop, staging — also
+    health-checks `/` with a `200-299` matcher. Any maintenance-mode window on any of those
+    sites carries the identical hazard.
 
     If modifying the ALB is unacceptable, use the
     [no-maintenance-mode variant](#alternative-phase-1-without-maintenance-mode) below
