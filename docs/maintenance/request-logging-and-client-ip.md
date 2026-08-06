@@ -169,14 +169,30 @@ trusted-proxy list was applied to a constructed `Request`, not to the site):
 The last row is the one that matters: a forged header from outside the trusted ranges is
 correctly discarded.
 
-!!! note "Takes effect on next deploy"
-    `settings.php` ships inside the image, so this is inert until an image built from `main`
-    is deployed to each environment. Confirm afterwards with:
-    ```bash
-    ssh <host> 'sudo docker exec -i drupal-0 /opt/drupal/vendor/bin/drush php:eval \
-      "print_r(\Symfony\Component\HttpFoundation\Request::getTrustedProxies());"'
+!!! success "Confirmed live on staging 2026-08-06 (`build-20260806164254`)"
+    A request through the ALB to a unique 404 path was logged with a real UVA client
+    address, while rows written before the deploy still show the load balancer:
+
     ```
-    Then check that new `watchdog` rows carry public client addresses rather than `10.130.x.x`.
+    128.143.22.145     /claude-verify-1786035127     <- after deploy
+    10.130.109.24      /devops-docs                  <- before deploy
+    10.130.112.18      /devops-docs/                 <- before deploy
+    ```
+
+    **Still to verify on production** — the prod ranges (`10.130.110.0/24`,
+    `10.130.113.0/24`) have not been exercised, since staging sits in a different VPC.
+
+!!! warning "Do not verify this with drush — it will look broken"
+    ```bash
+    drush php:eval "print_r(\Symfony\Component\HttpFoundation\Request::getTrustedProxies());"
+    ```
+    returns an **empty array even when the configuration is working**. Trusted proxies are
+    applied by `ReverseProxyMiddleware`, a `StackMiddleware` that only runs in the HTTP
+    request stack — drush never passes through it. `Settings::get('reverse_proxy')` does
+    read `TRUE` from CLI, but that only proves the setting shipped, not that it takes effect.
+
+    The meaningful check is a **real web request**: hit a unique 404 path through the load
+    balancer, then read the `hostname` column of the resulting `watchdog` row.
 
 ## Apache logs are a separate layer — still unfixed
 

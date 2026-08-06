@@ -2889,14 +2889,27 @@ trusted-proxy list was applied to a constructed <code>Request</code>, not to the
 </table>
 <p>The last row is the one that matters: a forged header from outside the trusted ranges is
 correctly discarded.</p>
-<div class="admonition note">
-<p class="admonition-title">Takes effect on next deploy</p>
-<p><code>settings.php</code> ships inside the image, so this is inert until an image built from <code>main</code>
-is deployed to each environment. Confirm afterwards with:
-<div class="highlight"><pre><span></span><code>ssh<span class="w"> </span>&lt;host&gt;<span class="w"> </span><span class="s1">&#39;sudo docker exec -i drupal-0 /opt/drupal/vendor/bin/drush php:eval \</span>
-<span class="s1">  &quot;print_r(\Symfony\Component\HttpFoundation\Request::getTrustedProxies());&quot;&#39;</span>
+<div class="admonition success">
+<p class="admonition-title">Confirmed live on staging 2026-08-06 (<code>build-20260806164254</code>)</p>
+<p>A request through the ALB to a unique 404 path was logged with a real UVA client
+address, while rows written before the deploy still show the load balancer:</p>
+<div class="highlight"><pre><span></span><code>128.143.22.145     /claude-verify-1786035127     &lt;- after deploy
+10.130.109.24      /devops-docs                  &lt;- before deploy
+10.130.112.18      /devops-docs/                 &lt;- before deploy
 </code></pre></div>
-Then check that new <code>watchdog</code> rows carry public client addresses rather than <code>10.130.x.x</code>.</p>
+<p><strong>Still to verify on production</strong> — the prod ranges (<code>10.130.110.0/24</code>,
+<code>10.130.113.0/24</code>) have not been exercised, since staging sits in a different VPC.</p>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Do not verify this with drush — it will look broken</p>
+<p><div class="highlight"><pre><span></span><code>drush<span class="w"> </span>php:eval<span class="w"> </span><span class="s2">&quot;print_r(\Symfony\Component\HttpFoundation\Request::getTrustedProxies());&quot;</span>
+</code></pre></div>
+returns an <strong>empty array even when the configuration is working</strong>. Trusted proxies are
+applied by <code>ReverseProxyMiddleware</code>, a <code>StackMiddleware</code> that only runs in the HTTP
+request stack — drush never passes through it. <code>Settings::get('reverse_proxy')</code> does
+read <code>TRUE</code> from CLI, but that only proves the setting shipped, not that it takes effect.</p>
+<p>The meaningful check is a <strong>real web request</strong>: hit a unique 404 path through the load
+balancer, then read the <code>hostname</code> column of the resulting <code>watchdog</code> row.</p>
 </div>
 <h2 id="apache-logs-are-a-separate-layer-still-unfixed">Apache logs are a separate layer — still unfixed</h2>
 <p><code>$settings['reverse_proxy']</code> is a PHP/Symfony setting. It changes what
@@ -2959,7 +2972,7 @@ in the <a href="../../operations/ckeditor4-prod-removal-runbook/">CKEditor 4 rem
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-datetime" title="August 6, 2026 15:33:07 UTC">August 6, 2026 15:33:07</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-datetime" title="August 6, 2026 16:46:35 UTC">August 6, 2026 16:46:35</span>
   </span>
 
     
