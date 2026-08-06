@@ -11,10 +11,10 @@
       
       
       
-        <link rel="prev" href="../php-oom-fatals/">
+        <link rel="prev" href="../redis-cache-backend/">
       
       
-        <link rel="next" href="../../incidents/">
+        <link rel="next" href="../drush-rds-tls-cert/">
       
       
         
@@ -25,7 +25,7 @@
     
     
       
-        <title>CKEditor 4 "ghost module" WSOD on /admin/modules - library.virginia.edu Drupal Site</title>
+        <title>Request Logging, 404 Noise, and Client IP - library.virginia.edu Drupal Site</title>
       
     
     
@@ -76,7 +76,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#ckeditor-4-ghost-module-wsod-on-adminmodules" class="md-skip">
+        <a href="#request-logging-404-noise-and-client-ip" class="md-skip">
           Skip to content
         </a>
       
@@ -112,7 +112,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              CKEditor 4 "ghost module" WSOD on /admin/modules
+              Request Logging, 404 Noise, and Client IP
             
           </span>
         </div>
@@ -784,18 +784,20 @@
       
   
   
+    
   
   
+  
     
     
     
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
         
           
           <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
@@ -816,7 +818,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_4">
             <span class="md-nav__icon md-icon"></span>
             
@@ -834,7 +836,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../maintenance/" class="md-nav__link">
+      <a href="../" class="md-nav__link">
         
   
   
@@ -862,7 +864,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../maintenance/module-updates/" class="md-nav__link">
+      <a href="../module-updates/" class="md-nav__link">
         
   
   
@@ -890,7 +892,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../maintenance/ckeditor4-to-ckeditor5/" class="md-nav__link">
+      <a href="../ckeditor4-to-ckeditor5/" class="md-nav__link">
         
   
   
@@ -918,7 +920,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../maintenance/drupal-11-upgrade/" class="md-nav__link">
+      <a href="../drupal-11-upgrade/" class="md-nav__link">
         
   
   
@@ -946,7 +948,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../maintenance/config-sync-mechanism-review/" class="md-nav__link">
+      <a href="../config-sync-mechanism-review/" class="md-nav__link">
         
   
   
@@ -981,7 +983,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../maintenance/redis-cache-backend/" class="md-nav__link">
+      <a href="../redis-cache-backend/" class="md-nav__link">
         
   
   
@@ -1013,10 +1015,37 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="../../maintenance/request-logging-and-client-ip/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Request Logging, 404 Noise, and Client IP
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   
@@ -1032,6 +1061,126 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#what-the-404s-actually-are" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What the 404s actually are
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="What the 404s actually are">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-probe-half-background-radiation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The probe half — background radiation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-legacy-half-the-actionable-one" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The legacy half — the actionable one
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#log-retention-is-45-hours" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Log retention is 4.5 hours
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#client-ip-was-the-load-balancer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Client IP was the load balancer
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Client IP was the load balancer">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-fix" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The fix
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#verified-behaviour" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Verified behaviour
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#follow-ups" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Follow-ups
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -1044,7 +1193,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../maintenance/drush-rds-tls-cert/" class="md-nav__link">
+      <a href="../drush-rds-tls-cert/" class="md-nav__link">
         
   
   
@@ -1072,7 +1221,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../maintenance/staging-saml-standardization-followup/" class="md-nav__link">
+      <a href="../staging-saml-standardization-followup/" class="md-nav__link">
         
   
   
@@ -1555,20 +1704,18 @@
       
   
   
-    
   
   
-  
     
     
     
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
         
           
           <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
@@ -1589,7 +1736,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_7">
             <span class="md-nav__icon md-icon"></span>
             
@@ -1607,7 +1754,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../" class="md-nav__link">
+      <a href="../../troubleshooting/" class="md-nav__link">
         
   
   
@@ -1635,7 +1782,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../mariadb-ssl-dump/" class="md-nav__link">
+      <a href="../../troubleshooting/mariadb-ssl-dump/" class="md-nav__link">
         
   
   
@@ -1670,7 +1817,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../simplesamlphp-secure-cookie/" class="md-nav__link">
+      <a href="../../troubleshooting/simplesamlphp-secure-cookie/" class="md-nav__link">
         
   
   
@@ -1705,7 +1852,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../ddev-one-name-per-directory/" class="md-nav__link">
+      <a href="../../troubleshooting/ddev-one-name-per-directory/" class="md-nav__link">
         
   
   
@@ -1740,7 +1887,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../php-oom-fatals/" class="md-nav__link">
+      <a href="../../troubleshooting/php-oom-fatals/" class="md-nav__link">
         
   
   
@@ -1772,44 +1919,10 @@
                 
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    CKEditor 4 "ghost module" WSOD on /admin/modules
-  
-
-    
-  </span>
-  
-  
-    
-  
-  
-    <span class="md-status md-status--mitigated"></span>
-  
-
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../../troubleshooting/ckeditor-ghost-wsod/" class="md-nav__link">
         
   
   
@@ -1832,81 +1945,6 @@
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#symptom" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Symptom
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#cause" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Cause
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#fix-interim-mitigation" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Fix (interim mitigation)
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#why-it-refuses-prod" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Why it refuses prod
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#durable-fix" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Durable fix
-      
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -2495,10 +2533,49 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#symptom" class="md-nav__link">
+  <a href="#what-the-404s-actually-are" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Symptom
+        What the 404s actually are
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="What the 404s actually are">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-probe-half-background-radiation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The probe half — background radiation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-legacy-half-the-actionable-one" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The legacy half — the actionable one
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#log-retention-is-45-hours" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Log retention is 4.5 hours
       
     </span>
   </a>
@@ -2506,43 +2583,49 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#cause" class="md-nav__link">
+  <a href="#client-ip-was-the-load-balancer" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Cause
+        Client IP was the load balancer
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Client IP was the load balancer">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-fix" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The fix
       
     </span>
   </a>
   
 </li>
-      
-        <li class="md-nav__item">
-  <a href="#fix-interim-mitigation" class="md-nav__link">
+        
+          <li class="md-nav__item">
+  <a href="#verified-behaviour" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Fix (interim mitigation)
+        Verified behaviour
       
     </span>
   </a>
   
 </li>
-      
-        <li class="md-nav__item">
-  <a href="#why-it-refuses-prod" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Why it refuses prod
-      
-    </span>
-  </a>
+        
+      </ul>
+    </nav>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#durable-fix" class="md-nav__link">
+  <a href="#follow-ups" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Durable fix
+        Follow-ups
       
     </span>
   </a>
@@ -2569,71 +2652,241 @@
   
 
 
-<h1 id="ckeditor-4-ghost-module-wsod-on-adminmodules">CKEditor 4 "ghost module" WSOD on /admin/modules</h1>
-<p><strong>Status:</strong> mitigated (interim helper 2026-07-17); durable fix pending the prod uninstall</p>
-<h2 id="symptom">Symptom</h2>
-<p>A non-prod environment (typically <strong>staging</strong>, or local ddev) throws a white screen of
-death on <strong><code>/admin/modules</code></strong> — and other pages that enumerate the full extension list —
-while normal pages (home, <code>/user/login</code>) still return 200. The container log shows:</p>
-<div class="highlight"><pre><span></span><code>Uncaught PHP Exception Drupal\Core\Extension\Exception\UnknownExtensionException:
-  &quot;The module ckeditor does not exist.&quot; at .../ExtensionList.php
-  referer: .../admin/modules
-</code></pre></div>
-<h2 id="cause">Cause</h2>
-<p>A <strong>mismatch between code and database</strong>:</p>
-<ul>
-<li>The running image is built from <code>main</code> (or any commit after <code>5d9513b</code>), so the CKEditor 4
-  contrib module files (<code>web/modules/contrib/ckeditor</code>) are <strong>removed</strong>.</li>
-<li>The database still has <strong><code>ckeditor</code> enabled</strong> in <code>core.extension</code>.</li>
-</ul>
-<p>Drupal boots fine (it tolerates the missing module as a warning), but any operation that
-enumerates every extension — <code>/admin/modules</code> — calls <code>getName()</code> on the enabled-but-missing
-module and fatals.</p>
-<p>This happens whenever a <strong>prod DB snapshot lands on <code>main</code> code</strong>, because:</p>
-<ul>
-<li><strong>Prod's DB still has <code>ckeditor</code> enabled</strong> (prod deliberately runs a <em>pre-removal</em> image so
-  its files and DB match — see the <a href="../../maintenance/ckeditor4-to-ckeditor5/">CKEditor 4 removal</a>
-  status), and</li>
-<li>the same snapshot also <strong>disables <code>devops_docs</code></strong>, since neither module is in config-as-code
-  (<code>core.extension.yml</code>).</li>
-</ul>
-<p>It is the reverse of the required order: <strong>files were removed before the DB was uninstalled.</strong>
-Live example: the 2026-07-14 prod→staging DB sync, and again after the 2026-07-17 <code>main</code> deploy
-to staging.</p>
-<div class="admonition note">
-<p class="admonition-title">Prod is not affected</p>
-<p>Prod runs an image where the ckeditor files are still present, matching its DB — so prod
-never hits this. This is exactly why the DLS-67 timezone fix shipped a decoupled image to
-prod instead of <code>main</code>.</p>
+<h1 id="request-logging-404-noise-and-client-ip">Request Logging, 404 Noise, and Client IP</h1>
+<div class="admonition info">
+<p class="admonition-title">Why this page exists</p>
+<p>Started as a narrow question — <em>are these 404s hacking probes?</em> — asked while auditing
+the SimpleSAMLphp debug flag on production. The answer turned out to be "about half,"
+but the more useful findings were underneath it: log retention on production is
+<strong>4.5 hours</strong>, and until 2026-08-06 Drupal was recording the load balancer's address as
+the client IP for every request.</p>
 </div>
-<h2 id="fix-interim-mitigation">Fix (interim mitigation)</h2>
-<p>A guarded, idempotent helper normalises non-prod module state:</p>
-<div class="highlight"><pre><span></span><code>./local/ddev/backups/ckeditor-ghost-cleanup.sh<span class="w"> </span><span class="o">[</span>local<span class="p">|</span>dev<span class="p">|</span>staging<span class="o">]</span><span class="w">   </span><span class="c1"># default: local</span>
-</code></pre></div>
-<p>It:</p>
+<h2 id="what-the-404s-actually-are">What the 404s actually are</h2>
+<p>Sampled the most recent 900 <code>page not found</code> entries in <code>watchdog</code> on production
+(2026-08-06):</p>
+<table>
+<thead>
+<tr>
+<th>Category</th>
+<th>Share</th>
+<th>Character</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Scanner / probe</td>
+<td><strong>49%</strong></td>
+<td>Commodity vulnerability scanning</td>
+</tr>
+<tr>
+<td>Legacy URLs</td>
+<td><strong>25%</strong></td>
+<td>Real dead links from the pre-Drupal site</td>
+</tr>
+<tr>
+<td>Other</td>
+<td>26%</td>
+<td>API paths, malformed requests, uncategorized</td>
+</tr>
+</tbody>
+</table>
+<h3 id="the-probe-half-background-radiation">The probe half — background radiation</h3>
+<p>Predominantly <strong>webshell hunting</strong>: <code>/coffee.php</code>, <code>/als.php</code>, <code>/for.php</code>, <code>/82.php</code>, and
+randomized names like <code>/uiuvs58l.php</code>, <code>/40p9ixjd.php</code>, <code>/tkikikoko.php</code>, <code>/SDsadqwrf.php</code>.
+These are not attacks against Drupal — they are scans for backdoors <em>someone else</em> may have
+already planted on the host. It is the cheapest form of reconnaissance and it runs
+continuously against every public address.</p>
+<p>The remainder probe for software this site does not run: <code>/wp-explorer.php</code> (WordPress),
+<code>/adminner.php</code> (Adminer), <code>/config.json.php</code>. A small cluster probes LMS platforms —
+<code>/d2l/api/lp/1.0/enrollments/...</code> (Brightspace), <code>/api/v1/courses?per_page=2</code> (Canvas),
+<code>/login/token.php</code> (Moodle).</p>
+<div class="admonition note">
+<p class="admonition-title">What a 404 log can and cannot tell you</p>
+<p>Every one of these returned 404 against a site that has no <code>/coffee.php</code> to find, so the
+scanning is not landing. But a 404 log by construction records only what <strong>failed</strong> —
+it is evidence that these probes missed, not proof the host is clean. Treat it as
+reassuring background, not as a security audit.</p>
+</div>
+<p><strong>Do not try to block them.</strong> It is whack-a-mole against automated noise, and every rule
+becomes something to maintain. The problem they cause here is not risk, it is <em>log volume</em>.</p>
+<h3 id="the-legacy-half-the-actionable-one">The legacy half — the actionable one</h3>
+<p><code>/area-studies/SouthAsia/SAserials/Dawn/1996/25Ap96.html</code>,
+<code>/small/exhibits/lewis_clark/exploring/ch2-14.html</code>, <code>/speccol/newlib/construction/</code>,
+<code>/old-press/01-02/artlibrarian.html</code>, <code>/mellon/ch4.html</code>,
+<code>/digital-production-group/files/2013/02/AIMS_final_appF.pdf</code>.</p>
+<p>These are URLs from the <strong>pre-Drupal library site</strong> — 1990s and 2000s static content. Something
+still links to them: search engines, citations in published work, old bookmarks, LibGuides.
+A quarter of the 404s are real people and crawlers reaching content that moved or vanished,
+and redirects would recover that traffic.</p>
+<h2 id="log-retention-is-45-hours">Log retention is 4.5 hours</h2>
+<p>Measured on production, 2026-08-06:</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>dblog.settings</code> <code>row_limit</code></td>
+<td>1000</td>
+</tr>
+<tr>
+<td>Rows retained</td>
+<td>1022</td>
+</tr>
+<tr>
+<td>Of which <code>page not found</code></td>
+<td>872 (~194/hour)</td>
+</tr>
+<tr>
+<td><strong>Retained window</strong></td>
+<td><strong>4.5 hours</strong> (06:07 → 10:40)</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition warning">
+<p class="admonition-title">Under five hours of forensic history</p>
+<p>Scanning noise consumes the log budget, so <code>watchdog</code> holds less than a shift's worth of
+history. During an incident, anything that happened the previous day is already gone.
+This is a quiet operational limitation that only shows up when you need it.</p>
+</div>
+<p>Two ways to buy the history back, not mutually exclusive:</p>
 <ul>
-<li>removes <code>ckeditor</code> from <code>core.extension</code> + deletes its <code>system.schema</code> key — <strong>only when it
-  is enabled AND its files are absent</strong> (a genuine ghost). A plain <code>drush pm:uninstall ckeditor</code>
-  cannot be used here: with the files already gone it throws the same <code>UnknownExtensionException</code>.</li>
-<li>re-enables <code>devops_docs</code> when the files are present but it is disabled.</li>
-<li>rebuilds cache only if it changed something.</li>
-<li><strong>refuses <code>prod</code></strong> (exit 2) — see below.</li>
+<li><strong>Raise <code>row_limit</code></strong> well above 1000. It is DB-backed, so weigh it against
+  <code>watchdog</code> table growth on the shared RDS instance.</li>
+<li><strong>Stop logging 404s</strong> (or route them elsewhere) so the budget is spent on events that
+  carry signal.</li>
 </ul>
-<p>Because it is guarded, it is a <strong>safe no-op</strong> on a healthy environment (e.g. dev/prod, where
-ckeditor's files are still present), so it can be run any time. It is also invoked automatically
-at the end of <code>update-db-from-remote.sh</code> after a local DB import.</p>
-<h2 id="why-it-refuses-prod">Why it refuses prod</h2>
-<p>On prod's <strong>two live nodes sharing one RDS cache backend</strong>, a config delete + container/discovery
-rebuild is a mass write to the shared <code>cache_*</code> tables — the same deadlock class as <code>drush cr</code>
-that caused the <a href="../../incidents/2026-06-26-prod-cache-deadlock-wsod/">2026-06-26 WSOD</a>. The prod
-uninstall must be done under the maintenance-mode variant of the
-<a href="../../operations/production-deploy-runbook/">Production Deploy Runbook</a>, not this helper.</p>
-<h2 id="durable-fix">Durable fix</h2>
-<p>Uninstall <code>ckeditor</code> on <strong>prod while its files still exist</strong> (maintenance-mode window), then deploy
-the ckeditor-removed image. After that, prod's DB no longer seeds the ghost, every prod→staging
-sync is clean, <code>main</code> becomes deployable to prod, and this helper becomes a permanent no-op that can
-be retired. Tracked with the <a href="../../maintenance/ckeditor4-to-ckeditor5/">CKEditor 4 removal</a> work and
-the <a href="../../maintenance/drupal-11-upgrade/">Drupal 11 upgrade</a>.</p>
+<h2 id="client-ip-was-the-load-balancer">Client IP was the load balancer</h2>
+<p>Every 404 above was attributed to one of <strong>five internal <code>10.130.x.x</code> addresses</strong> — the ALB's
+network interfaces, not clients. The cause:</p>
+<div class="highlight"><pre><span></span><code><span class="x">settings.php:388   # $settings[&#39;reverse_proxy&#39;] = TRUE;</span>
+<span class="x">settings.php:394   # $settings[&#39;reverse_proxy_addresses&#39;] = [&#39;a.b.c.d&#39;, ...];</span>
+</code></pre></div>
+<p>Both were still commented out. <code>trusted_host_patterns</code> was configured, but <code>reverse_proxy</code>
+was not, so Drupal never read <code>X-Forwarded-For</code> and treated the load balancer as the client.</p>
+<div class="admonition danger">
+<p class="admonition-title">What that broke</p>
+<ul>
+<li><strong><code>watchdog</code> hostname was meaningless</strong> — no way to distinguish a scanner from a
+  patron from the uptime monitor.</li>
+<li><strong>Every IP-based mechanism was blind</strong> — flood control, rate limiting, and IP blocking
+  all keyed on the proxy address, so they applied collectively to everyone behind the
+  ALB rather than to individuals.</li>
+<li><strong>Incident forensics started from nothing.</strong></li>
+</ul>
+</div>
+<p>This is distinct from the <code>X-Forwarded-Proto</code> handling already in the Apache vhost
+(see <a href="../../adr/002-https-at-load-balancer/">ADR 002</a>), which fixes the request <em>scheme</em> so
+SimpleSAMLphp's secure cookie works. Client IP is a separate setting and had never been
+enabled.</p>
+<h3 id="the-fix">The fix</h3>
+<p>Configured in <code>package/data/opt/drupal/web/sites/default/settings.php</code>:</p>
+<div class="highlight"><pre><span></span><code><span class="x">$settings[&#39;reverse_proxy&#39;] = TRUE;</span>
+
+<span class="x">$settings[&#39;reverse_proxy_addresses&#39;] = [</span>
+<span class="x">  // production</span>
+<span class="x">  &#39;10.130.110.0/24&#39;,</span>
+<span class="x">  &#39;10.130.113.0/24&#39;,</span>
+<span class="x">  // staging + develop (shared VPC)</span>
+<span class="x">  &#39;10.130.109.0/24&#39;,</span>
+<span class="x">  &#39;10.130.112.0/24&#39;,</span>
+<span class="x">];</span>
+
+<span class="x">$settings[&#39;reverse_proxy_trusted_headers&#39;] =</span>
+<span class="x">  \Symfony\Component\HttpFoundation\Request::HEADER_X_FORWARDED_AWS_ELB;</span>
+</code></pre></div>
+<p><strong>Why VPC CIDRs rather than ALB IPs.</strong> ALB ENI addresses are dynamic and rotate within their
+subnets, so a list of individual IPs would rot. The ranges above are the authoritative VPC
+extents, read from EC2 instance metadata rather than inferred:</p>
+<div class="highlight"><pre><span></span><code><span class="nv">TOK</span><span class="o">=</span><span class="k">$(</span>curl<span class="w"> </span>-s<span class="w"> </span>-X<span class="w"> </span>PUT<span class="w"> </span><span class="s2">&quot;http://169.254.169.254/latest/api/token&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">      </span>-H<span class="w"> </span><span class="s2">&quot;X-aws-ec2-metadata-token-ttl-seconds: 60&quot;</span><span class="k">)</span>
+<span class="nv">MAC</span><span class="o">=</span><span class="k">$(</span>curl<span class="w"> </span>-s<span class="w"> </span>-H<span class="w"> </span><span class="s2">&quot;X-aws-ec2-metadata-token: </span><span class="nv">$TOK</span><span class="s2">&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">      </span>http://169.254.169.254/latest/meta-data/network/interfaces/macs/<span class="w"> </span><span class="p">|</span><span class="w"> </span>head<span class="w"> </span>-1<span class="k">)</span>
+curl<span class="w"> </span>-s<span class="w"> </span>-H<span class="w"> </span><span class="s2">&quot;X-aws-ec2-metadata-token: </span><span class="nv">$TOK</span><span class="s2">&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span><span class="s2">&quot;http://169.254.169.254/latest/meta-data/network/interfaces/macs/</span><span class="si">${</span><span class="nv">MAC</span><span class="si">}</span><span class="s2">vpc-ipv4-cidr-blocks&quot;</span>
+</code></pre></div>
+<p><strong>Why all environments are listed.</strong> <code>settings.php</code> is baked into the image and shared, and a
+CIDR belonging to another VPC can never appear as <code>REMOTE_ADDR</code> in this one — so listing them
+together is safe.</p>
+<p><strong>Why not simply <code>10.0.0.0/8</code>.</strong> The container is reachable directly on <code>:8080</code> from the UVA
+VPN, bypassing the ALB. A broad range would let a VPN client forge <code>X-Forwarded-For</code> and
+choose its own logged identity. The ranges above exclude VPN clients, so their forged header
+is ignored.</p>
+<div class="admonition danger">
+<p class="admonition-title"><code>HEADER_X_FORWARDED_ALL</code> is a fatal error here — do not uncomment the example</p>
+<p>The Drupal core comment block still lists
+<code>\Symfony\Component\HttpFoundation\Request::HEADER_X_FORWARDED_ALL</code> as a "common value".
+That constant was <strong>removed in Symfony 6</strong>, which this site runs. Referencing it is a
+fatal error, not a deprecation — uncommenting the boilerplate verbatim takes the site
+down. Verified against the running container: the constant does not exist.</p>
+<p><code>HEADER_X_FORWARDED_AWS_ELB</code> (= <code>FOR|PROTO|PORT</code>, value 26) is Symfony's purpose-built
+mask for this topology. It omits <code>X-Forwarded-Host</code>, which the ALB does not set and which
+would otherwise widen host-header injection surface.</p>
+</div>
+<h3 id="verified-behaviour">Verified behaviour</h3>
+<p>Tested against the real Symfony in the production container before shipping (read-only — the
+trusted-proxy list was applied to a constructed <code>Request</code>, not to the site):</p>
+<table>
+<thead>
+<tr>
+<th><code>REMOTE_ADDR</code></th>
+<th>claims <code>X-Forwarded-For</code></th>
+<th>resolved client IP</th>
+<th>trusted</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>10.130.110.27</code> (ALB ENI)</td>
+<td><code>199.111.42.7</code></td>
+<td><code>199.111.42.7</code></td>
+<td>yes</td>
+</tr>
+<tr>
+<td><code>10.130.113.40</code> (ALB, other block)</td>
+<td><code>66.249.66.1</code></td>
+<td><code>66.249.66.1</code></td>
+<td>yes</td>
+</tr>
+<tr>
+<td><code>10.130.109.5</code> (staging/dev ALB)</td>
+<td><code>128.143.1.20</code></td>
+<td><code>128.143.1.20</code></td>
+<td>yes</td>
+</tr>
+<tr>
+<td><code>172.27.4.9</code> (VPN client on <code>:8080</code>)</td>
+<td><code>1.2.3.4</code></td>
+<td><strong><code>172.27.4.9</code></strong></td>
+<td><strong>no</strong></td>
+</tr>
+</tbody>
+</table>
+<p>The last row is the one that matters: a forged header from outside the trusted ranges is
+correctly discarded.</p>
+<div class="admonition note">
+<p class="admonition-title">Takes effect on next deploy</p>
+<p><code>settings.php</code> ships inside the image, so this is inert until an image built from <code>main</code>
+is deployed to each environment. Confirm afterwards with:
+<div class="highlight"><pre><span></span><code>ssh<span class="w"> </span>&lt;host&gt;<span class="w"> </span><span class="s1">&#39;sudo docker exec -i drupal-0 /opt/drupal/vendor/bin/drush php:eval \</span>
+<span class="s1">  &quot;print_r(\Symfony\Component\HttpFoundation\Request::getTrustedProxies());&quot;&#39;</span>
+</code></pre></div>
+Then check that new <code>watchdog</code> rows carry public client addresses rather than <code>10.130.x.x</code>.</p>
+</div>
+<h2 id="follow-ups">Follow-ups</h2>
+<ul>
+<li><strong>Raise <code>dblog.settings row_limit</code></strong> (or stop logging 404s) so retention is measured in days
+  rather than hours.</li>
+<li><strong>Mine the legacy 404s for redirects</strong> — the one category with user value on the other side.
+  The <code>redirect</code> module is already available; the top offenders are <code>/area-studies/*</code>,
+  <code>/small/exhibits/*</code>, <code>/speccol/*</code>, and <code>/old-press/*</code>.</li>
+<li><strong>Revisit IP-based protections once real client IPs are flowing.</strong> Flood control and rate
+  limiting were effectively inert before this change; they are worth re-tuning now that they
+  can distinguish one client from another.</li>
+</ul>
 
 
 
@@ -2654,7 +2907,7 @@ the <a href="../../maintenance/drupal-11-upgrade/">Drupal 11 upgrade</a>.</p>
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-datetime" title="July 17, 2026 13:49:51 UTC">July 17, 2026 13:49:51</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-datetime" title="August 6, 2026 15:32:52 UTC">August 6, 2026 15:32:52</span>
   </span>
 
     
