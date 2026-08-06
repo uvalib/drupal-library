@@ -92,11 +92,21 @@ The gap between prod's `4079ce3` and `main` is 41 commits, but almost all of it 
   /Users/ys2n/Code/scripts/uvalib/aws/alb-state drupal-prod
   ```
 
-!!! warning "Confirm the ALB health check before enabling maintenance mode"
+!!! danger "Confirm the ALB health check matcher before enabling maintenance mode"
     Drupal's maintenance mode serves **HTTP 503** to anonymous requests. If the ALB target
     group's health check hits a path that goes through Drupal and matches only 200, both
     targets will flip **unhealthy** during the window — the pool empties and the ALB serves
     its own error instead of Drupal's maintenance page.
+
+    **Partially confirmed 2026-08-06, and not in the reassuring direction.** The Apache
+    access log shows the health checker requesting **`/`** — a Drupal-served path, which is
+    precisely the risky case:
+    ```
+    10.130.109.39 - - [06/Aug/2026:12:43:37 -0400] "GET / HTTP/1.1" 200 14987 "-" "ELB-HealthChecker/2.0"
+    ```
+    So the checked path *will* return 503 under maintenance mode. The **only** remaining
+    unknown is whether the target group's success matcher tolerates 503. Treat this as a
+    hard gate: verify the matcher before the window, not during it.
 
     Check the health check's path and success matcher first:
     ```bash

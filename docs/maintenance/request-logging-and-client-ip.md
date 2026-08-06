@@ -178,6 +178,42 @@ correctly discarded.
     ```
     Then check that new `watchdog` rows carry public client addresses rather than `10.130.x.x`.
 
+## Apache logs are a separate layer — still unfixed
+
+`$settings['reverse_proxy']` is a PHP/Symfony setting. It changes what
+`$request->getClientIp()` returns *inside Drupal* — which is what feeds `watchdog`, flood
+control, and rate limiting — and nothing else. **Apache's access log is untouched.**
+
+`mod_remoteip` is not loaded, and the vhost uses the stock `combined` format whose `%h` is
+the TCP peer, so every line records the load balancer:
+
+```
+10.130.109.39 - - [06/Aug/2026:12:43:37 -0400] "GET / HTTP/1.1" 200 14987 "-" "ELB-HealthChecker/2.0"
+```
+
+Two ways to fix it, if wanted:
+
+- **`%{X-Forwarded-For}i` in `LogFormat`** — trivial, but logs the raw header with no trust
+  check, so it is spoofable and may hold a comma-separated chain.
+- **`mod_remoteip`** (`RemoteIPHeader X-Forwarded-For` + `RemoteIPTrustedProxy` with the same
+  CIDRs as above) — the proper fix. It rewrites `%h` *and* `REMOTE_ADDR` before PHP runs.
+  The two layers then agree rather than conflict: `REMOTE_ADDR` becomes the real client,
+  which falls outside the trusted ranges, so Drupal uses it directly.
+
+Lower priority than `watchdog` — Apache logs here are ephemeral container stdout, while
+`watchdog` is what you actually query during an incident.
+
+!!! tip "The health-check lines double as CIDR confirmation"
+    Those `ELB-HealthChecker/2.0` entries arrive from `10.130.109.x` and `10.130.112.x` —
+    inside the staging ranges configured in `reverse_proxy_addresses`, derived independently
+    from instance metadata. Two unrelated sources agreeing is a useful sanity check on the
+    trusted-proxy list.
+
+    They also reveal that **the ALB health-checks `/`**, a Drupal-served path. That matters
+    well beyond logging: under maintenance mode Drupal returns 503 on `/`, so the health
+    check would fail unless the target group's matcher tolerates it. Recorded as a hard gate
+    in the [CKEditor 4 removal runbook](../operations/ckeditor4-prod-removal-runbook.md).
+
 ## Follow-ups
 
 - **Raise `dblog.settings row_limit`** (or stop logging 404s) so retention is measured in days
