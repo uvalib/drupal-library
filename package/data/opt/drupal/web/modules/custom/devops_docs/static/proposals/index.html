@@ -1361,6 +1361,34 @@
   
   
     <li class="md-nav__item">
+      <a href="health-check-endpoint/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Proposal: a health-check endpoint that survives maintenance mode
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="saml-timezone-clobber-guard/" class="md-nav__link">
         
   
@@ -2504,6 +2532,10 @@ the mechanism moves into <a href="../operations/">Operations</a> or
 <tr>
 <td><a href="saml-version-compat-check/">SimpleSAMLphp version-compat check</a></td>
 <td>Advisory deploy-time check that the SP container and the Drupal-side SimpleSAMLphp share a <code>saml2</code> major (session-format compatibility); one shared Ansible task, no API/module.</td>
+</tr>
+<tr>
+<td><a href="health-check-endpoint/">Health-check endpoint that survives maintenance mode</a></td>
+<td>The ALB health-checks <code>/</code>, which Drupal 503s in maintenance mode — so maintenance pulls nodes from rotation and replaces the maintenance page with an ALB error. Proposes a <code>_maintenance_access</code> route doing a trivial DB round-trip, letting the matcher stay <code>200-299</code> permanently. Account-wide trap.</td>
 </tr>
 <tr>
 <td><a href="saml-timezone-clobber-guard/">SAML timezone-clobber guard</a></td>

@@ -831,6 +831,17 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
+  <a href="#why-accepting-503-does-not-mask-real-failures" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Why accepting 503 does not mask real failures
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#blast-radius-of-the-matcher-change" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1513,6 +1524,34 @@
     
   
     Proposal: SimpleSAMLphp version-compatibility check at deploy time
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../proposals/health-check-endpoint/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Proposal: a health-check endpoint that survives maintenance mode
   
 
     
@@ -2661,6 +2700,17 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
+  <a href="#why-accepting-503-does-not-mask-real-failures" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Why accepting 503 does not mask real failures
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#blast-radius-of-the-matcher-change" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -3033,10 +3083,83 @@ enabled, that target group carries the same <code>200-299</code> matcher and nee
 treatment.</p>
 <div class="admonition danger">
 <p class="admonition-title">Restoring is mandatory, not hygiene</p>
-<p>While <code>503</code> is accepted, a genuinely broken Drupal (fatal → 503) also counts as
-healthy and the ALB will route users straight into the outage. The exposure lasts
+<p>While <code>503</code> is accepted, an <strong>accidental</strong> maintenance mode becomes invisible — nodes
+stay in rotation, health checks stay green, and nothing alerts. The exposure lasts
 exactly as long as the matcher stays widened.</p>
 </div>
+</div>
+<h3 id="why-accepting-503-does-not-mask-real-failures">Why accepting 503 does not mask real failures</h3>
+<p>The obvious worry about widening the matcher is that it blinds the health check to genuine
+faults. On this stack it does not, and it is worth knowing why before running the window.</p>
+<p>Exhaustively, in non-test core code, only two things emit 503:</p>
+<table>
+<thead>
+<tr>
+<th>Source</th>
+<th>Trigger</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>MaintenanceModeSubscriber</code> (+ JSON:API variant)</td>
+<td><strong>Maintenance mode</strong> — the deliberate case</td>
+</tr>
+<tr>
+<td><code>CKEditor5ImageController</code>, <code>FileUploadResource</code>, <code>jsonapi/FileUpload</code>, <code>TemporaryJsonapiFileFieldUploader</code></td>
+<td><strong>File already locked for writing</strong>, sent with <code>Retry-After: 1</code></td>
+</tr>
+</tbody>
+</table>
+<p>The file-lock cases fire only on <strong>upload endpoints</strong>, never on <code>/</code>, so they cannot influence
+the health check at all.</p>
+<p>The failures that genuinely warrant pulling a node produce something else entirely, and
+therefore <strong>still fail a <code>200-299,503</code> matcher</strong>:</p>
+<table>
+<thead>
+<tr>
+<th>Failure</th>
+<th>Status</th>
+<th>Node still pulled?</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Database / RDS unreachable</td>
+<td><strong>500</strong></td>
+<td>✅</td>
+</tr>
+<tr>
+<td>PHP fatal, OOM</td>
+<td><strong>500</strong></td>
+<td>✅</td>
+</tr>
+<tr>
+<td>Apache down, container dead</td>
+<td><em>no response</em> (refused / timeout)</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>Drupal bootstrap failure</td>
+<td><strong>500</strong></td>
+<td>✅</td>
+</tr>
+</tbody>
+</table>
+<p>There is no 503 path tied to database connection failure anywhere in core — DB failures surface
+as 500. Note too that this image runs <strong>mod_php, not php-fpm</strong>: with FastCGI, Apache emits 503
+when the pool is down or saturated, which <em>would</em> be a real signal worth keeping. That failure
+mode does not exist here. The only loaded proxy module serves the <code>/simplesaml/</code> <code>ProxyPass</code>, so
+a dead netbadge container 503s on <code>/simplesaml/</code> while <code>/</code> stays healthy — correctly, since the
+rest of the site still works.</p>
+<p><strong>So during the window, the only thing the widened matcher hides is maintenance mode itself</strong> —
+which is precisely what you are trying to hide from it.</p>
+<div class="admonition tip">
+<p class="admonition-title">The real fix is to stop health-checking a Drupal page</p>
+<p>All of this stems from the health check asking <code>/</code> — which conflates <em>"can this node
+serve?"</em> with <em>"is the site in maintenance?"</em>. A dedicated endpoint that opts out of
+maintenance mode would let the matcher stay <code>200-299</code> permanently and remove the ALB step
+from this procedure entirely. See
+<a href="../../proposals/health-check-endpoint/">Proposal: a health-check endpoint that survives maintenance mode</a>.</p>
 </div>
 <h3 id="blast-radius-of-the-matcher-change">Blast radius of the matcher change</h3>
 <p>The matcher is a property of the <strong>target group</strong>, not the ALB or its listeners — which
@@ -3310,7 +3433,7 @@ recreates the ghost exactly.</p>
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-datetime" title="August 6, 2026 17:40:22 UTC">August 6, 2026 17:40:22</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-datetime" title="August 6, 2026 19:38:19 UTC">August 6, 2026 19:38:19</span>
   </span>
 
     
