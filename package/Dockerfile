@@ -54,6 +54,15 @@ RUN ln -s /opt/drupal/util/drupal-library/package/data/opt/drupal/vendor-archive
 # Rebuild static/ locally with scripts/build-docs.sh after editing docs/.
 RUN ln -s /opt/drupal/util/drupal-library/package/data/opt/drupal/web/modules/custom/devops_docs /opt/drupal/web/modules/custom/devops_docs
 
+# The prod host's `drush cex --commit` cron (every 2h, see root's crontab) commits config
+# export changes from inside this container. Without these, git refuses to operate on the
+# bind-mounted config/sync checkout ("dubious ownership") and has no author identity to commit
+# with -- both errors are silent to the cron's MAILTO, so this broke unnoticed for ~2 months.
+RUN git config --system --add safe.directory /opt/drupal/util/drupal-library/package/data/opt/drupal/config/sync
+RUN git config --system --add safe.directory /opt/drupal/config/sync
+RUN git config --system user.email "ys2n@virginia.edu"
+RUN git config --system user.name "ys2n"
+
 RUN cd /opt/drupal && ls -l
 RUN cd /opt/drupal && ls -la vendor-archive/
 RUN cd /opt/drupal && composer install --no-dev --optimize-autoloader
