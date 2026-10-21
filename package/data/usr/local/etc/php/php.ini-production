@@ -1519,6 +1519,10 @@ session.sid_bits_per_character = 5
 ; Production Value: On
 ; http://php.net/session.upload-progress.enabled
 ;session.upload_progress.enabled = On
+; Interim hardening for PHP2Shell (CVE-2026-109618 / CVE-2026-109619, 2026-10-21): blocks the
+; upload-progress path CVE-2026-109619 uses. Not a fix -- that needs PHP 8.4.27 or later in the
+; base image. Remove once the base is patched.
+session.upload_progress.enabled = Off
 
 ; Cleanup the progress information as soon as all POST data has been read
 ; (i.e. upload completed).
