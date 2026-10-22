@@ -235,7 +235,7 @@ theme tag as the SSM pin.
 
 ## 11. Open items
 
-- **Develop:** done after the main rollout, see section 12. Still to do: a real NetBadge login + logout on develop.
+- **Develop:** done after the main rollout, see section 12; the user then tested a real NetBadge login and logout there and it worked.
 - **Test on prod:** the user was asked to test a NetBadge login and a logout (expect `https://library.virginia.edu/`).
 - **Re-check traffic split** between the nodes (node 0 was ramping up).
 - **Update `docs/operations/production-deploy-runbook.md`:** the shared SSM theme pin, the `deploy_theme_only.yml`
@@ -247,7 +247,7 @@ theme tag as the SSM pin.
   and whether it should be filtered too.
 - **Theme repo:** `main` and `release` are still diverged; decide whether to reconcile them (the list-config revert
   exists only on `release`; find out why it was reverted before promoting `main`).
-- Not tested: NetBadge login on develop; a SAML logout for a user with an active IdP session beyond the simple
+- Not tested: a SAML logout for a user with an active IdP session beyond the simple
   staging/prod click-through.
 
 ## 12. Develop
@@ -267,4 +267,5 @@ theme tag as the SSM pin.
   off, bootstrap successful, PHP 8.4.27, `/` and `/user/login` 200, `/saml_login` 303. Theme unchanged
   (`main` HEAD `9e2201de`; the dev playbook has no theme step). With the deployed `settings.php`, the self-URL
   from an ALB-range address is `https://<host>/`, and from outside the proxy ranges it is still `:80` (intended).
+- **Confirmed by the user after the deploy:** a NetBadge login and logout on develop worked, so the fix is verified end-to-end on develop, staging and production.
 
