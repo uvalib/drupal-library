@@ -7,7 +7,7 @@
 `prod-theme-20261022-login-form-fixes` (`e24e27bc`). The logout fix is now in the image, not just hand-applied;
 logout was confirmed working on staging and prod (before the rollout, with the hand-edit). The
 staging pipeline no longer builds/deploys on docs-only merges (`trigger_paths`, applied and proven by a
-docs-only push that started nothing). **Develop was not updated and likely still has the `:80` logout bug.**
+docs-only push that started nothing). **Develop was deployed afterwards (section 12).**
 The two prod nodes were compared after the rollout and are identical (section 10).
 
 Session also began with "pull and update" (see section 5).
@@ -235,8 +235,7 @@ theme tag as the SSM pin.
 
 ## 11. Open items
 
-- **Develop:** still `build-20261022134259` with the old `settings.php` (likely the `:80` logout bug) and the
-  `main` theme. No auto-deploy; needs a manual deploy. Deliberately left alone this session.
+- **Develop:** done after the main rollout, see section 12. Still to do: a real NetBadge login + logout on develop.
 - **Test on prod:** the user was asked to test a NetBadge login and a logout (expect `https://library.virginia.edu/`).
 - **Re-check traffic split** between the nodes (node 0 was ramping up).
 - **Update `docs/operations/production-deploy-runbook.md`:** the shared SSM theme pin, the `deploy_theme_only.yml`
@@ -250,3 +249,22 @@ theme tag as the SSM pin.
   exists only on `release`; find out why it was reverted before promoting `main`).
 - Not tested: NetBadge login on develop; a SAML logout for a user with an active IdP session beyond the simple
   staging/prod click-through.
+
+## 12. Develop
+
+- **What it was:** `build-20261022134259`, old `settings.php`, theme `main` HEAD, behind `alb-library-drupal-develop`
+  (target group :8080) with the same vhost as prod and an empty `logout_goto_url`. The user reported "everything
+  works" there. Simulating SimpleSAMLphp's `getSelfURL()` in its container with ALB-style inputs (https, port 80)
+  produced `https://<host>:80/`, i.e. the bug is present in the code path. The 13:08 ET develop logout that worked
+  was a `GET /user/logout` followed directly by `GET /` with no `/simplesaml/` request, i.e. a non-SAML (local)
+  session: `simplesamlphp_auth_user_logout()` only calls SimpleSAMLphp when `isAuthenticated()`. So that test
+  could not show the bug. A real NetBadge logout on develop was not tested before the fix.
+- **Deploy (user asked):** `library.virginia.edu/develop/ansible/deploy_backend.yml -e deploy_tag=build-20261022153610`
+  (`latest` resolved to the same build; explicit pin so a newer build could not slip in). The playbook recreates
+  the container and runs `composer install`, `drush en simplesamlphp_auth`, `drush cr`, an Apache reload and
+  `drush cim --partial` of the SimpleSAMLphp config. `failed=0`. No ALB drain (single node, dev).
+- **Verified:** image `build-20261022153610`, `settings.php` checksum `a9af532f` (same as prod/staging), maintenance
+  off, bootstrap successful, PHP 8.4.27, `/` and `/user/login` 200, `/saml_login` 303. Theme unchanged
+  (`main` HEAD `9e2201de`; the dev playbook has no theme step). With the deployed `settings.php`, the self-URL
+  from an ALB-range address is `https://<host>/`, and from outside the proxy ranges it is still `:80` (intended).
+
