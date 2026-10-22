@@ -1,7 +1,12 @@
 
 # build the target container
 #
-FROM public.ecr.aws/docker/library/drupal:10.6.10
+# PHP2Shell (PHP 8.4.27) and SA-CORE-2026-014 (Drupal core 10.6.19). This pinned tag carries PHP
+# 8.4.27; the base image's own Drupal version does not matter, because core is installed from
+# composer.lock below (keep the two in step). Docker Hub is used directly because the ECR public
+# mirror lagged behind: it had no 10.6.19 / 8.4.27 images when this was written. Switch back to
+# the mirror once it has this tag.
+FROM docker.io/library/drupal:10.6.19-php8.4-apache
 
 # update the packages
 RUN apt-get -y update && apt-get -y upgrade && apt-get -y install default-mysql-client git less vim msmtp-mta \
