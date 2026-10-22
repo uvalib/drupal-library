@@ -25,9 +25,18 @@ no pull needed) showed otherwise:
 | `drupal:10.6.19-php8.4-apache` | 8.4.27 | 10.6.19 | 2026-10-21 17:07 |
 | `drupal:10.6.10-php8.4-apache` (old base) | 8.4.22 | 10.6.10 | 2026-06-17 |
 
-**The ECR public mirror lags Docker Hub**, and `scripts/check-php-base-image.sh` reads the mirror,
-so it can report "NOT YET" while Docker Hub is already patched. The mirror had neither
-`drupal:10.6.19` nor a PHP 8.4.27 image that morning.
+!!! warning "Correction (same day, later)"
+    This section first said the ECR public mirror lagged Docker Hub and lacked `drupal:10.6.19`.
+    That was not established. What was observed that morning: a `php:8.4.27-apache` check on the
+    mirror returned no platform images (for the netbadge work), and an anonymous inspect of the
+    `drupal` tags on the mirror failed. The mirror **rate-limits anonymous manifest reads with
+    HTTP 429**, so a failed inspect is not evidence that a tag is missing. When re-checked, the
+    mirror's manifest-list digests for `drupal:10.6.19-php8.4-apache`, `drupal:10.6-php8.4-apache`,
+    `drupal:11-php8.3-apache` and `php:8.4.27-apache` / `8.4-apache` / `8.3-apache` /
+    `8.3.36-apache` were **identical to Docker Hub's**. So the mirror may well have been in sync
+    when #14 was written; the Dockerfile's `docker.io` choice is a precaution, not a
+    workaround for a lagging mirror. (`scripts/check-php-base-image.sh` still pulls from the mirror
+    to read the PHP version; it is no longer needed for library, whose base is patched.)
 
 Second problem with #12: **core comes from `composer.lock`, not from the base image** (the
 Dockerfile runs `composer install --no-dev` from the lock), and #12 left core at 10.6.10, so it
@@ -112,8 +121,9 @@ no 5xx in the access log, traffic split about 50/50 (≈2,000 non-health-check r
 
 1. **NetBadge login on production** and staging: not tested (needs a person). Only the SP metadata
    (HTTP 200) and container health were checked.
-2. **Fix `scripts/check-php-base-image.sh`** to read Docker Hub (or take a registry argument), or
-   move the Dockerfile back to the mirror once it catches up.
+2. ~~Fix `scripts/check-php-base-image.sh`~~ Moot for library: the patched base is in use. Decide
+   whether to move the Dockerfile back to the ECR mirror (same digests when checked; avoids Docker
+   Hub's anonymous pull limit in CodeBuild).
 3. **Rebuild the devops-docs static site** (`package/data/.../devops_docs/static`); this change
    edits the markdown only.
 4. **Health-check endpoint** ([proposal](../proposals/health-check-endpoint.md)): now the only
