@@ -461,6 +461,19 @@ $settings['reverse_proxy_addresses'] = [
  */
 $settings['reverse_proxy_trusted_headers'] = \Symfony\Component\HttpFoundation\Request::HEADER_X_FORWARDED_AWS_ELB;
 
+/**
+ * UVA: the ALB terminates HTTPS and the container serves plain HTTP on :80, so
+ * SERVER_PORT is 80 while the Apache vhost sets HTTPS=on from X-Forwarded-Proto.
+ * SimpleSAMLphp builds its self URL from SERVER_PORT, so with no logout_goto_url
+ * configured, "Log out" returned users to https://<host>:80/. Report the port
+ * the client actually used, but only when the request came through the ALB
+ * (a trusted proxy), so a direct hit on :8080 can't spoof it.
+ */
+if (($_SERVER['HTTP_X_FORWARDED_PROTO'] ?? '') === 'https'
+  && \Symfony\Component\HttpFoundation\IpUtils::checkIp($_SERVER['REMOTE_ADDR'] ?? '', $settings['reverse_proxy_addresses'])) {
+  $_SERVER['SERVER_PORT'] = '443';
+}
+
 
 /**
  * Page caching:
