@@ -2,6 +2,17 @@
 
 **Date:** 2026-10-21 to 2026-10-22
 **Participants:** Yuji Shinozaki, Claude (Sonnet 5.5)
+> **UPDATE 2026-10-22: PR #12 is SUPERSEDED by PR #14 — do not merge #12.** The official image on
+> Docker Hub was already patched: `docker.io/library/drupal:10.6.19-php8.4-apache` and
+> `10.6-php8.4-apache` both carry PHP 8.4.27 (verified by pulling from docker.io). Our earlier
+> "no official 8.4.27 image yet" finding was wrong: we pulled from the **ECR public mirror**
+> (`public.ecr.aws/docker/library/...`), which lags Docker Hub, and `scripts/check-php-base-image.sh`
+> reads that mirror, so it can say NOT YET while Docker Hub is fine. #14
+> (`fix/php-8.4.27-drupal-10.6.19`, from the drupal-config-scan session) uses the docker.io image and
+> also moves core 10.6.10 -> 10.6.19 (SA-CORE-2026-014) in composer.json/lock, which #12 would have
+> left on 10.6.10 (core comes from the lock, not the base image). Not merged, nothing deployed.
+> Next steps 2 and 3 below are replaced by #14; the check script's registry should be fixed.
+
 **Outcome:** Assessed exposure (all environments vulnerable); merged interim hardening (#11) and a
 pipeline fix (#13); prepared the real fix (#12, own PHP 8.4.27 base) but **not merged and nothing
 fixed is running anywhere yet**. Handoff below.
