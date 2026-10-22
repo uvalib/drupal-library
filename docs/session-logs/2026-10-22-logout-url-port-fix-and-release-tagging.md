@@ -1,17 +1,14 @@
-# Session Log: Logout redirect to `https://host:80/` — hot fix, pairing git and docker tags, and a path-filtered pipeline trigger
+# Session Log: Logout redirect to `https://host:80/` — hot fix, pairing git and docker tags, a path-filtered pipeline trigger, and the production rollout with a theme promotion
 
 **Date:** 2026-10-22 (about 10:55 ET to just after noon; times approximate)
 **Participants:** Yuji Shinozaki, Claude (Sonnet 5.5), working from the `drupal-library` repo
-**Outcome:** Clicking **Log Out** no longer lands on `https://library.virginia.edu:80/`. The fix was
-hand-applied to staging and **both production nodes** (logout confirmed working on staging and prod),
-then merged as #16 (`417b835`) and built as `drupal-library:build-20261022153610`. Git tag
-`production_2026_10_22` was cut on `417b835` and **agrees** with that image. **Production has not
-been rolled to that image**; it still runs `build-20261022134259` plus the hand-edit.
-Develop was not checked.
-
-The staging pipeline's trigger was also changed so **docs-only merges to `main` no longer build
-and deploy** (`trigger_paths`, applied to AWS; see section 7). That is verified in the live pipeline
-definition but **not yet proven by a real docs-only merge**.
+**Outcome:** Production (**both nodes**) now runs `drupal-library:build-20261022153610` (`417b835`, git tag
+`production_2026_10_22`), NetBadge `build-20261022034941` (unchanged) and theme
+`prod-theme-20261022-login-form-fixes` (`e24e27bc`). The logout fix is now in the image, not just hand-applied;
+logout was confirmed working on staging and prod (before the rollout, with the hand-edit). The
+staging pipeline no longer builds/deploys on docs-only merges (`trigger_paths`, applied and proven by a
+docs-only push that started nothing). **Develop was not updated and likely still has the `:80` logout bug.**
+The two prod nodes were compared after the rollout and are identical (section 10).
 
 Session also began with "pull and update" (see section 5).
 
@@ -174,17 +171,82 @@ apply (newest remained the 11:35 ET run for `417b835`).
 the latest image. The tagging standard already says to tag the commit in the image's `gitcommit-<sha>`, not
 `main`'s head, so it holds, and it will now more often be that the two differ.
 
-## 8. Open items
+## 8. Theme: promoting Jack's login-form fixes
 
-- **Prove the trigger filter:** merge a markdown-only docs PR to `main` and confirm
-  `aws codepipeline list-pipeline-executions --pipeline-name uva-drupal-library-codepipeline` shows no new
-  execution. Merging the PR for this session log is a candidate.
-- **Check whether `drupal-library-production-deploy` is active** and whether it should be filtered too.
-- **Roll prod to `build-20261022153610`** per `docs/operations/production-deploy-runbook.md` (code-only
-  swap, so skip `drush cr`). The hand-edit is then replaced by the identical file from the image.
-- **Check develop** for the same bug. It has no auto-deploy; needs a manual deploy.
-- **Decide whether `release` is used at all**, then fix `CLAUDE.md` and the docs accordingly. `CLAUDE.md`
-  also still describes deploys without mentioning the new path filter; not edited this session.
-- Consider setting `logout_goto_url` explicitly as belt-and-braces: not needed now.
-- Not tested: a NetBadge login on develop; the SAML logout against a user with an active IdP session
-  beyond the simple staging/prod click-through.
+The user wanted Jack's 2026-10-15 fixes to the theme in the production deploy. Checking what to tag:
+
+- Production's theme (both nodes, and the SSM pin) was `prod-theme-20260519-netbadge-login` (`8403ff45`), the tip of
+  the theme repo's **`release`** branch. `main` had **diverged** from `release` (9 ahead, 6 behind). Last common
+  commit `8f08bfa2` (2025-11-20); `release` took `main` once more on 2025-11-21 (PR #31); the first release-only
+  content is `1431a415` (2025-11-11, a "Revert list config" commit made on the staging host). Of the six
+  release-only commits only that one has content of its own; the rest are merges. I first said tagging `main`
+  would drop "the NetBadge login work"; that was wrong (the login work is on `main` via a different merge).
+- Deploying `main` HEAD directly would have changed 5 files: the login form, `_lists.scss` (reintroducing
+  the reverted list config), the maintenance page (new downtime links), `main.css` and a `deployspec.yml` line.
+  Merging `main` into `release` also conflicts (add/add) on the login template.
+- **Chosen:** keep the pin and cherry-pick only Jack's five commits (all touch
+  `templates/form/form--user-login-form.html.twig`) onto `release`. They apply cleanly because the template Jack
+  started from is byte-identical to `release`'s. Result against the old tag: one file, +7/-4.
+- Theme repo PR #34 (branch `release-login-form-fixes`) merged with a merge commit (`e24e27bc`), tag
+  `prod-theme-20261022-login-form-fixes` (lightweight, like the existing ones) pushed. Pushing needed the
+  scratch clone switched to an SSH remote (the HTTPS remote had no credentials).
+- **Staging first:** staging and prod share the SSM pin, so staging was tested with
+  `deploy_theme_only.yml -e deploy_theme_tag=<tag> --limit uva-library-drupal-staging-0` (no pin change).
+  That playbook also runs `drush cr`, which is fine on single-node staging but is the cache-deadlock hazard
+  on prod, so prod uses `deploy_backend.yml` only. The user tested staging: good.
+- Theme history for the record: SSM pin versions 1-5 (Aug 2025, incl. test values), 6 `...20251203-2025-AR-UPDATE...`
+  (2025-12-11), 7 `...20260511-updated-downtime-message` (2026-05-12), 8 `...20260519-netbadge-login`
+  (2026-06-02), 9 `...20261022-login-form-fixes` (2026-10-22, this session). The earlier node 0 / node 1 theme
+  mismatch (node 0 on unpushed `adc08b4c`) could not be reconstructed: the old container is gone, the commit is on
+  no remote. Best stand-in `1431a415`; node 0 likely lacked the login form work, button/index CSS and a page
+  template tweak. The user decided it does not matter; the point is what to deploy.
+
+## 9. Production rollout (silent, no maintenance mode, no `drush cr`)
+
+Answering "can we do it silently?": yes. The only functional difference from what prod ran (`bc73b10`)
+was `settings.php`, which prod already had by hand-edit; the runbook says roll nodes without `drush cr` for a
+code-only swap; maintenance mode makes `/` 503, which the ALB health check will not accept, so both nodes
+would go unhealthy in about 4 minutes. Pre-flight: both nodes healthy, maintenance mode 0, both on the same
+theme tag as the SSM pin.
+
+1. SSM pin `/themes/uvalib/drupal-library/release` set to `prod-theme-20261022-login-form-fixes` (v9; prior v8).
+2. Node 1: drain (`alb-state drupal-prod --remove ... --watch`), `deploy_backend.yml -e
+   deploy_tag=build-20261022153610 --limit uva-library-drupal-production-1` (`failed=0`), verified directly on
+   `:8080` (200s, image, theme tag, `settings.php` checksum from the image, maintenance 0), re-added and waited
+   for `healthy`. Then node 0 the same way.
+3. **Permission gotcha:** the first `alb-state` drain was blocked by Claude Code's auto-mode classifier
+   (no explanation). I did not work around it; the user added a Bash permission rule for it, after which it ran.
+4. After: ALB both healthy; the public site returned 200 repeatedly; `/user/login` 200; `/saml_login` 303 to the IdP;
+   no error-level watchdog entries on either node. The user was asked to test a login and logout on prod.
+
+## 10. Post-rollout comparison of the two nodes and sessions
+
+- **Config parity:** a hashed fingerprint of each node (containers, mounts, ports, 45 env vars by hash, file hashes
+  for `settings.php`, vhost, `php.ini`, composer files, SAML config, directory trees, theme commit, PHP modules,
+  effective ini values) differed only in `HOST_IP`, `ANSIBLE_HOSTNAME` and free memory. Both are PHP 8.4.27.
+- **Sessions are not per-node.** Drupal sessions live in the shared database (10 rows, all authenticated, 2
+  active in 30 min); SimpleSAMLphp sessions live in the shared Valkey cluster (db 8, prefix
+  `SIMPLESAML_LIBRARY_PROD:`, set by an environment variable, not the config default): 12 sessions plus 12
+  logout-store entries, the oldest about 5 hours old, so they survived both container swaps. 17 further keys in
+  that db belong to another app (`SIMPLESAML_DSF_PROD`).
+- **Traffic (10 min):** node 0 694 requests, node 1 6,595, no 5xx on either. Node 0 had been re-added only
+  ~5 minutes earlier (ALB ramp-up), so the skew is expected to even out; not re-checked. A direct
+  established-connection count read 0 on both nodes and was discarded as unreliable.
+
+## 11. Open items
+
+- **Develop:** still `build-20261022134259` with the old `settings.php` (likely the `:80` logout bug) and the
+  `main` theme. No auto-deploy; needs a manual deploy. Deliberately left alone this session.
+- **Test on prod:** the user was asked to test a NetBadge login and a logout (expect `https://library.virginia.edu/`).
+- **Re-check traffic split** between the nodes (node 0 was ramping up).
+- **Update `docs/operations/production-deploy-runbook.md`:** the shared SSM theme pin, the `deploy_theme_only.yml`
+  `drush cr` trap on prod, the `alb-state` permission-rule gotcha, the theme-repo `release`-vs-`main` divergence,
+  and the post-rollout parity check. Not done this session.
+- **Decide whether `release` (this repo) is used at all**, then fix `CLAUDE.md`. It still says "main -> release via
+  PR" and does not mention the path filter. Not edited. (The *theme* repo's `release` branch is very much in use.)
+- **Check whether `drupal-library-production-deploy` pipeline is active** (source branch `main`, deploy phase only)
+  and whether it should be filtered too.
+- **Theme repo:** `main` and `release` are still diverged; decide whether to reconcile them (the list-config revert
+  exists only on `release`; find out why it was reverted before promoting `main`).
+- Not tested: NetBadge login on develop; a SAML logout for a user with an active IdP session beyond the simple
+  staging/prod click-through.
