@@ -7,6 +7,10 @@ FROM public.ecr.aws/docker/library/drupal:10.6.10
 RUN apt-get -y update && apt-get -y upgrade && apt-get -y install default-mysql-client git less vim msmtp-mta \
 	&& apt-get -y install rsync
 
+# Show the PHP version in every build log, so it is obvious whether the base image
+# has picked up a security release.
+RUN php -v | head -1
+
 # set the timezone appropriatly.
 # NOTE: must be America/New_York, not UTC. SimpleSAMLphp runs in-process here (via
 # simplesamlphp_auth) and its config reads 'timezone' => getenv('TZ') ?: 'UTC', then calls
