@@ -48,6 +48,11 @@ Consequences for the procedure below:
 - On the **UVA VPN** (hostnames won't resolve otherwise).
 - `aws-vault` configured; the `staging` profile has the needed access (yes, prod uses the
   `staging` profile — that's how the favorite and the deploy are wired).
+  **Have a fresh cached session before you start.** A long rollout outlives the cached MFA
+  session; when it expires mid-run, every command fails with `AccessDenied: MultiFactorAuthentication
+  failed`. Refresh it in a separate terminal window (`aws-vault exec staging -- aws sts
+  get-caller-identity`); a prompt cannot be answered from a non-interactive shell
+  (`--prompt=terminal` fails with `open /dev/tty: device not configured`).
 - Know the **deploy tag** you're shipping. The current `latest` build tag:
   ```bash
   aws-vault exec staging -- aws ssm get-parameter \
@@ -82,6 +87,23 @@ cd /Users/ys2n/Code/scripts/uvalib/aws
 ./alb-state drupal-prod          # confirm BOTH nodes healthy before starting
 ```
 
+Also capture, on **each** node, what is running now (this is your rollback), the theme revision,
+and that nobody has left maintenance mode on:
+
+```bash
+ssh library-drupal-0.internal.lib.virginia.edu '
+  sudo docker ps --format "{{.Names}} {{.Image}}" | grep -E "drupal-0|netbadge-0"
+  sudo docker exec drupal-0 git -C /opt/drupal/web/themes/uvalib-drupal-theme describe --tags --always
+  sudo docker exec drupal-0 /opt/drupal/vendor/bin/drush state:get system.maintenance_mode'
+```
+
+!!! warning "Check the theme before you deploy"
+    `deploy_backend.yml` checks out the SSM pin `/themes/uvalib/drupal-library/release` on the
+    node it deploys to, so a backend deploy **also moves that node's theme**. Compare the live
+    theme tag on both nodes with the SSM value first. On 2026-10-22 node 0 was on an unpushed
+    commit made on the staging host and node 1 was on the pinned tag; the deploy converged
+    node 0 onto the pin, which was the intended state but a live theme change.
+
 ### 1. Drain the node from the ALB
 
 ```bash
@@ -92,6 +114,11 @@ cd /Users/ys2n/Code/scripts/uvalib/aws
 prints "All targets are in a stable state." Wait for that — draining lets in-flight
 requests finish before the container is swapped.
 
+!!! note "`alb-state` asks you to type `yes`"
+    It prompts "CONFIRMATION REQUIRED … Type 'yes' to continue" and has no non-interactive
+    flag. Run from a script or an agent with no terminal, it exits 1 having done nothing; pipe
+    the answer (`printf 'yes\n' | ./alb-state …`) only for the action you intend.
+
 ### 2. Deploy the new image to that node only
 
 ```bash
@@ -100,7 +127,9 @@ aws-vault exec staging -- ansible-playbook deploy_backend.yml \
   -e deploy_tag=<deploy_tag> --limit uva-library-drupal-production-1
 ```
 
-Expect `failed=0` in the PLAY RECAP. The `"…saml-staging.pem missing"` line is a
+Expect `failed=0` in the PLAY RECAP. If the NetBadge image is changing too, deploy it to the same
+(drained) node straight after, with its own pinned tag (`deploy_netbadge.yml -e
+deploy_tag=<netbadge tag> --limit <node>`); the pipeline's `latest` is not used in production. The `"…saml-staging.pem missing"` line is a
 pre-existing **non-fatal** warning from the backend playbook (the NetBadge SP is a separate
 container) — ignore it.
 
@@ -169,6 +198,29 @@ curl -s -o /dev/null -w 'HTTP %{http_code}\n' https://library.virginia.edu/
 
 ## Structural changes — maintenance mode
 
+!!! danger "Maintenance mode empties the pool, and the matcher cannot be widened (2026-10-22)"
+    The health check hits `/`, which returns 503 in maintenance mode, and the ALB will **not**
+    accept 503 as a passing code (it only allows 200–499; see the
+    [health-check proposal](../proposals/health-check-endpoint.md)). So whenever maintenance mode
+    is on, both nodes fail the check and flip unhealthy after about **4 minutes** (three
+    failures at a 120 s interval). Earlier versions of this runbook and the CKEditor runbook
+    suggested widening the matcher to `200-299,503`; that cannot be done. Plan for the
+    stopwatch, and never leave maintenance mode on unattended.
+
+    What worked on 2026-10-22 for a core patch release with no database updates: roll the nodes
+    **without** maintenance mode and **without** `drush cr` (steps 1–5), and do the single cache
+    rebuild as a **short maintenance burst** that fits inside the four minutes. A bounded,
+    trap-protected version (dry-run by default) is `scripts/library-prod-cache-rebuild.sh` in the
+    local `drupal-config-scan` checkout (not published); its `--run` path is untested. Or skip
+    the rebuild if the nodes are healthy and erroring nothing; staging and develop get a `drush cr`
+    from their pipelines, production does not.
+
+    If maintenance mode is already on when you start the rollout (someone set it for the
+    window), the second node cannot be drained, because `alb-state` refuses to empty the pool.
+    Deploy it in place; it is serving only the maintenance page anyway. Add the first node back
+    to the ALB only **after** maintenance mode is off, since it cannot pass the health check
+    while `/` returns 503.
+
 For module **major-version** bumps, **core** updates, or anything changing
 services/plugins/entity definitions, the safest path avoids serving live traffic against a
 mid-rebuild cache entirely:
@@ -192,6 +244,7 @@ before a deploy is whatever the nodes were running — capture it from
 
 ## Related
 
+- [Session log: 2026-10-22 PHP2Shell / core 10.6.19 production rollout](../session-logs/2026-10-22-php2shell-production-rollout.md)
 - [Incident: 2026-06-26 cache-deadlock WSOD](../incidents/2026-06-26-prod-cache-deadlock-wsod.md)
 - [Redis cache backend (follow-up / real fix)](../maintenance/redis-cache-backend.md)
 - [Deployment pipeline overview](deployment.md)
