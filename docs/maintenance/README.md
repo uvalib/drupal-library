@@ -16,6 +16,9 @@ Two kinds of planned work, neither of which is "a new feature":
 | Config-sync export mechanism (review/redesign) **(proposal)** | [Config-sync mechanism review](config-sync-mechanism-review.md) |
 | Move cache off the shared DB to Redis (real fix for deploy deadlocks) **(proposal)** | [Redis cache backend](redis-cache-backend.md) |
 | Fix `drush sql:*` failing on the RDS TLS cert (ship RDS CA bundle + `pdo` SSL config) — *should be a Jira ticket* | [drush RDS TLS cert](drush-rds-tls-cert.md) |
+| Is the `release` branch still part of the deploy flow? *(bookmarked for review)* | [Release branch review](release-branch-review.md) |
+| Is the `drupal-library-production-deploy` pipeline active? *(bookmarked for review)* | [Production-deploy pipeline review](production-deploy-pipeline-review.md) |
+| Theme repo: `main` vs `release` divergence, and why list config was reverted *(bookmarked for review)* | [Theme repo divergence](theme-repo-main-release-divergence.md) |
 
 **(proposal)** = this maintenance work is still at the proposal stage — direction/details not
 yet decided. Also listed in [Proposals](../proposals/README.md) for visibility; the doc lives

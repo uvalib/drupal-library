@@ -235,20 +235,21 @@ theme tag as the SSM pin.
 
 ## 11. Open items
 
-- **Develop:** done after the main rollout, see section 12; the user then tested a real NetBadge login and logout there and it worked.
-- **Test on prod:** the user was asked to test a NetBadge login and a logout (expect `https://library.virginia.edu/`).
-- **Re-check traffic split** between the nodes (node 0 was ramping up).
-- **Update `docs/operations/production-deploy-runbook.md`:** the shared SSM theme pin, the `deploy_theme_only.yml`
-  `drush cr` trap on prod, the `alb-state` permission-rule gotcha, the theme-repo `release`-vs-`main` divergence,
-  and the post-rollout parity check. Not done this session.
-- **Decide whether `release` (this repo) is used at all**, then fix `CLAUDE.md`. It still says "main -> release via
-  PR" and does not mention the path filter. Not edited. (The *theme* repo's `release` branch is very much in use.)
-- **Check whether `drupal-library-production-deploy` pipeline is active** (source branch `main`, deploy phase only)
-  and whether it should be filtered too.
-- **Theme repo:** `main` and `release` are still diverged; decide whether to reconcile them (the list-config revert
-  exists only on `release`; find out why it was reverted before promoting `main`).
-- Not tested: a SAML logout for a user with an active IdP session beyond the simple
-  staging/prod click-through.
+- **Bookmarked for later review** (notes in `docs/maintenance/`, nothing decided):
+  - Is this repo's `release` branch still part of the flow, and what to do with the stale
+    `drupal-library-release` pipeline: [release branch review](../maintenance/release-branch-review.md).
+    `CLAUDE.md` and `deployment.md#release-tracking` still describe the old flow and are not edited.
+  - Is the `drupal-library-production-deploy` pipeline active (source `main`, deploy phase only, no path
+    filter): [pipeline review](../maintenance/production-deploy-pipeline-review.md).
+  - Theme repo `main` vs `release` divergence and why the list-config change was reverted:
+    [theme repo divergence](../maintenance/theme-repo-main-release-divergence.md).
+- **Develop:** done after the main rollout, see section 12; the user then tested a real NetBadge login and
+  logout there and it worked.
+- **Runbook:** updated (shared SSM theme pin, git/docker tag pairing, `drush cr` trap, post-rollout node
+  comparison, rollback notes). The published devops-docs static site was **not** rebuilt, and
+  `docs/operations/deployment.md` was not touched.
+- Not tested: a SAML logout for a user with an active IdP session beyond the simple click-through.
+- The node 0 / node 1 traffic split after the re-add was noted and deliberately not followed up.
 
 ## 12. Develop
 
