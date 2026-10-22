@@ -12,13 +12,16 @@ env:
 phases:
   install:
     runtime-versions:
-      python: 3.x
+      # pinned: with `3.x` CodeBuild moved to Python 3.15.0 on 2026-10-21 and ansible-core 2.21.5
+      # crashed (AttributeError: dataclasses has no attribute '_is_type'), failing the deploy.
+      # 3.14 / ansible 14.3.1 / ansible-core 2.21.3 is the last combination known to deploy (2026-08-20).
+      python: 3.14
       golang: 1.x
     commands:
       # install ccrypt, needed for secret decrypting
       - dnf install -y http://ccrypt.sourceforge.net/download/1.11/ccrypt-1.11-1.x86_64.rpm
-      # install Ansible, needed for deploy of playbook
-      - pip3 install ansible
+      # install Ansible, needed for deploy of playbook (pinned, see runtime-versions above)
+      - pip3 install ansible==14.3.1 ansible-core==2.21.3
       # install terraform
       - wget https://releases.hashicorp.com/terraform/${terraform_version}/terraform_${terraform_version}_linux_amd64.zip
       - unzip terraform_${terraform_version}_linux_amd64.zip
