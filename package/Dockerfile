@@ -3,9 +3,11 @@
 #
 # PHP2Shell (PHP 8.4.27) and SA-CORE-2026-014 (Drupal core 10.6.19). This pinned tag carries PHP
 # 8.4.27; the base image's own Drupal version does not matter, because core is installed from
-# composer.lock below (keep the two in step). Docker Hub is used directly because the ECR public
-# mirror lagged behind: it had no 10.6.19 / 8.4.27 images when this was written. Switch back to
-# the mirror once it has this tag.
+# composer.lock below (keep the two in step). Docker Hub is used directly as a precaution: the
+# ECR public mirror trails Docker Hub at times (and rate-limits anonymous reads), and at the time
+# of writing it was not confirmed to have this tag. The mirror's digests for this tag have since
+# matched Docker Hub's; ./scripts/check-php-base-image.sh --verify compares the two. Moving back
+# to public.ecr.aws/docker/library is fine when it does.
 FROM docker.io/library/drupal:10.6.19-php8.4-apache
 
 # update the packages
