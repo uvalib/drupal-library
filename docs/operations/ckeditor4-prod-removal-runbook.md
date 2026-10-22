@@ -122,7 +122,17 @@ The gap between prod's `4079ce3` and `main` is 41 commits, but almost all of it 
       --output table
     ```
 
-!!! tip "Widen the matcher for the window — the recommended path"
+!!! danger "Correction (2026-10-22): the matcher cannot be widened to accept 503"
+    The ALB rejects it. `modify-target-group --matcher '{"HttpCode":"200-299,503"}'` fails with
+    `ValidationError: Health check matcher HTTP code '503' must be within '200-499' inclusive`.
+    (The unquoted form below fails earlier, with a `ParamValidation` error, because the CLI reads
+    the comma as a list separator.) So **the next block cannot be run as written.** What is left
+    is the four-minute budget above: keep maintenance mode shorter than that, or move the health
+    check to a path that does not return 503 in maintenance mode (see the
+    [health-check proposal](../proposals/health-check-endpoint.md)). The 2026-10-22 PHP rollout
+    used a short maintenance burst: see the [session log](../session-logs/2026-10-22-php2shell-production-rollout.md).
+
+!!! tip "Widen the matcher for the window — as originally proposed (NOT POSSIBLE, see above)"
     Temporarily accept 503, run the window, then restore. This makes maintenance mode behave
     as the generic runbook assumes and removes the four-minute stopwatch entirely. The change
     causes no target churn — it only alters what the next health check (≤120s later) counts

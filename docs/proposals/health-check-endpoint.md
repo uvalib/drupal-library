@@ -75,6 +75,13 @@ still works.
 
 ### 1. Permanently widen the matcher to `200-299,503`
 
+!!! danger "Not possible (found 2026-10-22)"
+    The ALB only accepts health-check codes from **200 to 499**. Asking for 503 fails with
+    `ValidationError: Health check matcher HTTP code '503' must be within '200-499' inclusive`.
+    This option, and the "temporary, attended" use of it in the CKEditor runbook, cannot work.
+    That leaves a health check on a path that does not return 503 in maintenance mode (the
+    approaches below) as the only way to hold nodes in rotation during maintenance.
+
 Simplest possible change — one line in each `alb-routing.tf`.
 
 **Rejected.** It makes an *accidental* maintenance mode invisible: nodes stay in rotation, health
