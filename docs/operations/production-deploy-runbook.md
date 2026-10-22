@@ -53,6 +53,8 @@ Consequences for the procedure below:
   failed`. Refresh it in a separate terminal window (`aws-vault exec staging -- aws sts
   get-caller-identity`); a prompt cannot be answered from a non-interactive shell
   (`--prompt=terminal` fails with `open /dev/tty: device not configured`).
+  `--prompt=osascript` raises a native macOS dialog and needs no TTY, so use it when a script
+  or an agent drives the rollout (e.g. `aws-vault exec staging --prompt=osascript -- …`).
 - Know the **deploy tag** you're shipping. The current `latest` build tag:
   ```bash
   aws-vault exec staging -- aws ssm get-parameter \
@@ -66,6 +68,15 @@ Consequences for the procedure below:
     --image-ids imageTag=<deploy_tag> \
     --query 'imageDetails[0].imageTags' --output text   # includes gitcommit-<sha>
   ```
+
+- **A git tag must pair with the deploy tag.** Every production release has both an ECR image
+  tag (`build-<timestamp>`) and a git tag `production_YYYY_MM_DD` on the **same commit**; if a
+  second tag is cut the same day, add a letter suffix (`_b`, `_c`, …), never a number. Take the
+  commit from the image's `gitcommit-<sha>` tag (shown by the `describe-images` command above),
+  **not** from `main`'s head: the pipeline only builds when `package/**` or `pipeline/**`
+  change (docs-only merges no longer build), so `latest` can be older than `main`. Create an
+  annotated tag whose message records the image tag, the `gitcommit-` tag, the previous prod
+  image and the delta. Tagging never deploys.
 
 ## Tools
 
@@ -104,6 +115,33 @@ ssh library-drupal-0.internal.lib.virginia.edu '
     commit made on the staging host and node 1 was on the pinned tag; the deploy converged
     node 0 onto the pin, which was the intended state but a live theme change.
 
+!!! note "The theme pin is shared, and it is the production theme change"
+    Staging and production read the **same** SSM parameter,
+    `/themes/uvalib/drupal-library/release`, so writing it is the production theme change: the
+    next `deploy_backend.yml` on either environment checks that tag out. Only the active
+    theme (`uvalibrary_v2a`, repo `uvalib-drupal-theme`) is handled this way.
+
+    To ship a theme change:
+
+    1. In `uvalib-drupal-theme`, the deployed line is the **`release`** branch, not `main`
+       (they diverged in Nov 2025; `release` carries a list-config revert that `main` lacks, and
+       `main` has maintenance-page and login-form changes that `release` lacks). Do **not** tag
+       `main`'s head. Cherry-pick the wanted commits onto `release` through a PR, then tag
+       the new `release` tip `prod-theme-YYYYMMDD-<description>`.
+    2. Test on staging **without** touching the pin:
+       `deploy_theme_only.yml -e deploy_theme_tag=<tag> --limit uva-library-drupal-staging-0`
+       (that playbook also runs `drush cr`, which is fine on single-node staging).
+    3. Set the pin: `aws ssm put-parameter --name /themes/uvalib/drupal-library/release
+       --value <tag> --type String --overwrite` (note the previous value; it is the theme
+       rollback).
+    4. Roll production with `deploy_backend.yml` as below, which checks the pin out per node.
+
+    **Never use `deploy_theme_only.yml` on production.** It runs `drush cr` after the checkout,
+    which is the cache-deadlock hazard above. `deploy_backend.yml` does not run `drush cr`.
+
+    After each node's deploy, confirm `git describe --tags --exact-match` in
+    `/opt/drupal/web/themes/uvalib-drupal-theme` equals the pin, with a clean working tree.
+
 ### 1. Drain the node from the ALB
 
 ```bash
@@ -118,6 +156,11 @@ requests finish before the container is swapped.
     It prompts "CONFIRMATION REQUIRED … Type 'yes' to continue" and has no non-interactive
     flag. Run from a script or an agent with no terminal, it exits 1 having done nothing; pipe
     the answer (`printf 'yes\n' | ./alb-state …`) only for the action you intend.
+
+    Under Claude Code, the auto-mode classifier may **block** `alb-state drupal-prod` (it changes
+    live load-balancer membership) with no explanation. The person running the session has to
+    add a Bash permission rule for it themselves; an agent should not add one for them, and
+    should not route around the block (for example by calling the ELB API directly).
 
 ### 2. Deploy the new image to that node only
 
@@ -170,6 +213,12 @@ cd /Users/ys2n/Code/scripts/uvalib/aws
 4 min from cold). Do not proceed to the other node until this node is healthy — that's what
 keeps the pool from going empty.
 
+!!! note "Expect a lopsided split for ~10 minutes"
+    A re-added node ramps up gradually. On 2026-10-22, five minutes after node 0 was re-added it
+    served about a tenth of node 1's requests (694 vs 6,595 in ten minutes, no 5xx on either).
+    Do not read that as a fault; re-check later. A whole two-node rollout took roughly 20–25
+    minutes (300 s drain + up to 4 min health check, per node).
+
 ### 5. Repeat for node 0
 
 Same five steps with `uva-library-drupal-production-0` /
@@ -195,6 +244,37 @@ correct (new) versions. If the change has database updates, run `drush updb` her
 # Public endpoint through the load balancer:
 curl -s -o /dev/null -w 'HTTP %{http_code}\n' https://library.virginia.edu/
 ```
+
+## After the rollout: compare the nodes
+
+Both nodes should be indistinguishable. Compare, on each node, and diff the results:
+
+```bash
+for n in 0 1; do ssh library-drupal-$n.internal.lib.virginia.edu '
+  sudo docker ps --format "{{.Names}} {{.Image}}"
+  sudo docker exec drupal-0 sh -c "
+    md5sum /opt/drupal/web/sites/default/settings.php /etc/apache2/sites-enabled/000-default.conf \
+           /usr/local/etc/php/php.ini /opt/drupal/composer.lock
+    git -C /opt/drupal/web/themes/uvalib-drupal-theme describe --tags --exact-match
+    /opt/drupal/vendor/bin/drush state:get system.maintenance_mode"
+  sudo docker exec drupal-0 env | sort | while IFS= read -r l; do printf "%s %s\n" "${l%%=*}" "$(printf %s "${l#*=}" | md5sum | cut -c1-8)"; done
+'; done
+```
+
+Hash the environment variables instead of printing them (they include secrets). On
+2026-10-22 the only differences were `HOST_IP`, `ANSIBLE_HOSTNAME` and free memory. Also compare
+the container mounts and the Apache/PHP module lists if something looks off.
+
+**Sessions are not per node.** Drupal's `sessions` table lives in the shared database, and
+SimpleSAMLphp sessions live in the shared Valkey cluster (database 8, key prefix from
+`SIMPLESAML_REDIS_PREFIX`, e.g. `SIMPLESAML_LIBRARY_PROD:`), so a container swap does not log
+users out and the counts read the same from either node. Count Drupal sessions with
+`drush php:eval` over `{sessions}`; the SimpleSAMLphp keys need a small script (no Redis client
+is installed in the container). Per-node health is best judged from request counts and 5xx in
+`sudo docker logs --since 10m drupal-0`, not from connection counts (Docker's port forwarding
+made `ss` read 0).
+
+Then ask someone to test a NetBadge login and logout on production.
 
 ## Structural changes — maintenance mode
 
@@ -237,13 +317,22 @@ deploy that must rebuild cache.
 
 ## Rollback
 
-Re-deploy the previous tag the same way (rolling, per node). The prior production tag
+Re-deploy the previous image tag the same way (rolling, per node). The prior production tag
 before a deploy is whatever the nodes were running — capture it from
-`sudo docker ps` **before** you start. Releases are tracked by
-[ECR image tags, not git tags](deployment.md#release-tracking).
+`sudo docker ps` **before** you start. Releases are an ECR image tag **paired with a git tag**
+(see "Know the deploy tag" above); the previous git tag names the previous release.
+
+If the theme changed, also set the SSM pin back to its previous value before re-running
+`deploy_backend.yml`, because the playbook checks out whatever the pin says.
+
+!!! warning "A rollback can resurrect fixed bugs that were hand-applied"
+    A hot fix applied by hand to a running container (as the `settings.php` logout fix was on
+    2026-10-22, before it shipped in an image) disappears when the container is recreated from an
+    older image. Before rolling back, check what has been hand-applied and re-apply it.
 
 ## Related
 
+- [Session log: 2026-10-22 logout `:80` fix, theme promotion and rollout](../session-logs/2026-10-22-logout-url-port-fix-and-release-tagging.md)
 - [Session log: 2026-10-22 PHP2Shell / core 10.6.19 production rollout](../session-logs/2026-10-22-php2shell-production-rollout.md)
 - [Incident: 2026-06-26 cache-deadlock WSOD](../incidents/2026-06-26-prod-cache-deadlock-wsod.md)
 - [Redis cache backend (follow-up / real fix)](../maintenance/redis-cache-backend.md)
