@@ -3695,17 +3695,17 @@
         },
         {
             "name": "drupal/geolocation",
-            "version": "3.14.0",
+            "version": "3.15.0",
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/geolocation.git",
-                "reference": "8.x-3.14"
+                "reference": "8.x-3.15"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/geolocation-8.x-3.14.zip",
-                "reference": "8.x-3.14",
-                "shasum": "2f7cda9ce6ca1c03e30405f892714ae6f6a04bfd"
+                "url": "https://ftp.drupal.org/files/projects/geolocation-8.x-3.15.zip",
+                "reference": "8.x-3.15",
+                "shasum": "758a3b330fedf46118577e031c21f144dd171148"
             },
             "require": {
                 "drupal/core": "^10.3 || ^11",
@@ -3731,8 +3731,8 @@
             "type": "drupal-module",
             "extra": {
                 "drupal": {
-                    "version": "8.x-3.14",
-                    "datestamp": "1729420964",
+                    "version": "8.x-3.15",
+                    "datestamp": "1782326156",
                     "security-coverage": {
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"
@@ -3961,7 +3961,7 @@
                     "homepage": "https://www.drupal.org/user/205645"
                 },
                 {
-                    "name": "Wim Leers",
+                    "name": "wim leers",
                     "homepage": "https://www.drupal.org/user/99777"
                 },
                 {
@@ -4187,7 +4187,7 @@
                     "homepage": "https://www.drupal.org/user/205645"
                 },
                 {
-                    "name": "Wim Leers",
+                    "name": "wim leers",
                     "homepage": "https://www.drupal.org/user/99777"
                 },
                 {
@@ -5052,17 +5052,17 @@
         },
         {
             "name": "drupal/mathjax",
-            "version": "4.1.0",
+            "version": "4.1.2",
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/mathjax.git",
-                "reference": "4.1.0"
+                "reference": "4.1.2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/mathjax-4.1.0.zip",
-                "reference": "4.1.0",
-                "shasum": "f7b3fe1e07ea2d0fa5133953497328cc4943ec12"
+                "url": "https://ftp.drupal.org/files/projects/mathjax-4.1.2.zip",
+                "reference": "4.1.2",
+                "shasum": "12f0957a1c01f2e6659d99d40a8e4791b8739eb5"
             },
             "require": {
                 "drupal/core": "^9.1 || ^10 || ^11"
@@ -5070,8 +5070,8 @@
             "type": "drupal-module",
             "extra": {
                 "drupal": {
-                    "version": "4.1.0",
-                    "datestamp": "1724272614",
+                    "version": "4.1.2",
+                    "datestamp": "1791422596",
                     "security-coverage": {
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"
@@ -6651,48 +6651,44 @@
         },
         {
             "name": "drupal/webform",
-            "version": "6.2.10",
+            "version": "6.3.1",
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/webform.git",
-                "reference": "6.2.10"
+                "reference": "6.3.1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/webform-6.2.10.zip",
-                "reference": "6.2.10",
-                "shasum": "82594fde5a3041867903a93f69f447b29bf3115f"
+                "url": "https://ftp.drupal.org/files/projects/webform-6.3.1.zip",
+                "reference": "6.3.1",
+                "shasum": "f737cb4e614df7f54b9bb77fe40109e7abab789b"
             },
             "require": {
-                "drupal/core": "^10.2",
-                "php": ">=8.1"
+                "drupal/core": "^10.3 || ^11.0"
             },
             "require-dev": {
-                "drupal/address": "1.x-dev",
-                "drupal/bootstrap": "^3.0",
-                "drupal/captcha": "^1 || ^2",
-                "drupal/chosen": "3.0.x-dev",
-                "drupal/ckeditor": "1.0.x-dev",
-                "drupal/clientside_validation": "^3 || ^4",
+                "drupal/address": "^2.0",
+                "drupal/captcha": "^2.0",
+                "drupal/chosen": "^4.0",
+                "drupal/clientside_validation": "^4.0",
                 "drupal/clientside_validation_jquery": "*",
-                "drupal/devel": "5.x-dev",
-                "drupal/entity": "1.x-dev",
-                "drupal/entity_print": "2.x-dev",
-                "drupal/group": "1.x-dev",
-                "drupal/hal": "1 - 2",
-                "drupal/jquery_ui": "1.x-dev",
-                "drupal/jquery_ui_button": "2.x-dev",
-                "drupal/jquery_ui_checkboxradio": "2.x-dev",
-                "drupal/jquery_ui_datepicker": "2.x-dev",
-                "drupal/mailsystem": "4.x-dev",
-                "drupal/metatag": "1.x-dev",
-                "drupal/paragraphs": "1.x-dev",
-                "drupal/select2": "1.x-dev",
-                "drupal/smtp": "1.x-dev",
-                "drupal/styleguide": "^1 || ^2",
-                "drupal/telephone_validation": "2.x-dev",
-                "drupal/token": "1.x-dev",
-                "drupal/variationcache": "1.x-dev",
+                "drupal/devel": "^5.0",
+                "drupal/entity": "^1.0",
+                "drupal/entity_print": "^2.0",
+                "drupal/hal": "^2.0",
+                "drupal/honeypot": "^2.0",
+                "drupal/jquery_ui": "^1.0",
+                "drupal/jquery_ui_button": "^2.0",
+                "drupal/jquery_ui_checkboxradio": "^2.0",
+                "drupal/jquery_ui_datepicker": "^2.0",
+                "drupal/mailsystem": "^4.0",
+                "drupal/metatag": "^2.0",
+                "drupal/paragraphs": "^1.0",
+                "drupal/select2": "^1.0 || ^2.0",
+                "drupal/smtp": "^1.0",
+                "drupal/styleguide": "^2.0",
+                "drupal/telephone_validation": "^2.0",
+                "drupal/token": "^1.0",
                 "drupal/webform_access": "*",
                 "drupal/webform_attachment": "*",
                 "drupal/webform_clientside_validation": "*",
@@ -6711,8 +6707,8 @@
             "type": "drupal-module",
             "extra": {
                 "drupal": {
-                    "version": "6.2.10",
-                    "datestamp": "1773926566",
+                    "version": "6.3.1",
+                    "datestamp": "1790179518",
                     "security-coverage": {
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"
@@ -6720,7 +6716,7 @@
                 },
                 "drush": {
                     "services": {
-                        "drush.services.yml": ">=9"
+                        "drush.services.yml": ">=11"
                     }
                 }
             },
@@ -6763,17 +6759,17 @@
         },
         {
             "name": "drupal/webform_access",
-            "version": "6.2.10",
+            "version": "6.3.1",
             "require": {
-                "drupal/core": "^10.2",
+                "drupal/core": "^10.3 || ^11.0",
                 "drupal/webform": "*",
                 "drupal/webform_node": "*"
             },
             "type": "metapackage",
             "extra": {
                 "drupal": {
-                    "version": "6.2.10",
-                    "datestamp": "1773926566",
+                    "version": "6.3.1",
+                    "datestamp": "1790179518",
                     "security-coverage": {
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"
@@ -6814,16 +6810,16 @@
         },
         {
             "name": "drupal/webform_image_select",
-            "version": "6.2.10",
+            "version": "6.3.1",
             "require": {
-                "drupal/core": "^10.2",
+                "drupal/core": "^10.3 || ^11.0",
                 "drupal/webform": "*"
             },
             "type": "metapackage",
             "extra": {
                 "drupal": {
-                    "version": "6.2.10",
-                    "datestamp": "1773926566",
+                    "version": "6.3.1",
+                    "datestamp": "1790179518",
                     "security-coverage": {
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"
@@ -6914,16 +6910,16 @@
         },
         {
             "name": "drupal/webform_options_custom",
-            "version": "6.2.10",
+            "version": "6.3.1",
             "require": {
-                "drupal/core": "^10.2",
+                "drupal/core": "^10.3 || ^11.0",
                 "drupal/webform": "*"
             },
             "type": "metapackage",
             "extra": {
                 "drupal": {
-                    "version": "6.2.10",
-                    "datestamp": "1773926566",
+                    "version": "6.3.1",
+                    "datestamp": "1790179518",
                     "security-coverage": {
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"
@@ -6964,27 +6960,30 @@
         },
         {
             "name": "drupal/webform_rest",
-            "version": "4.1.0",
+            "version": "4.2.2",
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/webform_rest.git",
-                "reference": "4.1.0"
+                "reference": "4.2.2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/webform_rest-4.1.0.zip",
-                "reference": "4.1.0",
-                "shasum": "ccdb351c28631b0edd284edfd5c4f58408645520"
+                "url": "https://ftp.drupal.org/files/projects/webform_rest-4.2.2.zip",
+                "reference": "4.2.2",
+                "shasum": "0be861f0b60faadd6b6d2460583f69a7083ce1ee"
             },
             "require": {
-                "drupal/core": "^8.7.7 || ^9 || ^10",
-                "drupal/webform": "^6.1"
+                "drupal/core": "^10.3 || ^11",
+                "drupal/webform": "^6.3@alpha"
+            },
+            "require-dev": {
+                "drupal/hal": "^2.0"
             },
             "type": "drupal-module",
             "extra": {
                 "drupal": {
-                    "version": "4.1.0",
-                    "datestamp": "1702831078",
+                    "version": "4.2.2",
+                    "datestamp": "1791843171",
                     "security-coverage": {
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"
@@ -10092,16 +10091,16 @@
         },
         {
             "name": "simplesamlphp/saml2",
-            "version": "v5.0.5",
+            "version": "v5.0.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/simplesamlphp/saml2.git",
-                "reference": "73c2dd8dd0ffd81f2f37ae59f02a00f1240bea53"
+                "reference": "cbabcedf147929e31ffd7b4bbce4206c1693c67a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/simplesamlphp/saml2/zipball/73c2dd8dd0ffd81f2f37ae59f02a00f1240bea53",
-                "reference": "73c2dd8dd0ffd81f2f37ae59f02a00f1240bea53",
+                "url": "https://api.github.com/repos/simplesamlphp/saml2/zipball/cbabcedf147929e31ffd7b4bbce4206c1693c67a",
+                "reference": "cbabcedf147929e31ffd7b4bbce4206c1693c67a",
                 "shasum": ""
             },
             "require": {
@@ -10127,6 +10126,7 @@
                 "ext-intl": "*",
                 "mockery/mockery": "~1.6.12",
                 "simplesamlphp/composer-xmlprovider-installer": "~1.0.2",
+                "simplesamlphp/simplesamlphp": "~2.3.0 | ~2.4.0",
                 "simplesamlphp/simplesamlphp-test-framework": "~1.9.2"
             },
             "suggest": {
@@ -10135,7 +10135,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "v5.0.x-dev"
+                    "dev-master": "v5.1.x-dev"
                 }
             },
             "autoload": {
@@ -10156,22 +10156,22 @@
             "description": "SAML2 PHP library from SimpleSAMLphp",
             "support": {
                 "issues": "https://github.com/simplesamlphp/saml2/issues",
-                "source": "https://github.com/simplesamlphp/saml2/tree/v5.0.5"
+                "source": "https://github.com/simplesamlphp/saml2/tree/v5.0.8"
             },
-            "time": "2025-12-08T12:13:43+00:00"
+            "time": "2026-07-06T22:25:38+00:00"
         },
         {
             "name": "simplesamlphp/saml2-legacy",
-            "version": "v4.19.2",
+            "version": "v4.19.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/simplesamlphp/saml2-legacy.git",
-                "reference": "93df4bffc052939e74ec0c1208e66cbd7eb2a1b2"
+                "reference": "2bbdf96ec9de12b35658eb050e34dc65de5bbefe"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/simplesamlphp/saml2-legacy/zipball/93df4bffc052939e74ec0c1208e66cbd7eb2a1b2",
-                "reference": "93df4bffc052939e74ec0c1208e66cbd7eb2a1b2",
+                "url": "https://api.github.com/repos/simplesamlphp/saml2-legacy/zipball/2bbdf96ec9de12b35658eb050e34dc65de5bbefe",
+                "reference": "2bbdf96ec9de12b35658eb050e34dc65de5bbefe",
                 "shasum": ""
             },
             "require": {
@@ -10216,22 +10216,22 @@
             ],
             "description": "SAML2 PHP library from SimpleSAMLphp",
             "support": {
-                "source": "https://github.com/simplesamlphp/saml2-legacy/tree/v4.19.2"
+                "source": "https://github.com/simplesamlphp/saml2-legacy/tree/v4.19.6"
             },
-            "time": "2026-03-13T12:09:45+00:00"
+            "time": "2026-11-10T21:14:02+00:00"
         },
         {
             "name": "simplesamlphp/simplesamlphp",
-            "version": "v2.4.5",
+            "version": "2.4.11",
             "source": {
                 "type": "git",
                 "url": "https://github.com/simplesamlphp/simplesamlphp.git",
-                "reference": "10355e521f4c555ff0907bf821f8104922c370f5"
+                "reference": "995d423e15e1777b297cd64de4b9896813c19c40"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/simplesamlphp/simplesamlphp/zipball/10355e521f4c555ff0907bf821f8104922c370f5",
-                "reference": "10355e521f4c555ff0907bf821f8104922c370f5",
+                "url": "https://api.github.com/repos/simplesamlphp/simplesamlphp/zipball/995d423e15e1777b297cd64de4b9896813c19c40",
+                "reference": "995d423e15e1777b297cd64de4b9896813c19c40",
                 "shasum": ""
             },
             "require": {
@@ -10254,7 +10254,7 @@
                 "simplesamlphp/assert": "^1.1",
                 "simplesamlphp/composer-module-installer": "^1.3",
                 "simplesamlphp/saml2": "^5.0.0",
-                "simplesamlphp/saml2-legacy": "^4.18.1",
+                "simplesamlphp/saml2-legacy": "~4.19.0",
                 "simplesamlphp/simplesamlphp-assets-base": "~2.4.0",
                 "simplesamlphp/xml-common": "^1.24.2",
                 "simplesamlphp/xml-security": "^1.7",
@@ -10285,7 +10285,7 @@
                 "gettext/php-scanner": "1.3.1",
                 "mikey179/vfsstream": "~1.6",
                 "predis/predis": "^2.2",
-                "simplesamlphp/simplesamlphp-test-framework": "^1.9.2",
+                "simplesamlphp/simplesamlphp-test-framework": "^1.9.4",
                 "symfony/translation": "^6.4"
             },
             "suggest": {
@@ -10350,7 +10350,7 @@
                 "issues": "https://github.com/simplesamlphp/simplesamlphp/issues",
                 "source": "https://github.com/simplesamlphp/simplesamlphp"
             },
-            "time": "2026-03-13T12:46:22+00:00"
+            "time": "2026-11-09T21:53:29+00:00"
         },
         {
             "name": "simplesamlphp/simplesamlphp-assets-base",
