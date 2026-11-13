@@ -9,6 +9,10 @@
         "chat": "https://www.drupal.org/node/31,4178"
     },
     "repositories": {
+        "uvalib-save-all-nodes": {
+            "type": "vcs",
+            "url": "https://github.com/uvalib/save_all_nodes"
+        },
         "uvalib-dml": {
             "type": "package",
             "package": {
@@ -102,7 +106,7 @@
         "drupal/readonlymode": "^1.2",
         "drupal/redirect": "^1.8",
         "drupal/rules": "^3.0@alpha",
-        "drupal/save_all_nodes": "^2.0",
+        "drupal/save_all_nodes": "dev-uvalib-d11 as 2.0.0",
         "drupal/scheduler": "^2",
         "drupal/scheduler_content_moderation_integration": "^2.0@beta",
         "drupal/scrollup": "^3.0",
@@ -201,11 +205,7 @@
                 "      composer remove drupal/core-project-message"
             ]
         },
-        "patches": {
-            "drupal/save_all_nodes": {
-                "Add access check to entity queries": "patches/web/modules/save_all_nodes/0000000-save-all-nodes-accesscheck.patch"
-            }
-        }
+        "patches": {}
     },
     "require-dev": {
         "drupal/core-dev": "^10"

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "17f41d876cd11bbabcb906780d4df7a8",
+    "content-hash": "961cc3a4218a1d1386fbf2c9e928c172",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -5731,34 +5731,24 @@
         },
         {
             "name": "drupal/save_all_nodes",
-            "version": "2.0.0",
+            "version": "dev-uvalib-d11",
             "source": {
                 "type": "git",
-                "url": "https://git.drupalcode.org/project/save_all_nodes.git",
-                "reference": "2.0.0"
+                "url": "https://github.com/uvalib/save_all_nodes.git",
+                "reference": "9e9eb37f2a0127071bc78116cb818345fd5833d4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/save_all_nodes-2.0.0.zip",
-                "reference": "2.0.0",
-                "shasum": "89d67b45d7d214a8029cdeceba73eb54d048919a"
+                "url": "https://api.github.com/repos/uvalib/save_all_nodes/zipball/9e9eb37f2a0127071bc78116cb818345fd5833d4",
+                "reference": "9e9eb37f2a0127071bc78116cb818345fd5833d4",
+                "shasum": ""
             },
             "require": {
-                "drupal/core": "^10",
+                "drupal/core": "^10 || ^11",
                 "drupal/pathauto": "^1.8"
             },
+            "default-branch": true,
             "type": "drupal-module",
-            "extra": {
-                "drupal": {
-                    "version": "2.0.0",
-                    "datestamp": "1689772979",
-                    "security-coverage": {
-                        "status": "covered",
-                        "message": "Covered by Drupal's security advisory policy"
-                    }
-                }
-            },
-            "notification-url": "https://packages.drupal.org/8/downloads",
             "license": [
                 "GPL-2.0-or-later"
             ],
@@ -5767,18 +5757,15 @@
                     "name": "George Anderson (geoanders)",
                     "homepage": "https://www.drupal.org/u/geoanders",
                     "role": "Maintainer"
-                },
-                {
-                    "name": "mikeohara",
-                    "homepage": "https://www.drupal.org/user/1118796"
                 }
             ],
             "description": "This module provides a form and a Drush command both implementing Batch API to save all nodes of a selected type.",
             "homepage": "https://drupal.org/project/save_all_nodes",
             "support": {
-                "source": "https://git.drupalcode.org/project/save_all_nodes",
-                "issues": "https://www.drupal.org/project/issues/save_all_nodes"
-            }
+                "issues": "https://www.drupal.org/project/issues/save_all_nodes",
+                "source": "https://git.drupalcode.org/project/save_all_nodes"
+            },
+            "time": "2026-11-12T18:28:17+00:00"
         },
         {
             "name": "drupal/scheduler",
@@ -20270,13 +20257,21 @@
             "time": "2025-11-17T20:03:58+00:00"
         }
     ],
-    "aliases": [],
+    "aliases": [
+        {
+            "package": "drupal/save_all_nodes",
+            "version": "dev-uvalib-d11",
+            "alias": "2.0.0",
+            "alias_normalized": "2.0.0.0"
+        }
+    ],
     "minimum-stability": "dev",
     "stability-flags": {
         "drupal/classy-classy": 15,
         "drupal/config_update": 15,
         "drupal/jsonapi_search_api": 5,
         "drupal/rules": 15,
+        "drupal/save_all_nodes": 20,
         "drupal/scheduler_content_moderation_integration": 10,
         "drupal/smartmenus": 10,
         "uvalib/dml": 20
@@ -20285,5 +20280,5 @@
     "prefer-lowest": false,
     "platform": {},
     "platform-dev": {},
-    "plugin-api-version": "2.9.0"
+    "plugin-api-version": "2.11.0"
 }
