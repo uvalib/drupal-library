@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "531b5c8e15812eb4383e07f33405a739",
+    "content-hash": "7977d6b947165538ded2ce47dd07d33c",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -2573,29 +2573,27 @@
         },
         {
             "name": "drupal/custom_search",
-            "version": "1.0.0-beta9",
+            "version": "dev-1.x",
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/custom_search.git",
-                "reference": "8.x-1.0-beta9"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/custom_search-8.x-1.0-beta9.zip",
-                "reference": "8.x-1.0-beta9",
-                "shasum": "9b8b556db85d528d660875f7f5badcf16379d61f"
+                "reference": "ab9e188"
             },
             "require": {
-                "drupal/core": "^8 || ^9 || ^10"
+                "drupal/core": "^10 || ^11 || ^12",
+                "drupal/search": "*"
             },
             "type": "drupal-module",
             "extra": {
+                "branch-alias": {
+                    "dev-1.x": "1.x-dev"
+                },
                 "drupal": {
-                    "version": "8.x-1.0-beta9",
-                    "datestamp": "1679409683",
+                    "version": "8.x-1.0-beta8+5-dev",
+                    "datestamp": "1764333322",
                     "security-coverage": {
                         "status": "not-covered",
-                        "message": "Beta releases are not covered by Drupal security advisories."
+                        "message": "Dev releases are not covered by Drupal security advisories."
                     }
                 }
             },
@@ -2619,7 +2617,7 @@
                     "homepage": "https://www.drupal.org/user/3140245"
                 },
                 {
-                    "name": "Mario Steinitz",
+                    "name": "mario steinitz",
                     "homepage": "https://www.drupal.org/user/2536014"
                 },
                 {
@@ -19666,6 +19664,7 @@
     "minimum-stability": "dev",
     "stability-flags": {
         "drupal/config_update": 15,
+        "drupal/custom_search": 20,
         "drupal/jsonapi_search_api": 5
     },
     "prefer-stable": true,

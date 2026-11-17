@@ -36,7 +36,7 @@
         "drupal/core-composer-scaffold": "10.6.19",
         "drupal/core-project-message": "10.6.19",
         "drupal/core-recommended": "10.6.19",
-        "drupal/custom_search": "^1.0.0-beta8",
+        "drupal/custom_search": "1.x-dev#ab9e188",
         "drupal/d8w3css": "^2.0.18",
         "drupal/exclude_node_title": "^2.0",
         "drupal/facets": "^2",
@@ -167,6 +167,9 @@
         "patches": {
             "drupal/save_all_nodes": {
                 "Add access check to entity queries": "patches/web/modules/save_all_nodes/0000000-save-all-nodes-accesscheck.patch"
+            },
+            "drupal/custom_search": {
+                "Avoid undefined array key plugin_id warning (drupal.org #3634839)": "patches/web/modules/custom_search/0000001-custom-search-plugin-id-undefined-key.patch"
             }
         }
     },

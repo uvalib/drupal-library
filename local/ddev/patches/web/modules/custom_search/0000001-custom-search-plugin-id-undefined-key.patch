@@ -1,0 +1,13 @@
+diff --git a/custom_search.pages.inc b/custom_search.pages.inc
+index 153af7e..4ed24a6 100644
+--- a/custom_search.pages.inc
++++ b/custom_search.pages.inc
+@@ -105,7 +105,7 @@ function custom_search_preprocess_item_list__search_results(&$variables) {
+  * Implements hook_theme_suggestions_HOOK().
+  */
+ function custom_search_theme_suggestions_item_list__search_results(array $variables) {
+-  return ['item_list__custom_search_results__' . $variables['plugin_id']];
++  return ['item_list__custom_search_results__' . ($variables['plugin_id'] ?? NULL)];
+ }
+ 
+ /**
