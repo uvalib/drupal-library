@@ -9,41 +9,9 @@
         "chat": "https://www.drupal.org/node/31,4178"
     },
     "repositories": {
-        "uvalib-dml": {
-            "type": "package",
-            "package": {
-                "name": "uvalib/dml",
-                "version": "dev-main",
-                "type": "drupal-module",
-                "dist": {
-                    "type": "tar",
-                    "url": "https://github.com/uvalib/monorepo/raw/main/packages/drupal_module_loader/dml.tgz"
-                },
-                "source": {
-                    "type": "git",
-                    "url": "https://github.com/uvalib/monorepo.git",
-                    "reference": "main"
-                }
-            }
-        },
         "0": {
             "type": "composer",
             "url": "https://packages.drupal.org/8"
-        },
-        "1": {
-            "type": "package",
-            "package": {
-                "name": "drmonty/smartmenus",
-                "version": "1.1.1",
-                "type": "drupal-library",
-                "dist": {
-                    "url": "vendor-archive/smartmenus-1.1.1.zip",
-                    "type": "zip"
-                },
-                "require": {
-                    "composer/installers": "^1.2"
-                }
-            }
         }
     },
     "require": {
@@ -56,10 +24,9 @@
         "drupal/block_place": "^1.0",
         "drupal/bootstrap": "^5.0",
         "drupal/bootstrap_layout_builder": "^2.2",
-        "drupal/cache_utility": "^1.0",
+        "drupal/cache_utility": "^1.4",
         "drupal/ckeditor_accordion": "^2.2",
         "drupal/ckeditor_plugin_report": "^2.0",
-        "drupal/classy-classy": "^1.0@alpha",
         "drupal/color": "^1.0",
         "drupal/color_field": "^3.0",
         "drupal/config_delete": "^2.0",
@@ -69,10 +36,9 @@
         "drupal/core-composer-scaffold": "10.6.19",
         "drupal/core-project-message": "10.6.19",
         "drupal/core-recommended": "10.6.19",
-        "drupal/custom_search": "^1.0.0-beta8",
-        "drupal/d8w3css": "^2.0",
-        "drupal/devel_entity_updates": "^4.1",
-        "drupal/exclude_node_title": "^1.4",
+        "drupal/custom_search": "1.x-dev#ab9e188",
+        "drupal/d8w3css": "^2.0.18",
+        "drupal/exclude_node_title": "^2.0",
         "drupal/facets": "^2",
         "drupal/features": "^3.12",
         "drupal/field_formatter_class": "^1.8",
@@ -101,19 +67,17 @@
         "drupal/rdf": "^2.0",
         "drupal/readonlymode": "^1.2",
         "drupal/redirect": "^1.8",
-        "drupal/rules": "^3.0@alpha",
         "drupal/save_all_nodes": "^2.0",
         "drupal/scheduler": "^2",
-        "drupal/scheduler_content_moderation_integration": "^2.0@beta",
+        "drupal/scheduler_content_moderation_integration": "^3.0",
         "drupal/scrollup": "^3.0",
         "drupal/search_api_solr": "^4.3",
         "drupal/section_library": "^2.0",
         "drupal/simple_sitemap": "^4.2",
         "drupal/simplesamlphp_auth": "^4.1",
-        "drupal/smartmenus": "^2.0@beta",
         "drupal/svg_image": "^3.2",
         "drupal/token": "^1.9",
-        "drupal/w3css_paragraphs": "^1.0",
+        "drupal/w3css_paragraphs": "^1.0.20",
         "drupal/webform": "^6.1",
         "drupal/webform_access": "^6",
         "drupal/webform_image_select": "^6",
@@ -125,8 +89,7 @@
         "guzzlehttp/guzzle": "^6.5|^7.0.1",
         "phpmailer/phpmailer": "^6.6",
         "predis/predis": "^3.4",
-        "solarium/solarium": "^6",
-        "uvalib/dml": "dev-main"
+        "solarium/solarium": "^6"
     },
     "conflict": {
         "drupal/drupal": "*"
@@ -204,6 +167,9 @@
         "patches": {
             "drupal/save_all_nodes": {
                 "Add access check to entity queries": "patches/web/modules/save_all_nodes/0000000-save-all-nodes-accesscheck.patch"
+            },
+            "drupal/custom_search": {
+                "Avoid undefined array key plugin_id warning (drupal.org #3634839)": "patches/web/modules/custom_search/0000001-custom-search-plugin-id-undefined-key.patch"
             }
         }
     },
