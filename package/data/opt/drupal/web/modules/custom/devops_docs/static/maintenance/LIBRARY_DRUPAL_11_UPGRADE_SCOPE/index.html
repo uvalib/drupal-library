@@ -1,0 +1,3671 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Operations and architecture documentation for the UVA Library Drupal 10 site">
+      
+      
+      
+      
+        <link rel="prev" href="../request-logging-and-client-ip/">
+      
+      
+        <link rel="next" href="../drush-rds-tls-cert/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>Drupal 11 Upgrade: Scope and Schedule (Library) - library.virginia.edu Drupal Site</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="blue" data-md-color-accent="blue">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#drupal-11-upgrade-scope-and-schedule-library" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="library.virginia.edu Drupal Site" class="md-header__button md-logo" aria-label="library.virginia.edu Drupal Site" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            library.virginia.edu Drupal Site
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Drupal 11 Upgrade: Scope and Schedule (Library)
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/uvalib/drupal-library" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    uvalib/drupal-library
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="library.virginia.edu Drupal Site" class="md-nav__button md-logo" aria-label="library.virginia.edu Drupal Site" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    library.virginia.edu Drupal Site
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/uvalib/drupal-library" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    uvalib/drupal-library
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Architecture
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Architecture
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../architecture/hostnames-and-urls/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hostnames &amp; URLs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../architecture/container-and-build/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Container &amp; Build
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../architecture/config-management/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Configuration Management
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../architecture/authentication-netbadge/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Authentication (NetBadge)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../architecture/search-solr/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Search (Solr)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Operations
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Operations
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../operations/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Operations
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../operations/local-development/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Local Development (DDEV)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../operations/syncing-data/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Syncing Data from Remote Environments
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../operations/deployment/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Deployment
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../operations/theme-deployment/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Theme deployment (build-time clone + deploy-time tag pin)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../operations/production-deploy-runbook/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Production Deploy Runbook
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../operations/deploy-strategy-exploration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Deployment Strategy — Exploration &amp; Open Questions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../operations/ckeditor4-prod-removal-runbook/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CKEditor 4 Removal — Production Runbook
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../operations/dls-67-timezone-fix-runbook/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DLS-67 Timezone Fix — Deploy Runbook
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Maintenance
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Maintenance
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Maintenance
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../module-updates/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Module &amp; Core Updates
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ckeditor4-to-ckeditor5/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CKEditor 4 → CKEditor 5 Migration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../drupal-11-upgrade/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Drupal 10 → 11 Upgrade
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../config-sync-mechanism-review/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Config-Sync Mechanism — Review &amp; Redesign Brief
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--proposed"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../redis-cache-backend/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Redis Cache Backend (follow-up)
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--proposed"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../request-logging-and-client-ip/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Request Logging, 404 Noise, and Client IP
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Drupal 11 Upgrade: Scope and Schedule (Library)
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Drupal 11 Upgrade: Scope and Schedule (Library)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#current-state" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Current state
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#blockers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Blockers
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Blockers">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#core-modules-removed-in-d11-enabled-here" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Core modules removed in D11 (enabled here)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#contrib-with-no-d11-release-enabled" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Contrib with no D11 release (enabled)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#contrib-that-needs-a-version-bump" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Contrib that needs a version bump
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#packages-to-remove-from-composerjson-not-enabled" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Packages to remove from composer.json (not enabled)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#custom-code" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Custom code
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#infrastructure" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Infrastructure
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#scan-results-upgrade_status-run-2026-11-10-in-ddev-86-extensions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Scan results (upgrade_status, run 2026-11-10 in ddev, 86 extensions)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#web-component-embeds-to-retest-production-db-scan-2026-11-11-read-only" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Web-component embeds to retest (production DB scan, 2026-11-11, read-only)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#composer-audit-run-2026-11-11-against-the-locked-versions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        composer audit (run 2026-11-11 against the locked versions)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#dml-sizing-drupal-module-loader-uvalibdml" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        dml sizing (Drupal Module Loader, uvalib/dml)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#production-check-iek-circle_300x300-2026-11-11-read-only" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Production check: iek / circle_300x300 (2026-11-11, read-only)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#schedule" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Schedule
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#risks" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Risks
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#definition-of-done" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Definition of done
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../drush-rds-tls-cert/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    drush SQL commands fail against RDS TLS (self-signed cert in chain)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../production-deploy-pipeline-review/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Is the drupal-library-production-deploy pipeline active?
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--needs-review"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../release-branch-review/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Is the release branch still part of the flow?
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--needs-review"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../staging-saml-standardization-followup/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Follow-up: Standardize SimpleSAMLphp config-as-code on staging (and prod)
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--deferred"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../theme-repo-main-release-divergence/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Theme repo: main and release have diverged
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--needs-review"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Proposals
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Proposals
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../proposals/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Proposals
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../proposals/ephemeral-environments/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Proposal: ephemeral on-demand environments
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../proposals/environment-contracts/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Proposal (stub): environment purposes &amp; contracts
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../proposals/util-checkout-rethink/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Proposal (stub): rethink the baked-in util checkout
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../proposals/saml-version-compat-check/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Proposal: SimpleSAMLphp version-compatibility check at deploy time
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../proposals/health-check-endpoint/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Proposal: a health-check endpoint that survives maintenance mode
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../proposals/develop-deploy-pipeline/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Proposal: on-demand deploy pipeline for develop
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--paused"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../proposals/saml-timezone-clobber-guard/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Proposal: Guard the request timezone across the in-process SimpleSAMLphp boundary
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Architecture Decisions
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Architecture Decisions
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../adr/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Architecture Decision Records
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../adr/001-config-in-separate-repo/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ADR 001: Store exported Drupal config in a separate repo
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../adr/002-https-at-load-balancer/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ADR 002: Terminate HTTPS at the load balancer; serve HTTP in the container
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../adr/003-runtime-cloned-themes-modules/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ADR 003: Clone first-party themes/modules at build time, not via Composer
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../adr/004-target-drupal-11/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ADR 004: Upgrade to Drupal 11 (PHP 8.3)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../adr/005-theme-asset-delivery-bounded-divergence/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ADR 005: Theme/asset delivery — bounded divergence with pin-convergence
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Troubleshooting
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Troubleshooting
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../troubleshooting/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Troubleshooting
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../troubleshooting/mariadb-ssl-dump/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MariaDB SSL Dump Failure (error 2026)
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--resolved"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../troubleshooting/simplesamlphp-secure-cookie/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SimpleSAMLphp Secure Cookie Error on the HTTP Container
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--resolved"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../troubleshooting/ddev-one-name-per-directory/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DDEV Refuses to Run the Project from This Directory
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--resolved"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../troubleshooting/php-oom-fatals/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    PHP OOM Fatals (Twig render + KCFinder upload)
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--open"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../troubleshooting/ckeditor-ghost-wsod/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CKEditor 4 "ghost module" WSOD on /admin/modules
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--mitigated"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../troubleshooting/layout-builder-entity-restoration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Restoring content entities from a raw DB dump (Layout Builder / block_content)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Incidents
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Incidents
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../incidents/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Incidents
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../incidents/2026-06-26-prod-cache-deadlock-wsod/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2026-06-26 — Production WSOD during rolling deploy (shared-cache deadlock)
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--resolved"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../incidents/2026-07-06-php-oom-fatal-occurrences/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2026-07-06 — PHP OOM fatals: 30-day occurrence log
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--open"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../incidents/2026-07-10-scheduler-timezone-utc-clobber/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2026-07-10 — Site timezone off by 4h (SimpleSAMLphp clobbers the request timezone to UTC)
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--diagnosed"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../incidents/2026-08-10-dls-68-dev-content-loss-and-recovery/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2026-08-10 — Dev content "disappearing": the prod↔dev ID-collision trap (DLS-68)
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--diagnosed"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9" >
+        
+          
+          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Session Logs
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_9">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Session Logs
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../session-logs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../session-logs/2026-06-18-module-assessment-docs-and-config-sync/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Session Log: Module Assessment, Docs Scaffold &amp; Config-Sync Discovery
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../session-logs/2026-06-25-deploys-module-upgrades-and-prod-saml-audit/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Session Log: Deploys, Module Upgrades, Staging Playbook Fix &amp; Prod SAML Audit
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../session-logs/2026-06-29-prod-saml-verify-and-doc-checkin/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Session Log: Prod SAML Fix Verification, Doc Check-in &amp; Cleanup
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../session-logs/2026-07-01-devops-docs-module/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Session Log: DevOps Docs Module (/devops-docs)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../session-logs/2026-07-01-preview-hostname-redirect/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Session Log: preview.library.virginia.edu Default-Redirect Mechanism
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../session-logs/2026-07-02-devops-docs-live-and-design-proposals/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Session Log: DevOps Docs Live on Staging + Design Proposals Wave
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../session-logs/2026-07-06-oom-investigation-and-doc-taxonomy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Session Log: PHP OOM Investigation, scan-alerts Tool, and Doc Taxonomy Rework
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../session-logs/2026-07-10-scheduler-timezone-saml-clobber/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Session Log: DLS-67 — Scheduler/timezone skew traced to SimpleSAMLphp clobbering the request TZ
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../session-logs/2026-07-17-dls-67-prod-deploy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Session Log: DLS-67 — timezone fix deployed to production
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../session-logs/2026-08-03-git-hygiene-two-repos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Session Log: git hygiene pass on terraform-infrastructure and drupal-library
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../session-logs/2026-08-10-dls-68-dev-content-loss-and-dev-deploy-gap/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Session Log: DLS-68 dev content loss, recovery, and the dev deploy pipeline gap
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../session-logs/2026-08-20-field-layout-config-drift-and-prod-ckeditor-regression/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Session Log: Field Layout bug, prod config drift, and a self-inflicted CKEditor regression
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../session-logs/2026-10-22-logout-url-port-fix-and-release-tagging/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Session Log: Logout redirect to https://host:80/ — hot fix, pairing git and docker tags, a path-filtered pipeline trigger, and the production rollout with a theme promotion
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../session-logs/2026-10-22-php2shell-production-rollout/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Session Log: PHP2Shell / core 10.6.19 — rollout to develop, staging and production
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#current-state" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Current state
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#blockers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Blockers
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Blockers">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#core-modules-removed-in-d11-enabled-here" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Core modules removed in D11 (enabled here)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#contrib-with-no-d11-release-enabled" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Contrib with no D11 release (enabled)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#contrib-that-needs-a-version-bump" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Contrib that needs a version bump
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#packages-to-remove-from-composerjson-not-enabled" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Packages to remove from composer.json (not enabled)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#custom-code" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Custom code
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#infrastructure" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Infrastructure
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#scan-results-upgrade_status-run-2026-11-10-in-ddev-86-extensions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Scan results (upgrade_status, run 2026-11-10 in ddev, 86 extensions)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#web-component-embeds-to-retest-production-db-scan-2026-11-11-read-only" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Web-component embeds to retest (production DB scan, 2026-11-11, read-only)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#composer-audit-run-2026-11-11-against-the-locked-versions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        composer audit (run 2026-11-11 against the locked versions)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#dml-sizing-drupal-module-loader-uvalibdml" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        dml sizing (Drupal Module Loader, uvalib/dml)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#production-check-iek-circle_300x300-2026-11-11-read-only" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Production check: iek / circle_300x300 (2026-11-11, read-only)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#schedule" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Schedule
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#risks" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Risks
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#definition-of-done" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Definition of done
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="drupal-11-upgrade-scope-and-schedule-library">Drupal 11 Upgrade: Scope and Schedule (Library)</h1>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Written</strong></td>
+<td>2026-11-10</td>
+</tr>
+<tr>
+<td><strong>Deadline</strong></td>
+<td>2026-12-09 (Drupal 10 end of life)</td>
+</tr>
+<tr>
+<td><strong>Target</strong></td>
+<td>Drupal 11.4.x, PHP 8.4, Drush 13</td>
+</tr>
+<tr>
+<td><strong>Companion</strong></td>
+<td><a href="../drupal-11-upgrade/">drupal-11-upgrade.md</a> (original plan); DSF has its own scope note in <code>drupal-dsf/docs/DSF_DRUPAL_11_UPGRADE_SCOPE.md</code></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>Basis and caveats.</strong> This is a static read of <code>composer.json</code>, <code>composer.lock</code>,
+<code>core.extension.yml</code> and drupal.org release data (checked 2026-11-10). <code>upgrade_status</code>
+was run afterwards (see Scan results below). The external repos cloned at build time were only partly covered
+(<code>dml</code>, <code>uvaldap</code>, <code>drupal_jsonapi_search_api_extension</code>, <code>uvalib_drupal_theme_2026</code>).
+Treat estimates as rough until step 1 is done.</p>
+</blockquote>
+<h2 id="current-state">Current state</h2>
+<ul>
+<li>Core 10.6.19, Drush 12.5.3, 210 locked packages.</li>
+<li>Production image <code>drupal:10.6.19-php8.4-apache</code>, so PHP is already 8.4.</li>
+<li><strong>ddev is PHP 8.2 / <code>type: drupal10</code></strong>, which Drupal 11 will not run on.</li>
+<li>Production runs two nodes behind the ALB; staging and dev are single-node.</li>
+<li>Target 11.4.x rather than 11.0: <code>rdf</code> 4.0 needs core 11.3 or later, and <code>simplesamlphp_auth</code> 4.1 needs 11.3 or later.</li>
+</ul>
+<h2 id="blockers">Blockers</h2>
+<h3 id="core-modules-removed-in-d11-enabled-here">Core modules removed in D11 (enabled here)</h3>
+<p><code>color</code>, <code>quickedit</code>, <code>rdf</code>. Uninstall them, or move to the contrib versions
+(<code>quickedit</code> 2.x, <code>rdf</code> 4.0, <code>color</code> 2.0 alpha), on D10 <strong>before</strong> the core bump.
+Check for config that depends on them (color theme settings, RDF mappings).</p>
+<h3 id="contrib-with-no-d11-release-enabled">Contrib with no D11 release (enabled)</h3>
+<table>
+<thead>
+<tr>
+<th>Module</th>
+<th>Locked</th>
+<th>Latest</th>
+<th>Action</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>custom_search</code></td>
+<td>1.0-beta9 (<code>^10</code>)</td>
+<td>same release; <code>8.x-1.x</code> dev branch declares <code>^10 \|\| ^11 \|\| ^12</code></td>
+<td><strong>Must stay (decision 2026-11-11).</strong> Pin <code>1.x-dev#ab9e188</code> on D10 first, plus a one-line patch for the <code>plugin_id</code> warning (upstream #3634839). Upstream is largely inactive, so test <code>/search/node</code> and <code>/website-search-results</code> on staging.</td>
+</tr>
+<tr>
+<td><code>iek</code></td>
+<td>1.3 (<code>^9.3 \|\| ^10</code>)</td>
+<td>same; dev branch has no work since 1.3</td>
+<td><strong>Remove (recommended; production checked 2026-11-11).</strong> The only user, image style <code>circle_300x300</code>, is unused in production (see "Production check" below). Fallback if anyone objects: the bot MR <code>!1</code> on upstream issue #3430975 applies cleanly (dry-run) and covers every hit.</td>
+</tr>
+<tr>
+<td><code>save_all_nodes</code></td>
+<td>2.0.0 (<code>^10</code>)</td>
+<td>same</td>
+<td>Already carries a local patch. Patch for D11 or replace.</td>
+</tr>
+<tr>
+<td><code>ckeditor</code> (CKEditor 4)</td>
+<td>n/a</td>
+<td><code>^9.4 \|\| ^10</code></td>
+<td>Uninstall. CKEditor 5 is already enabled. See <a href="../ckeditor4-to-ckeditor5/">ckeditor4-to-ckeditor5.md</a>.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="contrib-that-needs-a-version-bump">Contrib that needs a version bump</h3>
+<table>
+<thead>
+<tr>
+<th>Module</th>
+<th>Locked</th>
+<th>Bump to</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>scheduler_content_moderation_integration</code></td>
+<td>2.0.0</td>
+<td>3.x (<code>^10.3 \|\| ^11</code>)</td>
+</tr>
+<tr>
+<td><code>webform</code></td>
+<td>6.2.10 (<code>^10.2</code>)</td>
+<td>6.3.x</td>
+</tr>
+<tr>
+<td><code>webform_rest</code></td>
+<td>4.1.0</td>
+<td>4.2.x</td>
+</tr>
+<tr>
+<td><code>cache_utility</code></td>
+<td>1.3.0 (<code>^9 \|\| ^10</code>)</td>
+<td>1.4.x</td>
+</tr>
+<tr>
+<td><code>exclude_node_title</code></td>
+<td>1.4.0</td>
+<td>2.0.x</td>
+</tr>
+<tr>
+<td><code>w3css_paragraphs</code></td>
+<td>1.0.19</td>
+<td>1.0.20</td>
+</tr>
+<tr>
+<td><code>d8w3css</code></td>
+<td>2.0.16</td>
+<td>2.0.18</td>
+</tr>
+</tbody>
+</table>
+<p>Everything else in the lock already declares <code>^11</code>.</p>
+<h3 id="packages-to-remove-from-composerjson-not-enabled">Packages to remove from <code>composer.json</code> (not enabled)</h3>
+<p><code>drupal/rules</code> (alpha; 3.x to 4.x is a rewrite), <code>drupal/typed_data</code>, <code>drupal/smartmenus</code>,
+<code>drupal/devel_entity_updates</code>, <code>drupal/classy-classy</code>. None appears in <code>core.extension.yml</code>.</p>
+<h3 id="custom-code">Custom code</h3>
+<ul>
+<li><code>uvalibrary_v2a.info.yml</code>: <code>core_version_requirement: ^9|^10</code>. Update it, and verify the base theme <code>drupal8_w3css_theme</code>.</li>
+<li><code>devops_docs</code> module: small, check its <code>info.yml</code>.</li>
+<li>External repos (see caveat above): deprecation scan and <code>core_version_requirement</code> update on each.</li>
+</ul>
+<h3 id="infrastructure">Infrastructure</h3>
+<ul>
+<li><code>package/Dockerfile</code>: base to <code>drupal:11.4-php8.4-apache</code>; drop the pinned 10.6.19 comment block.</li>
+<li><code>composer.json</code>: <code>drupal/core</code>, <code>core-recommended</code>, <code>core-scaffold</code>, <code>core-project-message</code> to 11.x; <code>core-dev</code> to <code>^11</code>; <code>drush/drush</code> to <code>^13</code>.</li>
+<li><code>.ddev/config.yaml</code>: <code>type: drupal11</code>, <code>php_version: "8.4"</code>.</li>
+<li>Pipeline specs and PHP version references.</li>
+<li><code>simplesamlphp_auth</code> against the shared netbadge container.</li>
+<li>Re-check the <code>save_all_nodes</code> patch path after any bump.</li>
+<li><code>mandala-navina</code> already runs D11 and can serve as a Dockerfile and pipeline reference.</li>
+</ul>
+<h2 id="scan-results-upgrade_status-run-2026-11-10-in-ddev-86-extensions">Scan results (<code>upgrade_status</code>, run 2026-11-10 in ddev, 86 extensions)</h2>
+<p><code>upgrade_status</code> is not in Library's <code>composer.json</code>. It was added temporarily for the scan and <code>composer.json</code> and <code>composer.lock</code> were then restored byte-for-byte. Most of the large "check manually" counts in contrib (Search API, Webform, Paragraphs, Geolocation) are "library not defined" noise, not blockers. The counts that matter are the removed-in-D11 API calls.</p>
+<p><strong>Removed-API calls in modules we keep or need to decide on:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Extension</th>
+<th>Result</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>iek</code> 1.3</td>
+<td>27 hits, all one rename: <code>GDToolkit::getResource()</code> (23) and <code>setResource()</code> (4), replaced by <code>getImage()</code> and <code>setImage()</code> (available since core 10.2). The upstream bot MR does exactly this in 7 files plus the version constraints, and applies cleanly to 1.3. Used by one image style only: <code>circle_300x300</code> (WebP, focal-point crop, <code>iek_image_corner</code> radius 150), which no config, content or theme code references. <strong>A trivial port if kept.</strong> <em>(An earlier version of this row listed unrelated function names and called it a rewrite. That was a parsing error, now corrected.)</em></td>
+</tr>
+<tr>
+<td><code>custom_search</code> beta9</td>
+<td>The static-analysis flags (undefined function and variable in <code>CustomSearchBlock.php</code>) were not shown to fail at runtime, and the dev branch cleans that code. Site usage: configures core's <code>/search/node</code> and <code>/website-search-results</code> advanced search forms; none of its blocks is placed. <strong>Keep, via the dev pin above.</strong></td>
+</tr>
+<tr>
+<td><code>save_all_nodes</code></td>
+<td>Only metadata blocks it (<code>core_version_requirement: ^10</code>, <code>composer.json</code> core constraint). A patch-level fix is plausible.</td>
+</tr>
+<tr>
+<td><code>entity_reference_revisions</code> 1.14</td>
+<td>19 hits. Check for a newer release after the bump.</td>
+</tr>
+<tr>
+<td><code>paragraphs</code> 1.20</td>
+<td>14 hits. Re-check after the bump.</td>
+</tr>
+<tr>
+<td><code>webform</code> 6.2.10</td>
+<td>11 hits. Resolved by 6.3.x.</td>
+</tr>
+<tr>
+<td><code>quickedit</code>, <code>rdf</code></td>
+<td>As expected (core-removed modules).</td>
+</tr>
+<tr>
+<td><code>rules</code>, <code>devel_entity_updates</code></td>
+<td>Hits, but neither is enabled. Remove from <code>composer.json</code>.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Custom code:</strong></p>
+<ul>
+<li><code>dml</code> (<code>uvalib/dml</code>, monorepo): one <code>drupal_get_path()</code> call, declares <code>^8 || ^9</code>, and <strong>is disabled on staging and both production nodes</strong>. Remove it from <code>composer.json</code> (see sizing below).</li>
+<li><code>uvalibrary_v2a</code> theme: <code>core_version_requirement: ^9</code>, plus the <code>base</code> library depends on removed <code>core/modernizr</code>.</li>
+<li><code>jsonapi_search_uvalib</code>: <code>^9</code>. <code>uvaldap</code>: <code>^9 || ^10</code>. Both are metadata only in this scan.</li>
+<li><code>devops_docs</code>: clean.</li>
+<li><code>uvalib_drupal_theme_2026</code>: scanned separately on 2026-11-11 (<code>upgrade_status</code> skips custom themes that aren't installed, so it was installed in the local DB for the scan and uninstalled again). <strong>No known issues found.</strong> It already declares <code>core_version_requirement: ^10.3 || ^11</code>, has no <code>.theme</code> PHP file, and its base theme is <code>bootstrap</code> 5.0.2, which supports D11.</li>
+<li><code>classy-classy</code> 1.0.0-alpha3 is installed but not enabled; remove it.</li>
+</ul>
+<h2 id="web-component-embeds-to-retest-production-db-scan-2026-11-11-read-only">Web-component embeds to retest (production DB scan, 2026-11-11, read-only)</h2>
+<p>The site's JavaScript web components (<code>unpkg.internal.lib.virginia.edu</code>) are <strong>not</strong> loaded by any module or theme. Editors paste <code>&lt;script type="module" src="..."&gt;</code> plus a custom tag into body fields and a view header, so the embeds live in the database and depend on the <code>full_html</code> text format not stripping <code>&lt;script&gt;</code> or custom elements. Found by scanning current-revision text columns of <code>node__*</code>, <code>block_content__*</code>, <code>paragraph__*</code>, <code>media__*</code>, <code>taxonomy_term__*</code> and <code>config</code> for the unpkg host (prod node 0; revisions not scanned).</p>
+<table>
+<thead>
+<tr>
+<th>Where</th>
+<th>What</th>
+<th>Component (version)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Block 71 "Home: Library hours"</td>
+<td>home page</td>
+<td><code>site-hours-section</code> (2.2.35)</td>
+</tr>
+<tr>
+<td>Block 73 "Home: Library events"</td>
+<td>home page</td>
+<td><code>events-section</code> (2.0.8)</td>
+</tr>
+<tr>
+<td>Block 88 "Analytics tracking code"</td>
+<td>every page</td>
+<td><code>uvalib-analytics</code> (0.0.12, Matomo site 10)</td>
+</tr>
+<tr>
+<td>Block 101 "RDS: Events feed"</td>
+<td>events feed</td>
+<td><code>events-section</code> (2.0.8)</td>
+</tr>
+<tr>
+<td>Block 105 "Upcoming exhibition events"</td>
+<td>exhibitions</td>
+<td><code>events-section</code> (2.0.8)</td>
+</tr>
+<tr>
+<td>Block 1142 "AI: Upcoming events feed"</td>
+<td>events feed</td>
+<td><code>events-section</code> (2.0.8)</td>
+</tr>
+<tr>
+<td>Block 1183 "Events" (type <code>card</code>)</td>
+<td>card block</td>
+<td><code>events-section</code> (2.0.8)</td>
+</tr>
+<tr>
+<td>View <code>library_hours_view_locations_new_2023_</code> header</td>
+<td><code>/hours</code></td>
+<td><code>library-hours-setup</code> (2.2.40)</td>
+</tr>
+<tr>
+<td>Node 786 <code>/equipment-and-tech</code></td>
+<td>page body</td>
+<td><code>events-section</code> (2.0.8)</td>
+</tr>
+<tr>
+<td>Node 837 <code>/search</code></td>
+<td>page body</td>
+<td><code>bento-box</code> (2.2.38)</td>
+</tr>
+<tr>
+<td>Node 2569 <code>/locations/shannon/grand-opening</code></td>
+<td>page body</td>
+<td><code>events-section</code> (2.0.8)</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Staging QA:</strong> load <code>/</code>, <code>/hours</code>, <code>/search</code>, <code>/equipment-and-tech</code>, <code>/locations/shannon/grand-opening</code> and check the analytics script appears on every page. Confirm <code>full_html</code> still allows <code>&lt;script&gt;</code> and these custom tags after the CKEditor 4 removal and the D11 bump.</p>
+<p><strong>Limits:</strong> the scan matches only the unpkg host, so an embed from another host or a bare custom tag without a script would be missed. Revisions and unpublished drafts were not scanned. Theme templates and config-sync were checked by grep and hold only the <code>/hours</code> view.</p>
+<h2 id="composer-audit-run-2026-11-11-against-the-locked-versions"><code>composer audit</code> (run 2026-11-11 against the locked versions)</h2>
+<p>71 advisories across 29 packages. They fall into three groups:</p>
+<table>
+<thead>
+<tr>
+<th>Group</th>
+<th>Packages</th>
+<th>Why it matters here</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Drupal contrib, fix available on D10</strong></td>
+<td><code>webform</code> 6.2.10 (<strong>23 advisories, including one critical RCE, SA-CONTRIB-2026-175</strong>; 6.3.1 available), <code>webform_rest</code> 4.1.0 (4.2.2), <code>geolocation</code> 3.14.0 (<strong>critical SQL injection</strong>; 4.1.0 is a major bump), <code>mathjax</code> 4.1.0 (critical XSS; 4.1.2), <code>externalauth</code> 2.0.11, <code>scheduler</code> 2.2.2 (2.3.1), <code>content_moderation_notifications</code> 3.8.0 (3.9.0), <code>paragraphs</code> 1.20.0</td>
+<td>All enabled in config except <code>paragraphs</code> (not in <code>core.extension.yml</code>; it is present only as a dependency). <strong>These are live production exposures today, independent of D11.</strong></td>
+</tr>
+<tr>
+<td><strong>SimpleSAMLphp</strong></td>
+<td><code>simplesamlphp/simplesamlphp</code> 2.4.5 (2.4.11 available), <code>saml2</code> 5.0.5, <code>saml2-legacy</code> 4.19.2</td>
+<td>High severity: cross-IdP auth bypass and unexpected-IdP responses. Login goes through NetBadge, so check this first.</td>
+</tr>
+<tr>
+<td><strong>Symfony / Guzzle / tooling</strong></td>
+<td><code>symfony/*</code> 6.4.48 (about 20 advisories, fixes in 6.4.50 and later), <code>guzzlehttp/guzzle</code> 7.10.6 (9, mostly medium), <code>enshrined/svg-sanitize</code>, <code>composer/composer</code> and <code>squizlabs/php_codesniffer</code> (dev tooling)</td>
+<td>Most Symfony ones are patched by the core bump (D11 pulls Symfony 7.x). Core 10.6.21 also exists.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Prepared 2026-11-11:</strong> branch <code>security/webform-simplesamlphp-updates</code> (one commit, <code>composer.lock</code> only, not pushed) updates webform and its sub-modules to 6.3.1, <code>webform_rest</code> 4.2.2, <code>simplesamlphp/simplesamlphp</code> 2.4.11, <code>saml2</code> 5.0.8 and <code>saml2-legacy</code> 4.19.6. <code>composer audit</code> drops from 71 to 46 advisories, with none left for webform or <code>simplesamlphp/*</code>. Webform 6.3.1 brings 12 pending <code>updb</code> hooks, including a new index on <code>webform_submission_data</code> (check the table size on production before deploying). The NetBadge SP container (<code>drupal-netbadge</code>) has its own lock and needs the same SimpleSAMLphp patch.</p>
+<p><strong>Not verified:</strong> I read the advisory titles and the available versions. I did not confirm that each newer release fixes each advisory, or that every affected code path is reachable on this site.</p>
+<p><strong>Effect on the plan:</strong> the webform, geolocation, mathjax and SAML fixes should not wait for the D11 cutover. Treat them as the first items of the pre-upgrade week (or sooner), and take <code>webform</code> 6.3.1 anyway since it is already on the bump list. <code>geolocation</code> 4.x is a major version, so check it separately.</p>
+<h2 id="dml-sizing-drupal-module-loader-uvalibdml"><code>dml</code> sizing (Drupal Module Loader, <code>uvalib/dml</code>)</h2>
+<ul>
+<li><strong>Size:</strong> one 91-line <code>.module</code> file plus <code>map.yml</code> (16 web-component to CDN-URL mappings). No classes, no services.</li>
+<li><strong>D11 incompatibilities:</strong> <code>drupal_get_path()</code> (1 call, in <code>drupal_module_loader_get_map()</code>; replace with <code>\Drupal::service('extension.list.module')-&gt;getPath('drupal_module_loader')</code>), <code>core_version_requirement: ^8 || ^9</code>, and <code>composer.json</code> requires <code>symfony/yaml ^4.4 || ^5.0</code>. That constraint would conflict with D11's Symfony 7, but the root <code>composer.json</code> defines <code>uvalib/dml</code> as a <code>package</code> repository that carries no <code>require</code>, so it does not bite in practice. Fix it anyway in the monorepo. <em>(The earlier "7 places" count was the scan's repeated reporting of this one call, not 7 call sites.)</em></li>
+<li><strong>Estimate:</strong> none if removed (recommended). About 1-2 hours including a monorepo release if someone wants to keep it.</li>
+<li><strong>Not enabled anywhere (checked 2026-11-11, read-only <code>drush pm:list</code>).</strong> <code>drupal_module_loader</code> shows <strong>Disabled</strong> on staging, production node 0 and production node 1. It is installed by composer but not turned on, and it is not in <code>core.extension.yml</code>. The hours view does not depend on it: <code>views.view.library_hours_view_locations_new_2023_</code> loads its own <code>&lt;script type="module" src="https://unpkg.internal.lib.virginia.edu/web-components/cdn-v2.2.40/...library-hours-setup.js"&gt;</code> inline. <strong>Action: remove <code>uvalib/dml</code> and its <code>repositories</code> entry from <code>composer.json</code>.</strong> No code work is needed.</li>
+<li><strong>Existing smell if it is ever enabled:</strong> <code>drupal_module_loader_page_bottom()</code> calls <code>error_log()</code> with the entire rendered HTML of every page, and renders <code>$page_bottom</code> twice.</li>
+</ul>
+<h2 id="production-check-iek-circle_300x300-2026-11-11-read-only">Production check: <code>iek</code> / <code>circle_300x300</code> (2026-11-11, read-only)</h2>
+<p>Run against both production nodes (<code>library-drupal-0</code> and <code>-1</code>, container <code>drupal-0</code>, Drupal 10.6.19). Nothing was changed.</p>
+<table>
+<thead>
+<tr>
+<th>Check</th>
+<th>Result</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Style and module present in prod</td>
+<td>Yes. <code>image.style.circle_300x300</code> exists with effects <code>image_convert</code>, <code>focal_point_scale_and_crop</code>, <code>iek_image_corner</code>. <code>iek</code> is installed.</td>
+</tr>
+<tr>
+<td>Derivatives on disk (both nodes)</td>
+<td><strong>1 file</strong>: <code>styles/circle_300x300/public/core/modules/image/sample.png.webp</code>, dated 2025-10-29. That is the sample image Drupal generates for the preview on the style's edit page, not content. For comparison: <code>thumbnail</code> has 1,522, <code>medium</code> 804, <code>max_325x325</code> 341.</td>
+</tr>
+<tr>
+<td>Config objects referencing the style</td>
+<td>Only the style itself. No view display, view, block or other config uses it.</td>
+</tr>
+<tr>
+<td>Content referencing the style</td>
+<td>None, across 183 text columns in <code>node*</code>, <code>paragraph*</code>, <code>block_content*</code>, <code>media*</code> and <code>webform*</code> tables.</td>
+</tr>
+<tr>
+<td>Access logs</td>
+<td>0 requests for <code>circle_300x300</code> in the available window (about 36 hours, ~350k lines per node, container stdout only). <code>/styles/thumbnail/</code> has 25-26 in the same window.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Reading:</strong> any real use of this style in the past year would leave derivative files, and there are none. The log window is short, but the missing derivatives are the stronger evidence. <strong>Conclusion: unused. Remove the style and uninstall <code>iek</code>.</strong></p>
+<p>Removal steps (on D10, in the pre-upgrade week): delete <code>image.style.circle_300x300</code> (uninstall is blocked while config depends on the module), uninstall <code>iek</code>, export config, remove <code>drupal/iek</code> from <code>composer.json</code>, then delete the leftover <code>files/styles/circle_300x300</code> directory.</p>
+<h2 id="schedule">Schedule</h2>
+<table>
+<thead>
+<tr>
+<th>Week</th>
+<th>Work</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Nov 10-14</strong></td>
+<td>Run <code>upgrade_status</code> in ddev. Security-patch webform, geolocation, mathjax and SimpleSAMLphp on D10 (see <code>composer audit</code>). Decide <code>custom_search</code> / <code>iek</code> / <code>save_all_nodes</code>. Review the external repos.</td>
+</tr>
+<tr>
+<td><strong>Nov 17-21</strong></td>
+<td>Pre-upgrade on D10: uninstall removed core modules and CKEditor 4, bump contrib, remove unused packages, fix custom code. Deploy to staging (still D10).</td>
+</tr>
+<tr>
+<td><strong>Nov 24-25</strong></td>
+<td>Core 11.4 + Drush 13 + Dockerfile on a branch. <code>updb</code>, <code>cim</code>, fix breakage. Thanksgiving follows.</td>
+</tr>
+<tr>
+<td><strong>Nov 30-Dec 4</strong></td>
+<td>Staging soak and QA: Layout Builder, Webform, SAML login, search/Solr, content moderation, scheduler, <code>drush cr</code>. Cypress suites.</td>
+</tr>
+<tr>
+<td><strong>Dec 7-8</strong></td>
+<td>Production cutover in a maintenance window, <strong>both nodes</strong>.</td>
+</tr>
+<tr>
+<td><strong>Dec 9</strong></td>
+<td>Buffer only.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="risks">Risks</h2>
+<ol>
+<li><code>custom_search</code> (kept via an unmaintained dev branch) and <code>save_all_nodes</code> (local patch): both depend on code nobody upstream is maintaining, so staging QA matters. <code>iek</code> is resolved: unused in production, so it is removed rather than ported.</li>
+<li>Theme and external repos may hide a lot of deprecated code.</li>
+<li>Two-node production needs a deploy-order plan and a tested rollback image.</li>
+<li>DB backup and restore rehearsal before cutover.</li>
+<li>Short buffer: any slip in week 3 eats the margin.</li>
+</ol>
+<h2 id="definition-of-done">Definition of done</h2>
+<ul>
+<li>Prod and staging on Drupal 11.4.x, <code>drush status</code> and <code>/admin/reports/status</code> clean.</li>
+<li>No removed core modules enabled; no unsupported contrib in the lock.</li>
+<li>ddev, Dockerfile and pipeline all on the same PHP and core line.</li>
+<li>This doc and the stub updated with the outcome.</li>
+</ul>
+
+
+
+
+
+
+
+  
+    
+  
+  
+
+
+  <aside class="md-source-file">
+    
+      
+  <span class="md-source-file__fact">
+    <span class="md-icon" title="Last update">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
+    </span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-datetime" title="November 18, 2026 21:21:24 UTC">November 18, 2026 21:21:24</span>
+  </span>
+
+    
+    
+    
+    
+  </aside>
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.top", "search.highlight"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>
