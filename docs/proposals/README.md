@@ -16,6 +16,7 @@ Nothing here is adopted or committed to.
 | [SimpleSAMLphp version-compat check](saml-version-compat-check.md) | Advisory deploy-time check that the SP container and the Drupal-side SimpleSAMLphp share a `saml2` major (session-format compatibility); one shared Ansible task, no API/module. |
 | [Health-check endpoint that survives maintenance mode](health-check-endpoint.md) | The ALB health-checks `/`, which Drupal 503s in maintenance mode — so maintenance pulls nodes from rotation and replaces the maintenance page with an ALB error. Proposes a `_maintenance_access` route doing a trivial DB round-trip, letting the matcher stay `200-299` permanently. Account-wide trap. |
 | [SAML timezone-clobber guard](saml-timezone-clobber-guard.md) | Long-term follow-up to DLS-67: file an **upstream bug report** to `drupal/simplesamlphp_auth` — the in-process session validation silently clobbers the host's default timezone. Floor ask: a WARNING; preferred: save/restore around the SAML boundary. The shipped env fix stays; includes a ready-to-post draft issue. |
+| [Develop deploy pipeline](develop-deploy-pipeline.md) *(paused)* | On-demand (not auto-triggered) CodeBuild project so `dev`'s container stops silently drifting weeks behind staging/prod. WIP scaffolding committed to an unpushed `wip/develop-deploy-pipeline` branch in both repos; paused pending an IAM-role decision. |
 
 ## Proposals that already have a home (cross-listed)
 

@@ -18,6 +18,10 @@
 - `.ddev/config.yaml` → `type: drupal11`, `php_version: "8.3"`.
 - Pipeline specs and any PHP version references → 8.3.
 
+## Scope and schedule
+
+Detailed blocker list and Dec 9 schedule: [LIBRARY_DRUPAL_11_UPGRADE_SCOPE.md](LIBRARY_DRUPAL_11_UPGRADE_SCOPE.md).
+
 ## Status
 
 **Planned.** CKEditor 4 removal is the first concrete step on the critical path.
