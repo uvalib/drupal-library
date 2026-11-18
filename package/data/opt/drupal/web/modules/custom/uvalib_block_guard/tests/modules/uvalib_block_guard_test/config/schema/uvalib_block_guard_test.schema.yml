@@ -1,0 +1,7 @@
+block.settings.uvalib_block_guard_throwing:
+  type: block_settings
+  label: 'Throwing block (test)'
+  mapping:
+    exception:
+      type: string
+      label: 'Exception class to throw'

@@ -1,0 +1,6 @@
+services:
+  uvalib_block_guard.degraded_response_subscriber:
+    class: Drupal\uvalib_block_guard\DegradedResponseSubscriber
+    arguments: ['@datetime.time']
+    tags:
+      - { name: event_subscriber }

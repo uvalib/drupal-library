@@ -1,0 +1,7 @@
+name: 'UVA Block Guard test fixtures'
+type: module
+description: 'Test-only block plugins for uvalib_block_guard Kernel tests.'
+package: Testing
+core_version_requirement: ^10 || ^11
+dependencies:
+  - drupal:block

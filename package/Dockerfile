@@ -63,6 +63,10 @@ RUN ln -s /opt/drupal/util/drupal-library/package/data/opt/drupal/vendor-archive
 # Rebuild static/ locally with scripts/build-docs.sh after editing docs/.
 RUN ln -s /opt/drupal/util/drupal-library/package/data/opt/drupal/web/modules/custom/devops_docs /opt/drupal/web/modules/custom/devops_docs
 
+# uvalib_block_guard: per-block fault isolation (a block that throws is logged and
+# skipped instead of 500ing the page). Ships disabled; enable per environment.
+RUN ln -s /opt/drupal/util/drupal-library/package/data/opt/drupal/web/modules/custom/uvalib_block_guard /opt/drupal/web/modules/custom/uvalib_block_guard
+
 # The prod host's `drush cex --commit` cron (every 2h, see root's crontab) commits config
 # export changes from inside this container. Without these, git refuses to operate on the
 # bind-mounted config/sync checkout ("dubious ownership") and has no author identity to commit
