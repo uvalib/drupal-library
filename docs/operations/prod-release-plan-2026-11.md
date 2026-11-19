@@ -213,6 +213,22 @@ the rollout (leave node 0 on the old image) if errors appear.
 - Compare the two nodes (runbook "After the rollout"): image, `settings.php` hash, theme tag, composer.lock.
 - Watch CloudWatch for 30 minutes: healthy host count 2, target 5xx near zero.
 
+**Known `drush core:requirements` noise (not release regressions).** Identical on staging and develop after the
+release image; the first three are also on prod's current image. Do not chase them after the release:
+
+- *Asset Injector: "Directory not writable".* A false positive when drush runs as root (`docker exec` default):
+  `is_writable('public://asset_injector')` is false for root because PHP checks the permission bits for stream-wrapper
+  paths and root counts as "other" on a uid-33 mode-775 directory. As `www-data` it is true (`docker exec -u www-data`).
+  The directory exists and is writable on all environments.
+- *Entity/field definitions: `node.field_uva_ldap_email` and `node.field_uva_ldap_phone` need updating.* Cosmetic: the
+  last-installed storage definitions hold cardinality as a string (`"1"`, `"-1"`), the current ones as integers.
+  Schema and behavior are identical; re-saving the two field storage configs would normalize them, not needed.
+- *Entity/field definitions: `workflow` entity type "updated".* Pre-existing (also on prod); provided by core
+  `workflows`; cause not isolated.
+- *`taxonomy_term.publish_state` / `unpublish_state` "created"* appear on prod today and **disappear** with this
+  release (`scheduler_content_moderation_integration_update_10301`); a useful sign that `updb` ran.
+- *Webform Bootstrap: "Bootstrap 3.x missing".* Pre-existing on all environments; not used.
+
 ## 7. Rollback
 
 | Layer | Rollback |
@@ -246,18 +262,12 @@ are then absent again, so a rollback is a temporary position, not a safe resting
 - **TeamCity files sync** completed: 0 files missing on staging, 0 size mismatches, 35 extra staging-only files
   (harmless).
 - **Mail diversion** (PR #26 plus `UVALIB_MAIL_DIVERT=1` in the staging and develop `container.env`) is live on
-  staging; verified through `--include-overridden`. Develop still needs a manual `deploy_backend.yml` run with the new
-  image.
-- **Prod read-only checks (2026-11-19):**
-  - `exclude_node_title` is available on both prod nodes but **not enabled**; nothing to do for the release.
-  - Theme: both nodes are on tag `prod-theme-20261022-login-form-fixes`, commit `e24e27bc`, clean tree (compared with the
-    pin recorded in this plan; the live SSM value was not re-read, which needs an MFA session). Re-read it in the baseline.
-  - Config-sync: node 0 is level with `origin/production`; node 1 shows the same checkout, has no export cron and no
-    `/root/.ssh`, so it neither exports nor pushes (only node 0 does).
-  - **`/mnt/data` is a shared NFS mount** (`10.130.113.73`) on both prod nodes; `/opt/drupal/config`
-    (including the config-sync git checkout) and `sites/default/files` live on it. The push key in `/root/.ssh` does not
-    (container writable layer). A deploy key persisted on `/mnt/data` is therefore visible to both nodes; make it
-    readable only by the container user and do not commit it.
+  staging and develop; verified through `--include-overridden` on both.
+- **Develop deployed** with `build-20261119201028` (2026-11-19, manual `deploy_backend.yml -e
+  deploy_tag=build-20261119201028`, `failed=0`). Before the deploy, `drush pmu webform_toggles
+  webform_location_geocomplete -y` was run on develop's old image; after it, `drush updatedb` ran all 16 pending
+  updates and `cr` succeeded; `/`, `/search/node` and `/user/login` return 200. This is a second rehearsal of the same
+  sequence (develop is a prod clone).
 
 **Open before the release**
 
