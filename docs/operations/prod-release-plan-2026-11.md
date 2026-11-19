@@ -236,7 +236,8 @@ are then absent again, so a rollback is a temporary position, not a safe resting
   touching only `views.view.home_news.yml` and `views.view.home_news_featured.yml` (`config:status` showed only
   those two as different beforehand).
 - **Staging checks by a person:** NetBadge login and non-NetBadge login both work. A story scheduled in the admin UI
-  publishes correctly, but only when cron runs (see below), which is why the first attempt looked broken.
+  publishes correctly, but only when cron runs (hourly, via `automated_cron`; see below), which is why the first
+  attempt looked broken.
 - **Incident recreation on staging:** a published, featured story with an empty `field_link` was published by the
   scheduler. The guard dropped the failing block (`home_news_featured-block_1`, and `home_news-block_1` for a
   non-featured story), the page stayed 200 with "This content is temporarily unavailable.", and the failure was logged
@@ -274,10 +275,14 @@ are then absent again, so a rollback is a temporary position, not a safe resting
 
 **Open, lower priority**
 
-- **Cron.** Prod runs cron hourly at :35 on both nodes (shared state) from a trigger outside the hosts (not in the
-  host crontab; source not found), so scheduled publishing has hourly granularity. Staging has no cron trigger at all;
-  scheduling tests there need a manual `drush cron`. Worth a follow-up to find the trigger and consider a shorter
-  interval.
+- **Cron.** Cron is Drupal's `automated_cron` module, not a host or AWS job: it is enabled with a stored interval of
+  3600 s on prod and staging (both nodes share state), and a web request runs cron at the end of the request once an
+  hour has passed since `system.cron_last`. `drush` forces the interval to 0 in its own process, so reading it through
+  `drush` shows 0; read the stored value (`getEditable`) or `drush cget`. Consequences: scheduled publishing has
+  roughly hourly granularity (a story scheduled just after a run waits for the next one, which is why the first staging
+  scheduling test looked broken); staging behaves the same, but a manual `drush cron` there resets the clock; the
+  request that triggers cron pays its duration (about 10 s in the last run, mostly `simple_sitemap`). Whether to shorten
+  the interval is a team decision, not part of this release.
 - The staging rehearsal timings (3a) are for a single node with no traffic; the prod rebuild competes with live
   traffic. The 4-minute maintenance burst and its script remain untested. Staging's first homepage load after `cr`
   took 12.7 s.
