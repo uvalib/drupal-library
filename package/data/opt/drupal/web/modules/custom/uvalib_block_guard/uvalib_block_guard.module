@@ -1,0 +1,21 @@
+<?php
+
+/**
+ * @file
+ * Fault isolation for block rendering.
+ *
+ * See README.md. Layout Builder components are covered by a service
+ * replacement (UvalibBlockGuardServiceProvider); blocks placed in theme
+ * regions are covered by swapping the block view builder here.
+ */
+
+use Drupal\uvalib_block_guard\GuardedBlockViewBuilder;
+
+/**
+ * Implements hook_entity_type_alter().
+ */
+function uvalib_block_guard_entity_type_alter(array &$entity_types): void {
+  if (isset($entity_types['block'])) {
+    $entity_types['block']->setHandlerClass('view_builder', GuardedBlockViewBuilder::class);
+  }
+}

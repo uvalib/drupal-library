@@ -1,0 +1,8 @@
+name: 'UVA Block Guard'
+type: module
+description: 'Fault isolation: a block that throws while rendering is logged and skipped instead of returning a 500 for the whole page.'
+package: Custom
+core_version_requirement: ^10 || ^11
+dependencies:
+  - drupal:block
+  - drupal:layout_builder
