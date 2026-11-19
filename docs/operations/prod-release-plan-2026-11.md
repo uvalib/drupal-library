@@ -110,6 +110,23 @@ per node: after both nodes are healthy on the old image and in a low-traffic win
 window with the first release pass. Open question: whether `template_user_profile` still works if its geocomplete
 element is used (it rendered 200 on staging after the uninstall).
 
+### Required pre-release step: the config-sync push key does not survive a redeploy
+
+Prod's automatic config export works today: host cron runs `drush cex --commit` every 2 hours and
+`git push -q` 15 minutes later, and `origin/production` of `drupal-library-config-sync` was current as of
+2026-11-19 (latest commit 2026-11-17 22:00 UTC; the container checkout is not ahead). The push works only because
+the container's `/root/.ssh` holds a **personal key placed there on 2026-11-16 as a stopgap**. That directory is in
+the container's writable layer, so the release (which recreates both containers) wipes it. After that, `cex --commit`
+keeps committing locally but the push fails silently, as it did for 155 commits before 2026-11-16, and config
+changes made on prod (including the view fix, if it is applied after the release) stop reaching the repo.
+
+Before the release, one of: (a) a write-enabled deploy key persisted on host `/mnt/data` and mounted or copied in
+by Ansible, with GitHub host keys fetched from `api.github.com/meta` at deploy time (preferred); or (b) a post-deploy
+step in the runbook that restores the key and `known_hosts` on each node. Do not depend on the personal key.
+Verify afterwards on each node that `git status -sb` in `/opt/drupal/config/sync` is not "ahead of origin", and that
+the next `Automatic Commit` appears on `origin/production`. See the config-sync notes in the project memory and
+`docs/session-logs/2026-11-16-spotlight-role-local-login-and-config-push.md`.
+
 ### Optional: stale `system.schema` entries
 
 Both prod and staging have the same 8 stale entries (`gesso_helper`, `jquery_ui_effects`, `restui`,
@@ -154,6 +171,9 @@ Staging's container can reach the real relay, and a prod DB clone resets mail to
    on the old image, once, before the new image goes on either node.
 10. **Apply the view fix** from the [prod change runbook](prod-change-home-news-empty-link-guard.md) (3 fields) if it
     has not already been applied.
+11. **Config-sync push key.** Persist a deploy key that survives the container recreate (see
+    [3a](#required-pre-release-step-the-config-sync-push-key-does-not-survive-a-redeploy)). Apply the view fix
+    (step 10) and confirm it is exported **before** the release if the key is not yet persisted.
 
 ## 5. Phase 2 and 3: roll, then rebuild once
 
@@ -186,6 +206,8 @@ the rollout (leave node 0 on the old image) if errors appear.
 - NetBadge login and logout on production, tested by a person.
 - Guard (if enabled): `drush pm:list` shows it enabled; watchdog has no `uvalib_block_guard` entries (any entry
   means a block is already failing). Do **not** create broken content on prod to test it.
+- Config-sync push: on each node `git status -sb` in `/opt/drupal/config/sync` is not "ahead of origin", and a
+  new `Automatic Commit` reaches `origin/production` within about 2.5 hours.
 - Compare the two nodes (runbook "After the rollout"): image, `settings.php` hash, theme tag, composer.lock.
 - Watch CloudWatch for 30 minutes: healthy host count 2, target 5xx near zero.
 
