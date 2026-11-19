@@ -1,0 +1,3424 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Operations and architecture documentation for the UVA Library Drupal 10 site">
+      
+      
+      
+      
+        <link rel="prev" href="../2026-08-20-field-layout-config-drift-and-prod-ckeditor-regression/">
+      
+      
+        <link rel="next" href="../2026-10-22-php2shell-production-rollout/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>Session Log: Logout redirect to https://host:80/ — hot fix, pairing git and docker tags, a path-filtered pipeline trigger, and the production rollout with a theme promotion - library.virginia.edu Drupal Site</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="blue" data-md-color-accent="blue">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#session-log-logout-redirect-to-httpshost80-hot-fix-pairing-git-and-docker-tags-a-path-filtered-pipeline-trigger-and-the-production-rollout-with-a-theme-promotion" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="library.virginia.edu Drupal Site" class="md-header__button md-logo" aria-label="library.virginia.edu Drupal Site" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            library.virginia.edu Drupal Site
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Session Log: Logout redirect to https://host:80/ — hot fix, pairing git and docker tags, a path-filtered pipeline trigger, and the production rollout with a theme promotion
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/uvalib/drupal-library" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    uvalib/drupal-library
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="library.virginia.edu Drupal Site" class="md-nav__button md-logo" aria-label="library.virginia.edu Drupal Site" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    library.virginia.edu Drupal Site
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/uvalib/drupal-library" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    uvalib/drupal-library
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Architecture
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Architecture
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../architecture/hostnames-and-urls/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hostnames &amp; URLs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../architecture/container-and-build/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Container &amp; Build
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../architecture/config-management/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Configuration Management
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../architecture/authentication-netbadge/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Authentication (NetBadge)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../architecture/search-solr/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Search (Solr)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Operations
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Operations
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../operations/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Operations
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../operations/local-development/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Local Development (DDEV)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../operations/syncing-data/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Syncing Data from Remote Environments
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../operations/deployment/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Deployment
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../operations/theme-deployment/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Theme deployment (build-time clone + deploy-time tag pin)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../operations/production-deploy-runbook/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Production Deploy Runbook
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../operations/deploy-strategy-exploration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Deployment Strategy — Exploration &amp; Open Questions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../operations/ckeditor4-prod-removal-runbook/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CKEditor 4 Removal — Production Runbook
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../operations/dls-67-timezone-fix-runbook/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DLS-67 Timezone Fix — Deploy Runbook
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Maintenance
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Maintenance
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../maintenance/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Maintenance
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../maintenance/module-updates/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Module &amp; Core Updates
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../maintenance/ckeditor4-to-ckeditor5/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CKEditor 4 → CKEditor 5 Migration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../maintenance/drupal-11-upgrade/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Drupal 10 → 11 Upgrade
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../maintenance/config-sync-mechanism-review/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Config-Sync Mechanism — Review &amp; Redesign Brief
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--proposed"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../maintenance/redis-cache-backend/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Redis Cache Backend (follow-up)
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--proposed"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../maintenance/request-logging-and-client-ip/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Request Logging, 404 Noise, and Client IP
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../maintenance/LIBRARY_DRUPAL_11_UPGRADE_SCOPE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Drupal 11 Upgrade: Scope and Schedule (Library)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../maintenance/drush-rds-tls-cert/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    drush SQL commands fail against RDS TLS (self-signed cert in chain)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../maintenance/production-deploy-pipeline-review/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Is the drupal-library-production-deploy pipeline active?
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--needs-review"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../maintenance/release-branch-review/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Is the release branch still part of the flow?
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--needs-review"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../maintenance/staging-saml-standardization-followup/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Follow-up: Standardize SimpleSAMLphp config-as-code on staging (and prod)
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--deferred"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../maintenance/theme-repo-main-release-divergence/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Theme repo: main and release have diverged
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--needs-review"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Proposals
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Proposals
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../proposals/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Proposals
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../proposals/ephemeral-environments/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Proposal: ephemeral on-demand environments
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../proposals/environment-contracts/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Proposal (stub): environment purposes &amp; contracts
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../proposals/util-checkout-rethink/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Proposal (stub): rethink the baked-in util checkout
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../proposals/saml-version-compat-check/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Proposal: SimpleSAMLphp version-compatibility check at deploy time
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../proposals/health-check-endpoint/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Proposal: a health-check endpoint that survives maintenance mode
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../proposals/develop-deploy-pipeline/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Proposal: on-demand deploy pipeline for develop
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--paused"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../proposals/saml-timezone-clobber-guard/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Proposal: Guard the request timezone across the in-process SimpleSAMLphp boundary
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Architecture Decisions
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Architecture Decisions
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../adr/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Architecture Decision Records
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../adr/001-config-in-separate-repo/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ADR 001: Store exported Drupal config in a separate repo
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../adr/002-https-at-load-balancer/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ADR 002: Terminate HTTPS at the load balancer; serve HTTP in the container
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../adr/003-runtime-cloned-themes-modules/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ADR 003: Clone first-party themes/modules at build time, not via Composer
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../adr/004-target-drupal-11/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ADR 004: Upgrade to Drupal 11 (PHP 8.3)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../adr/005-theme-asset-delivery-bounded-divergence/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ADR 005: Theme/asset delivery — bounded divergence with pin-convergence
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Troubleshooting
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Troubleshooting
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../troubleshooting/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Troubleshooting
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../troubleshooting/mariadb-ssl-dump/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MariaDB SSL Dump Failure (error 2026)
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--resolved"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../troubleshooting/simplesamlphp-secure-cookie/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SimpleSAMLphp Secure Cookie Error on the HTTP Container
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--resolved"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../troubleshooting/ddev-one-name-per-directory/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DDEV Refuses to Run the Project from This Directory
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--resolved"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../troubleshooting/php-oom-fatals/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    PHP OOM Fatals (Twig render + KCFinder upload)
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--open"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../troubleshooting/ckeditor-ghost-wsod/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CKEditor 4 "ghost module" WSOD on /admin/modules
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--mitigated"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../troubleshooting/layout-builder-entity-restoration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Restoring content entities from a raw DB dump (Layout Builder / block_content)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Incidents
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Incidents
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../incidents/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Incidents
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../incidents/2026-06-26-prod-cache-deadlock-wsod/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2026-06-26 — Production WSOD during rolling deploy (shared-cache deadlock)
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--resolved"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../incidents/2026-07-06-php-oom-fatal-occurrences/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2026-07-06 — PHP OOM fatals: 30-day occurrence log
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--open"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../incidents/2026-07-10-scheduler-timezone-utc-clobber/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2026-07-10 — Site timezone off by 4h (SimpleSAMLphp clobbers the request timezone to UTC)
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--diagnosed"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../incidents/2026-08-10-dls-68-dev-content-loss-and-recovery/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2026-08-10 — Dev content "disappearing": the prod↔dev ID-collision trap (DLS-68)
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--diagnosed"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Session Logs
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_9">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Session Logs
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2026-06-18-module-assessment-docs-and-config-sync/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Session Log: Module Assessment, Docs Scaffold &amp; Config-Sync Discovery
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2026-06-25-deploys-module-upgrades-and-prod-saml-audit/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Session Log: Deploys, Module Upgrades, Staging Playbook Fix &amp; Prod SAML Audit
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2026-06-29-prod-saml-verify-and-doc-checkin/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Session Log: Prod SAML Fix Verification, Doc Check-in &amp; Cleanup
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2026-07-01-devops-docs-module/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Session Log: DevOps Docs Module (/devops-docs)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2026-07-01-preview-hostname-redirect/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Session Log: preview.library.virginia.edu Default-Redirect Mechanism
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2026-07-02-devops-docs-live-and-design-proposals/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Session Log: DevOps Docs Live on Staging + Design Proposals Wave
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2026-07-06-oom-investigation-and-doc-taxonomy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Session Log: PHP OOM Investigation, scan-alerts Tool, and Doc Taxonomy Rework
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2026-07-10-scheduler-timezone-saml-clobber/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Session Log: DLS-67 — Scheduler/timezone skew traced to SimpleSAMLphp clobbering the request TZ
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2026-07-17-dls-67-prod-deploy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Session Log: DLS-67 — timezone fix deployed to production
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2026-08-03-git-hygiene-two-repos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Session Log: git hygiene pass on terraform-infrastructure and drupal-library
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2026-08-10-dls-68-dev-content-loss-and-dev-deploy-gap/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Session Log: DLS-68 dev content loss, recovery, and the dev deploy pipeline gap
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2026-08-20-field-layout-config-drift-and-prod-ckeditor-regression/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Session Log: Field Layout bug, prod config drift, and a self-inflicted CKEditor regression
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Session Log: Logout redirect to https://host:80/ — hot fix, pairing git and docker tags, a path-filtered pipeline trigger, and the production rollout with a theme promotion
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Session Log: Logout redirect to https://host:80/ — hot fix, pairing git and docker tags, a path-filtered pipeline trigger, and the production rollout with a theme promotion
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-cause" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Cause
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-options-weighed" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Options weighed
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-the-fix" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. The fix
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-rollout" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Rollout
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-pull-and-update-start-of-the-session" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Pull and update (start of the session)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-tagging-git-and-docker-did-not-agree" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Tagging: git and docker did not agree
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-stop-deploying-on-docs-only-merges-trigger_paths" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. Stop deploying on docs-only merges (trigger_paths)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-theme-promoting-jacks-login-form-fixes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. Theme: promoting Jack's login-form fixes
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-production-rollout-silent-no-maintenance-mode-no-drush-cr" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9. Production rollout (silent, no maintenance mode, no drush cr)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#10-post-rollout-comparison-of-the-two-nodes-and-sessions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10. Post-rollout comparison of the two nodes and sessions
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#11-open-items" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        11. Open items
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#12-develop" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        12. Develop
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2026-10-22-php2shell-production-rollout/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Session Log: PHP2Shell / core 10.6.19 — rollout to develop, staging and production
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-cause" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Cause
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-options-weighed" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Options weighed
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-the-fix" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. The fix
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-rollout" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Rollout
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-pull-and-update-start-of-the-session" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Pull and update (start of the session)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-tagging-git-and-docker-did-not-agree" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Tagging: git and docker did not agree
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-stop-deploying-on-docs-only-merges-trigger_paths" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. Stop deploying on docs-only merges (trigger_paths)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-theme-promoting-jacks-login-form-fixes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. Theme: promoting Jack's login-form fixes
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-production-rollout-silent-no-maintenance-mode-no-drush-cr" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9. Production rollout (silent, no maintenance mode, no drush cr)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#10-post-rollout-comparison-of-the-two-nodes-and-sessions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10. Post-rollout comparison of the two nodes and sessions
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#11-open-items" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        11. Open items
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#12-develop" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        12. Develop
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="session-log-logout-redirect-to-httpshost80-hot-fix-pairing-git-and-docker-tags-a-path-filtered-pipeline-trigger-and-the-production-rollout-with-a-theme-promotion">Session Log: Logout redirect to <code>https://host:80/</code> — hot fix, pairing git and docker tags, a path-filtered pipeline trigger, and the production rollout with a theme promotion</h1>
+<p><strong>Date:</strong> 2026-10-22 (about 10:55 ET to just after noon; times approximate)
+<strong>Participants:</strong> Yuji Shinozaki, Claude (Sonnet 5.5), working from the <code>drupal-library</code> repo
+<strong>Outcome:</strong> Production (<strong>both nodes</strong>) now runs <code>drupal-library:build-20261022153610</code> (<code>417b835</code>, git tag
+<code>production_2026_10_22</code>), NetBadge <code>build-20261022034941</code> (unchanged) and theme
+<code>prod-theme-20261022-login-form-fixes</code> (<code>e24e27bc</code>). The logout fix is now in the image, not just hand-applied;
+logout was confirmed working on staging and prod (before the rollout, with the hand-edit). The
+staging pipeline no longer builds/deploys on docs-only merges (<code>trigger_paths</code>, applied and proven by a
+docs-only push that started nothing). <strong>Develop was deployed afterwards (section 12).</strong>
+The two prod nodes were compared after the rollout and are identical (section 10).</p>
+<p>Session also began with "pull and update" (see section 5).</p>
+<hr />
+<h2 id="1-cause">1. Cause</h2>
+<p>The bad URL was not the logout link (<code>/user/logout</code> redirects correctly) but the place
+SimpleSAMLphp sends the user <em>after</em> logout.</p>
+<ul>
+<li><code>logout_goto_url</code> is empty on staging, so <code>simplesamlphp_auth_user_logout()</code> calls
+  <code>Auth\Simple::logout(null)</code>.</li>
+<li>With no return URL, SimpleSAMLphp builds one with <code>Utils\HTTP::getSelfURL()</code>, whose
+  <code>getServerPort()</code> reads <code>$_SERVER['SERVER_PORT']</code> and appends <code>:&lt;port&gt;</code> unless it equals the
+  default for the scheme.</li>
+<li>HTTPS terminates at the ALB, so <code>SERVER_PORT</code> is <strong>80</strong> inside the container, while the Apache
+  vhost sets <code>HTTPS=on</code> from <code>X-Forwarded-Proto</code>. Scheme https + port 80 gives <code>https://host:80/</code>.</li>
+</ul>
+<p><strong>Which container.</strong> The user asked whether this was the NetBadge container or Drupal. The
+SimpleSAMLphp library <em>code</em> runs in the <strong>Drupal</strong> container (<code>docker exec drupal-0</code> shows its own
+<code>/var/simplesamlphp/config</code>); <code>netbadge-0</code> only receives the <code>ReturnTo</code> that Drupal already got wrong.
+"NetBadge" is SimpleSAMLphp, so it is fair to call this a NetBadge-stack limitation, but redeploying
+the <code>netbadge-0</code> image would not change it. I did not rule out that the <code>sp</code> container has its own
+<code>:80</code> problem on its logout endpoint; staging and prod behaved correctly after the Drupal-side fix, so
+it evidently does not matter.</p>
+<p>Affects every environment behind the ALB. The user reported prod and staging; develop was not checked.</p>
+<h2 id="2-options-weighed">2. Options weighed</h2>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Verdict</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>drush cset simplesamlphp_auth.settings logout_goto_url https://&lt;host&gt;/</code></td>
+<td>No redeploy, one command for both prod nodes (config is in the DB), trivially revertable. But hardcodes a URL per environment, and develop's weekly prod DB clone would carry prod's URL into develop. Not applied.</td>
+</tr>
+<tr>
+<td>Fix in the NetBadge container</td>
+<td>Rejected: the wrong value is made in Drupal's process, so the NetBadge side would be rewriting it.</td>
+</tr>
+<tr>
+<td>Hand-edit <code>settings.php</code> in the container, then redeploy later</td>
+<td><strong>Chosen</strong> (the user wanted no redeploy right now). Environment-agnostic; the same code ships in the image. Risk is a syntax error taking the site down, mitigated by backup and <code>php -l</code>.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="3-the-fix">3. The fix</h2>
+<p><code>package/data/opt/drupal/web/sites/default/settings.php</code>, +13 lines after the <code>reverse_proxy_*</code>
+settings:</p>
+<div class="highlight"><pre><span></span><code><span class="x">if (($_SERVER[&#39;HTTP_X_FORWARDED_PROTO&#39;] ?? &#39;&#39;) === &#39;https&#39;</span>
+<span class="x">  &amp;&amp; \Symfony\Component\HttpFoundation\IpUtils::checkIp($_SERVER[&#39;REMOTE_ADDR&#39;] ?? &#39;&#39;, $settings[&#39;reverse_proxy_addresses&#39;])) {</span>
+<span class="x">  $_SERVER[&#39;SERVER_PORT&#39;] = &#39;443&#39;;</span>
+<span class="x">}</span>
+</code></pre></div>
+<p><strong>Design point, from the user:</strong> "I shouldn't use <code>$_SERVER['SERVER_PORT']</code> blindly." The first
+version trusted <code>X-Forwarded-Proto</code> unconditionally. It was tightened to also require <code>REMOTE_ADDR</code> to be
+inside <code>reverse_proxy_addresses</code> (the VPC CIDRs), so a direct hit on <code>:8080</code> from the VPN cannot spoof
+it. Only generated URLs are affected either way, so the risk was low, but the check is cheap.</p>
+<h2 id="4-rollout">4. Rollout</h2>
+<p>Each node: verified the live <code>settings.php</code> matched the repo <code>HEAD</code> version (md5), copied the new file
+in as <code>settings.php.new</code>, <code>php -l</code>, backed up as <code>settings.php.bak-logout-port-20261022</code>, <code>mv</code> into
+place preserving ownership/mode. Opcache has <code>validate_timestamps=1</code>, <code>revalidate_freq=60</code>, so no
+Apache restart. Staging first (user tested logout: works), then prod node 0 (health check), then node 1.
+The user confirmed logout works on prod.</p>
+<p>Shipped as PR #16 (merged by a teammate at 11:35 ET). The merge replaced the hand-edit on staging with
+the identical file; the backup files disappeared with the recreated container.</p>
+<h2 id="5-pull-and-update-start-of-the-session">5. Pull and update (start of the session)</h2>
+<p><code>git pull --ff-only</code> took <code>main</code> to <code>d603eb9</code> (the PHP 8.4.27 / core 10.6.19 rollout). <code>ddev composer
+install</code> then failed twice with <code>failed to CreateOrResumeMutagenSync</code>; <code>ddev mutagen reset</code> plus
+<code>ddev start</code> fixed it, after which <code>composer install</code>, <code>drush updb</code> (nothing pending) and <code>drush cr</code>
+succeeded. <code>core:requirements</code> still shows stale local entity-definition mismatches and cron not run
+for months, which is normal for the idle local DB.</p>
+<p>Gotchas: <code>drush updb -y</code> auto-answers "yes" to a failing requirements check, so read it rather than
+trusting <code>-y</code>; <code>drush core:requirements --severity=2</code> crashes on a colour bug, use <code>--format=json</code>.</p>
+<h2 id="6-tagging-git-and-docker-did-not-agree">6. Tagging: git and docker did not agree</h2>
+<p>The user asked for "a new production tag". Findings:</p>
+<ul>
+<li>The newest git tag was <code>production_2026_06_04</code> (<code>a455c54</code>), <strong>71 commits behind</strong> prod. Git tagging
+  had lapsed; releases were being tracked only by the ECR image tag.</li>
+<li>Prod ran <code>build-20261022134259</code>. ECR shows it carries <code>gitcommit-bc73b101…</code>, i.e. PR #14. The build
+  started 12 s after #14 merged, which is how it was inferred before ECR was checked.</li>
+<li>The <code>release</code> branch is at <code>4079ce3</code> (July). <strong>Images are built from <code>main</code></strong>, not from <code>release</code>, so
+  <code>CLAUDE.md</code>'s "main -&gt; release via PR" no longer matches reality. The user left it as an open question
+  whether to use <code>release</code> at all. <code>CLAUDE.md</code> was <strong>not</strong> edited.</li>
+<li><code>build-20261022153610</code> carries <code>gitcommit-417b8350…</code>, so the git tag went on <code>417b835</code>.</li>
+</ul>
+<p><strong>Only functional diff between prod's running commit (<code>bc73b10</code>) and <code>417b835</code>:</strong> the 13 lines in
+<code>settings.php</code>. The other changed files are docs. Also confirmed live: <code>composer.json</code>, <code>composer.lock</code>,
+<code>php.ini</code> and the Apache vhost on both prod nodes match the repo. (A first "mismatch" on
+<code>php.ini-production</code> was my error: the Dockerfile copies that file to <code>php.ini</code>.)</p>
+<p>Created and pushed annotated tag <strong><code>production_2026_10_22</code></strong> on <code>417b835</code>; the message records the
+docker tag, the <code>gitcommit-</code> tag, the previous prod image and the delta.</p>
+<p><strong>Standard decided by the user</strong> (saved to memory): every production release gets both a git tag and a
+docker tag that agree; read the commit from ECR's <code>gitcommit-&lt;sha&gt;</code> tag rather than inferring it; for a
+second tag on the same day, add a <strong>letter</strong> suffix (<code>_b</code>, <code>_c</code>, …) rather than a number, so it cannot
+be mistaken for a time. The first tag of the day stays unsuffixed.</p>
+<p>AWS access: <code>aws-vault exec staging --prompt=osascript -- aws ecr describe-images …</code> (the user
+authorised it; read-only calls only).</p>
+<h2 id="7-stop-deploying-on-docs-only-merges-trigger_paths">7. Stop deploying on docs-only merges (<code>trigger_paths</code>)</h2>
+<p>The user's point: the deploy trigger should treat document updates as exceptions, as was done for
+<code>mandala-navina</code> (its pipeline got <code>trigger_paths</code> on 2026-07-16 and a docs-only merge then left the
+pipeline idle). Before this, every push to <code>main</code>, including docs PRs like #15, rebuilt the image and
+redeployed staging.</p>
+<p><strong>Where it lives.</strong> Not in this repo: <code>terraform-infrastructure/aws_cicd/pipelines/drupal-library/codepipeline.tf</code>
+(the staging pipeline <code>uva-drupal-library-codepipeline</code>). It set no <code>trigger_paths</code>, so the module's
+optional <code>trigger</code> block was never emitted. Two sibling pipelines exist: <code>drupal-library-release</code>
+(watches <code>release</code>, now stale) and <code>drupal-library-production-deploy</code> (deploy phase only, <code>source_branch</code>
+default <code>main</code>); neither was changed, and it was <strong>not checked whether the production-deploy
+pipeline has recent executions</strong>.</p>
+<p><strong>Change</strong> (+15 lines incl. comment, commit <code>f49d1e5a8</code> pushed straight to <code>master</code>):</p>
+<div class="highlight"><pre><span></span><code><span class="na">source_artifact_format</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;CODEBUILD_CLONE_REF&quot;</span>
+<span class="na">trigger_paths</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span>
+<span class="w">  </span><span class="s2">&quot;package/**&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="s2">&quot;pipeline/**&quot;</span><span class="p">,</span>
+<span class="p">]</span>
+</code></pre></div>
+<p><code>CODEBUILD_CLONE_REF</code> is required by the path trigger (same pattern as mandala-drupal, cs-proxy,
+web-components, cdn-reporter). The paths are what feeds the image: <code>package/Dockerfile</code> copies only from
+<code>package/</code>, and <code>pipeline/</code> holds the buildspec and deployspec. <code>docs/</code>, <code>scripts/</code>, <code>mkdocs/</code> and
+<code>README.md</code> never reach the image.</p>
+<p><strong>Gotcha.</strong> The rebuilt devops-docs site lives under
+<code>package/data/opt/drupal/web/modules/custom/devops_docs/static/</code>, and the Dockerfile <code>git clone</code>s this whole
+repo at build time and symlinks that module. So regenerating the static site <strong>still triggers</strong> a deploy
+(which is what publishes <code>/devops-docs</code>), while markdown-only <code>docs/</code> changes do not.</p>
+<p><strong>Process.</strong>
+- <code>terraform-infrastructure</code> changes often and the user's checkout was parked on someone's feature branch
+  (<code>dsf-production-enable-matomo</code>). So: fetch first, branch off <code>origin/master</code>, commit, push <code>HEAD:master</code>
+  (the user said that repo does not use PRs for small changes), switch back and delete the temporary branch.
+- The edit is outside the <code>library.virginia.edu/</code> subdirectory that was the previous edit scope; the user
+  granted permission for this.
+- Plan and apply ran from a temporary worktree at <code>origin/master</code>, with <code>aws-vault exec staging
+  --prompt=osascript</code>. <code>main.tf</code> passes <code>access_key</code>/<code>secret_key</code> with no session token, so the aws-vault
+  temporary credentials failed with <code>InvalidClientTokenId</code>; setting <code>TF_VAR_access_key=""</code> and
+  <code>TF_VAR_secret_key=""</code> made the provider use the normal credential chain. State is S3
+  (<code>uvalib-terraform-state</code>).
+- First plan (read-only, <code>-lock=false</code>): 0 to add, 1 to change, 0 to destroy. The user then asked for
+  <code>plan -out</code> plus apply; the script applied only if the new plan was exactly that single in-place change
+  to <code>module.codepipeline.aws_codepipeline.codepipeline</code>. It was, and
+  <code>Apply complete! Resources: 0 added, 1 changed, 0 destroyed.</code></p>
+<p><strong>Verified live</strong> (<code>aws codepipeline get-pipeline</code>): trigger on branch <code>main</code>, file paths <code>package/**</code> and
+<code>pipeline/**</code>, source <code>OutputArtifactFormat</code> is <code>CODEBUILD_CLONE_REF</code>. No extra execution fired from the
+apply (newest remained the 11:35 ET run for <code>417b835</code>).</p>
+<p><strong>Effect on tagging.</strong> With docs merges no longer building, <code>main</code>'s head can be newer than the commit in
+the latest image. The tagging standard already says to tag the commit in the image's <code>gitcommit-&lt;sha&gt;</code>, not
+<code>main</code>'s head, so it holds, and it will now more often be that the two differ.</p>
+<h2 id="8-theme-promoting-jacks-login-form-fixes">8. Theme: promoting Jack's login-form fixes</h2>
+<p>The user wanted Jack's 2026-10-15 fixes to the theme in the production deploy. Checking what to tag:</p>
+<ul>
+<li>Production's theme (both nodes, and the SSM pin) was <code>prod-theme-20260519-netbadge-login</code> (<code>8403ff45</code>), the tip of
+  the theme repo's <strong><code>release</code></strong> branch. <code>main</code> had <strong>diverged</strong> from <code>release</code> (9 ahead, 6 behind). Last common
+  commit <code>8f08bfa2</code> (2025-11-20); <code>release</code> took <code>main</code> once more on 2025-11-21 (PR #31); the first release-only
+  content is <code>1431a415</code> (2025-11-11, a "Revert list config" commit made on the staging host). Of the six
+  release-only commits only that one has content of its own; the rest are merges. I first said tagging <code>main</code>
+  would drop "the NetBadge login work"; that was wrong (the login work is on <code>main</code> via a different merge).</li>
+<li>Deploying <code>main</code> HEAD directly would have changed 5 files: the login form, <code>_lists.scss</code> (reintroducing
+  the reverted list config), the maintenance page (new downtime links), <code>main.css</code> and a <code>deployspec.yml</code> line.
+  Merging <code>main</code> into <code>release</code> also conflicts (add/add) on the login template.</li>
+<li><strong>Chosen:</strong> keep the pin and cherry-pick only Jack's five commits (all touch
+  <code>templates/form/form--user-login-form.html.twig</code>) onto <code>release</code>. They apply cleanly because the template Jack
+  started from is byte-identical to <code>release</code>'s. Result against the old tag: one file, +7/-4.</li>
+<li>Theme repo PR #34 (branch <code>release-login-form-fixes</code>) merged with a merge commit (<code>e24e27bc</code>), tag
+  <code>prod-theme-20261022-login-form-fixes</code> (lightweight, like the existing ones) pushed. Pushing needed the
+  scratch clone switched to an SSH remote (the HTTPS remote had no credentials).</li>
+<li><strong>Staging first:</strong> staging and prod share the SSM pin, so staging was tested with
+  <code>deploy_theme_only.yml -e deploy_theme_tag=&lt;tag&gt; --limit uva-library-drupal-staging-0</code> (no pin change).
+  That playbook also runs <code>drush cr</code>, which is fine on single-node staging but is the cache-deadlock hazard
+  on prod, so prod uses <code>deploy_backend.yml</code> only. The user tested staging: good.</li>
+<li>Theme history for the record: SSM pin versions 1-5 (Aug 2025, incl. test values), 6 <code>...20251203-2025-AR-UPDATE...</code>
+  (2025-12-11), 7 <code>...20260511-updated-downtime-message</code> (2026-05-12), 8 <code>...20260519-netbadge-login</code>
+  (2026-06-02), 9 <code>...20261022-login-form-fixes</code> (2026-10-22, this session). The earlier node 0 / node 1 theme
+  mismatch (node 0 on unpushed <code>adc08b4c</code>) could not be reconstructed: the old container is gone, the commit is on
+  no remote. Best stand-in <code>1431a415</code>; node 0 likely lacked the login form work, button/index CSS and a page
+  template tweak. The user decided it does not matter; the point is what to deploy.</li>
+</ul>
+<h2 id="9-production-rollout-silent-no-maintenance-mode-no-drush-cr">9. Production rollout (silent, no maintenance mode, no <code>drush cr</code>)</h2>
+<p>Answering "can we do it silently?": yes. The only functional difference from what prod ran (<code>bc73b10</code>)
+was <code>settings.php</code>, which prod already had by hand-edit; the runbook says roll nodes without <code>drush cr</code> for a
+code-only swap; maintenance mode makes <code>/</code> 503, which the ALB health check will not accept, so both nodes
+would go unhealthy in about 4 minutes. Pre-flight: both nodes healthy, maintenance mode 0, both on the same
+theme tag as the SSM pin.</p>
+<ol>
+<li>SSM pin <code>/themes/uvalib/drupal-library/release</code> set to <code>prod-theme-20261022-login-form-fixes</code> (v9; prior v8).</li>
+<li>Node 1: drain (<code>alb-state drupal-prod --remove ... --watch</code>), <code>deploy_backend.yml -e
+   deploy_tag=build-20261022153610 --limit uva-library-drupal-production-1</code> (<code>failed=0</code>), verified directly on
+   <code>:8080</code> (200s, image, theme tag, <code>settings.php</code> checksum from the image, maintenance 0), re-added and waited
+   for <code>healthy</code>. Then node 0 the same way.</li>
+<li><strong>Permission gotcha:</strong> the first <code>alb-state</code> drain was blocked by Claude Code's auto-mode classifier
+   (no explanation). I did not work around it; the user added a Bash permission rule for it, after which it ran.</li>
+<li>After: ALB both healthy; the public site returned 200 repeatedly; <code>/user/login</code> 200; <code>/saml_login</code> 303 to the IdP;
+   no error-level watchdog entries on either node. The user was asked to test a login and logout on prod.</li>
+</ol>
+<h2 id="10-post-rollout-comparison-of-the-two-nodes-and-sessions">10. Post-rollout comparison of the two nodes and sessions</h2>
+<ul>
+<li><strong>Config parity:</strong> a hashed fingerprint of each node (containers, mounts, ports, 45 env vars by hash, file hashes
+  for <code>settings.php</code>, vhost, <code>php.ini</code>, composer files, SAML config, directory trees, theme commit, PHP modules,
+  effective ini values) differed only in <code>HOST_IP</code>, <code>ANSIBLE_HOSTNAME</code> and free memory. Both are PHP 8.4.27.</li>
+<li><strong>Sessions are not per-node.</strong> Drupal sessions live in the shared database (10 rows, all authenticated, 2
+  active in 30 min); SimpleSAMLphp sessions live in the shared Valkey cluster (db 8, prefix
+  <code>SIMPLESAML_LIBRARY_PROD:</code>, set by an environment variable, not the config default): 12 sessions plus 12
+  logout-store entries, the oldest about 5 hours old, so they survived both container swaps. 17 further keys in
+  that db belong to another app (<code>SIMPLESAML_DSF_PROD</code>).</li>
+<li><strong>Traffic (10 min):</strong> node 0 694 requests, node 1 6,595, no 5xx on either. Node 0 had been re-added only
+  ~5 minutes earlier (ALB ramp-up), so the skew is expected to even out; not re-checked. A direct
+  established-connection count read 0 on both nodes and was discarded as unreliable.</li>
+</ul>
+<h2 id="11-open-items">11. Open items</h2>
+<ul>
+<li><strong>Bookmarked for later review</strong> (notes in <code>docs/maintenance/</code>, nothing decided):</li>
+<li>Is this repo's <code>release</code> branch still part of the flow, and what to do with the stale
+    <code>drupal-library-release</code> pipeline: <a href="../../maintenance/release-branch-review/">release branch review</a>.
+    <code>CLAUDE.md</code> and <code>deployment.md#release-tracking</code> still describe the old flow and are not edited.</li>
+<li>Is the <code>drupal-library-production-deploy</code> pipeline active (source <code>main</code>, deploy phase only, no path
+    filter): <a href="../../maintenance/production-deploy-pipeline-review/">pipeline review</a>.</li>
+<li>Theme repo <code>main</code> vs <code>release</code> divergence and why the list-config change was reverted:
+    <a href="../../maintenance/theme-repo-main-release-divergence/">theme repo divergence</a>.</li>
+<li><strong>Develop:</strong> done after the main rollout, see section 12; the user then tested a real NetBadge login and
+  logout there and it worked.</li>
+<li><strong>Runbook:</strong> updated (shared SSM theme pin, git/docker tag pairing, <code>drush cr</code> trap, post-rollout node
+  comparison, rollback notes). The published devops-docs static site was <strong>not</strong> rebuilt, and
+  <code>docs/operations/deployment.md</code> was not touched.</li>
+<li>Not tested: a SAML logout for a user with an active IdP session beyond the simple click-through.</li>
+<li>The node 0 / node 1 traffic split after the re-add was noted and deliberately not followed up.</li>
+</ul>
+<h2 id="12-develop">12. Develop</h2>
+<ul>
+<li><strong>What it was:</strong> <code>build-20261022134259</code>, old <code>settings.php</code>, theme <code>main</code> HEAD, behind <code>alb-library-drupal-develop</code>
+  (target group :8080) with the same vhost as prod and an empty <code>logout_goto_url</code>. The user reported "everything
+  works" there. Simulating SimpleSAMLphp's <code>getSelfURL()</code> in its container with ALB-style inputs (https, port 80)
+  produced <code>https://&lt;host&gt;:80/</code>, i.e. the bug is present in the code path. The 13:08 ET develop logout that worked
+  was a <code>GET /user/logout</code> followed directly by <code>GET /</code> with no <code>/simplesaml/</code> request, i.e. a non-SAML (local)
+  session: <code>simplesamlphp_auth_user_logout()</code> only calls SimpleSAMLphp when <code>isAuthenticated()</code>. So that test
+  could not show the bug. A real NetBadge logout on develop was not tested before the fix.</li>
+<li><strong>Deploy (user asked):</strong> <code>library.virginia.edu/develop/ansible/deploy_backend.yml -e deploy_tag=build-20261022153610</code>
+  (<code>latest</code> resolved to the same build; explicit pin so a newer build could not slip in). The playbook recreates
+  the container and runs <code>composer install</code>, <code>drush en simplesamlphp_auth</code>, <code>drush cr</code>, an Apache reload and
+  <code>drush cim --partial</code> of the SimpleSAMLphp config. <code>failed=0</code>. No ALB drain (single node, dev).</li>
+<li><strong>Verified:</strong> image <code>build-20261022153610</code>, <code>settings.php</code> checksum <code>a9af532f</code> (same as prod/staging), maintenance
+  off, bootstrap successful, PHP 8.4.27, <code>/</code> and <code>/user/login</code> 200, <code>/saml_login</code> 303. Theme unchanged
+  (<code>main</code> HEAD <code>9e2201de</code>; the dev playbook has no theme step). With the deployed <code>settings.php</code>, the self-URL
+  from an ALB-range address is <code>https://&lt;host&gt;/</code>, and from outside the proxy ranges it is still <code>:80</code> (intended).</li>
+<li><strong>Confirmed by the user after the deploy:</strong> a NetBadge login and logout on develop worked, so the fix is verified end-to-end on develop, staging and production.</li>
+</ul>
+
+
+
+
+
+
+
+  
+    
+  
+  
+
+
+  <aside class="md-source-file">
+    
+      
+  <span class="md-source-file__fact">
+    <span class="md-icon" title="Last update">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
+    </span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-datetime" title="October 22, 2026 17:33:39 UTC">October 22, 2026 17:33:39</span>
+  </span>
+
+    
+    
+    
+    
+  </aside>
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.top", "search.highlight"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>
