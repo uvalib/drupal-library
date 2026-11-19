@@ -229,8 +229,10 @@ are then absent again, so a rollback is a temporary position, not a safe resting
 
 - **Empty-link view fix applied on production** (2026-11-19, after the 15:00 ET export, via the runbook script on node 0; shared DB,
   no `cr`, no deploy). Both nodes show the three wrapped paths; public and per-node `/` return 200; the rendered
-  homepage keeps its featured and news links. Pending: confirm the next `cex --commit` (even UTC hours, push at :15; next 22:00 UTC / 17:00 ET) lands it on
-  `origin/production` (`views.view.home_news.yml`, `views.view.home_news_featured.yml`).
+  homepage keeps its featured and news links. Exported and pushed by an ad hoc `drush cex --commit` plus
+  `git push` on node 0 at 16:03 ET: commit `2d52de6` on `origin/production` of `drupal-library-config-sync`,
+  touching only `views.view.home_news.yml` and `views.view.home_news_featured.yml` (`config:status` showed only
+  those two as different beforehand).
 - **Staging checks by a person:** NetBadge login and non-NetBadge login both work. A story scheduled in the admin UI
   publishes correctly, but only when cron runs (see below), which is why the first attempt looked broken.
 - **Incident recreation on staging:** a published, featured story with an empty `field_link` was published by the
