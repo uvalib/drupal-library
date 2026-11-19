@@ -170,7 +170,7 @@ Staging's container can reach the real relay, and a prod DB clone resets mail to
 9. **Uninstall the two webform submodules** (see [3a](#required-pre-release-step-two-modules-lose-their-files-in-webform-631))
    on the old image, once, before the new image goes on either node.
 10. **Apply the view fix** from the [prod change runbook](prod-change-home-news-empty-link-guard.md) (3 fields) if it
-    has not already been applied.
+    has not already been applied. (Applied on prod 2026-11-19; see section 8.)
 11. **Config-sync push key.** Persist a deploy key that survives the container recreate (see
     [3a](#required-pre-release-step-the-config-sync-push-key-does-not-survive-a-redeploy)). Apply the view fix
     (step 10) and confirm it is exported **before** the release if the key is not yet persisted.
@@ -223,19 +223,58 @@ the rollout (leave node 0 on the old image) if errors appear.
 A rolled-back node is back on core 10.6.19 and the old modules; the core and module security fixes in section 1
 are then absent again, so a rollback is a temporary position, not a safe resting one.
 
-## 8. Open and unverified
+## 8. Status and open items (updated 2026-11-19)
 
-- Still to test on staging by a person: NetBadge login and logout, and a story scheduled in the admin UI publishing
-  at the right Eastern time (the DLS-67 area; the command-line test does not cover it). Also the guard's behavior on
-  a story with an image and no link, which is not covered by the view fix on staging right now (cleared by the clone).
-- The TeamCity files sync did not complete and is being re-run; the file-level state of staging is not yet confirmed.
-- The staging rehearsal timings (section 3a) are for a single node with no traffic; the prod rebuild competes with
-  live traffic. The 4-minute maintenance burst and its script remain untested. Staging's first homepage load after
-  `cr` took 12.7 s.
-- Whether `template_user_profile` actually needs the geocomplete element (see 3a).
-- The prod DB backup method is not recorded here.
+**Done**
+
+- **Empty-link view fix applied on production** (2026-11-19, after the 15:00 ET export, via the runbook script on node 0; shared DB,
+  no `cr`, no deploy). Both nodes show the three wrapped paths; public and per-node `/` return 200; the rendered
+  homepage keeps its featured and news links. Exported and pushed by an ad hoc `drush cex --commit` plus
+  `git push` on node 0 at 16:03 ET: commit `2d52de6` on `origin/production` of `drupal-library-config-sync`,
+  touching only `views.view.home_news.yml` and `views.view.home_news_featured.yml` (`config:status` showed only
+  those two as different beforehand).
+- **Staging checks by a person:** NetBadge login and non-NetBadge login both work. A story scheduled in the admin UI
+  publishes correctly, but only when cron runs (see below), which is why the first attempt looked broken.
+- **Incident recreation on staging:** a published, featured story with an empty `field_link` was published by the
+  scheduler. The guard dropped the failing block (`home_news_featured-block_1`, and `home_news-block_1` for a
+  non-featured story), the page stayed 200 with "This content is temporarily unavailable.", and the failure was logged
+  as `uvalib_block_guard`. After the view fix the same story rendered unlinked with no guard entries. Test content was
+  deleted afterwards.
+- **TeamCity files sync** completed: 0 files missing on staging, 0 size mismatches, 35 extra staging-only files
+  (harmless).
+- **Mail diversion** (PR #26 plus `UVALIB_MAIL_DIVERT=1` in the staging and develop `container.env`) is live on
+  staging; verified through `--include-overridden`. Develop still needs a manual `deploy_backend.yml` run with the new
+  image.
+
+**Open before the release**
+
+- Uninstall `webform_toggles` and `webform_location_geocomplete` on prod (3a). Unverified: whether webform 6.3 moved
+  them to separate projects, the control case (deploy without the uninstall), and whether `template_user_profile`
+  needs the geocomplete element.
+- Persist the config-sync push key (3a, Phase 1 step 11). Prod pushes currently work only through the temporary
+  personal key.
+- Choose the image: the rehearsal used `build-20261119144810` (`5a3e21a`); `main` has since built
+  `build-20261119201028` (adds only the `settings.php` mail override, inert on prod). Pair the choice with the
+  `production_YYYY_MM_DD` git tag.
+- Record the prod DB backup method (RDS snapshot or the dump workaround).
+- Decide whether the guard is enabled in the release or afterwards (it ships disabled).
+- Schedule the window and announce to editors.
+
+**Open, lower priority**
+
+- **Cron.** Prod runs cron hourly at :35 on both nodes (shared state) from a trigger outside the hosts (not in the
+  host crontab; source not found), so scheduled publishing has hourly granularity. Staging has no cron trigger at all;
+  scheduling tests there need a manual `drush cron`. Worth a follow-up to find the trigger and consider a shorter
+  interval.
+- The staging rehearsal timings (3a) are for a single node with no traffic; the prod rebuild competes with live
+  traffic. The 4-minute maintenance burst and its script remain untested. Staging's first homepage load after `cr`
+  took 12.7 s.
+- The prod node 1 theme pin should be rechecked against the SSM pin in the baseline.
 - Whether `exclude_node_title` is enabled on prod; the quick module list did not show it.
 - Whether the prod ALB health check should be changed to a shallow endpoint first (see the
   [2026-11-18 incident](../incidents/2026-11-18-homepage-500-empty-news-link.md)); not required for this release.
 - Second target group `alb-library-drupal-production-1` has no load balancer; confirm the rollout only touches
   `alb-library-drupal-production`.
+- After the release: NetBadge login and logout on production, tested by a person.
+- The scheduler logged the 2026 Annual Report node twice at 12:31:17 on 2026-11-18; unexplained.
+- Rebuild the static devops docs site with the release branch (not on its own; it deploys).
