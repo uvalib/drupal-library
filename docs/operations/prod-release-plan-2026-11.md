@@ -268,6 +268,16 @@ are then absent again, so a rollback is a temporary position, not a safe resting
   webform_location_geocomplete -y` was run on develop's old image; after it, `drush updatedb` ran all 16 pending
   updates and `cr` succeeded; `/`, `/search/node` and `/user/login` return 200. This is a second rehearsal of the same
   sequence (develop is a prod clone).
+- **Prod read-only checks (2026-11-19):**
+  - `exclude_node_title` is available on both prod nodes but **not enabled**; nothing to do for the release.
+  - Theme: both nodes are on tag `prod-theme-20261022-login-form-fixes`, commit `e24e27bc`, clean tree (compared with the
+    pin recorded in this plan; the live SSM value was not re-read, which needs an MFA session). Re-read it in the baseline.
+  - Config-sync: node 0 is level with `origin/production`; node 1 shows the same checkout, has no export cron and no
+    `/root/.ssh`, so it neither exports nor pushes (only node 0 does).
+  - **`/mnt/data` is a shared NFS mount** (`10.130.113.73`) on both prod nodes; `/opt/drupal/config`
+    (including the config-sync git checkout) and `sites/default/files` live on it. The push key in `/root/.ssh` does not
+    (container writable layer). A deploy key persisted on `/mnt/data` is therefore visible to both nodes; make it
+    readable only by the container user and do not commit it.
 
 **Open before the release**
 
