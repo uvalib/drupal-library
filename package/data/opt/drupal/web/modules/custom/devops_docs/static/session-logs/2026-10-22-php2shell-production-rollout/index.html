@@ -771,6 +771,34 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../operations/prod-change-home-news-empty-link-guard/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Prod change: guard empty field_link in the homepage news views
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -2888,9 +2916,20 @@ no pull needed) showed otherwise:</p>
 </tr>
 </tbody>
 </table>
-<p><strong>The ECR public mirror lags Docker Hub</strong>, and <code>scripts/check-php-base-image.sh</code> reads the mirror,
-so it can report "NOT YET" while Docker Hub is already patched. The mirror had neither
-<code>drupal:10.6.19</code> nor a PHP 8.4.27 image that morning.</p>
+<div class="admonition warning">
+<p class="admonition-title">Correction (same day, later)</p>
+<p>This section first said the ECR public mirror lagged Docker Hub and lacked <code>drupal:10.6.19</code>.
+That was not established. What was observed that morning: a <code>php:8.4.27-apache</code> check on the
+mirror returned no platform images (for the netbadge work), and an anonymous inspect of the
+<code>drupal</code> tags on the mirror failed. The mirror <strong>rate-limits anonymous manifest reads with
+HTTP 429</strong>, so a failed inspect is not evidence that a tag is missing. When re-checked, the
+mirror's manifest-list digests for <code>drupal:10.6.19-php8.4-apache</code>, <code>drupal:10.6-php8.4-apache</code>,
+<code>drupal:11-php8.3-apache</code> and <code>php:8.4.27-apache</code> / <code>8.4-apache</code> / <code>8.3-apache</code> /
+<code>8.3.36-apache</code> were <strong>identical to Docker Hub's</strong>. So the mirror may well have been in sync
+when #14 was written; the Dockerfile's <code>docker.io</code> choice is a precaution, not a
+workaround for a lagging mirror. (<code>scripts/check-php-base-image.sh</code> still pulls from the mirror
+to read the PHP version; it is no longer needed for library, whose base is patched.)</p>
+</div>
 <p>Second problem with #12: <strong>core comes from <code>composer.lock</code>, not from the base image</strong> (the
 Dockerfile runs <code>composer install --no-dev</code> from the lock), and #12 left core at 10.6.10, so it
 would have fixed PHP but not SA-CORE-2026-014.</p>
@@ -3020,8 +3059,9 @@ no 5xx in the access log, traffic split about 50/50 (≈2,000 non-health-check r
 <ol>
 <li><strong>NetBadge login on production</strong> and staging: not tested (needs a person). Only the SP metadata
    (HTTP 200) and container health were checked.</li>
-<li><strong>Fix <code>scripts/check-php-base-image.sh</code></strong> to read Docker Hub (or take a registry argument), or
-   move the Dockerfile back to the mirror once it catches up.</li>
+<li>~~Fix <code>scripts/check-php-base-image.sh</code>~~ Moot for library: the patched base is in use. Decide
+   whether to move the Dockerfile back to the ECR mirror (same digests when checked; avoids Docker
+   Hub's anonymous pull limit in CodeBuild).</li>
 <li><strong>Rebuild the devops-docs static site</strong> (<code>package/data/.../devops_docs/static</code>); this change
    edits the markdown only.</li>
 <li><strong>Health-check endpoint</strong> (<a href="../../proposals/health-check-endpoint/">proposal</a>): now the only
@@ -3050,7 +3090,7 @@ no 5xx in the access log, traffic split about 50/50 (≈2,000 non-health-check r
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-datetime" title="October 22, 2026 14:47:21 UTC">October 22, 2026 14:47:21</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-datetime" title="October 22, 2026 15:10:44 UTC">October 22, 2026 15:10:44</span>
   </span>
 
     
