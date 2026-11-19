@@ -120,6 +120,8 @@ the container's writable layer, so the release (which recreates both containers)
 keeps committing locally but the push fails silently, as it did for 155 commits before 2026-11-16, and config
 changes made on prod (including the view fix, if it is applied after the release) stop reaching the repo.
 
+Note `/mnt/data` is a shared NFS mount on both prod nodes, so a key stored there is shared too.
+
 Before the release, one of: (a) a write-enabled deploy key persisted on host `/mnt/data` and mounted or copied in
 by Ansible, with GitHub host keys fetched from `api.github.com/meta` at deploy time (preferred); or (b) a post-deploy
 step in the runbook that restores the key and `known_hosts` on each node. Do not depend on the personal key.
@@ -245,6 +247,16 @@ are then absent again, so a rollback is a temporary position, not a safe resting
 - **Mail diversion** (PR #26 plus `UVALIB_MAIL_DIVERT=1` in the staging and develop `container.env`) is live on
   staging; verified through `--include-overridden`. Develop still needs a manual `deploy_backend.yml` run with the new
   image.
+- **Prod read-only checks (2026-11-19):**
+  - `exclude_node_title` is available on both prod nodes but **not enabled**; nothing to do for the release.
+  - Theme: both nodes are on tag `prod-theme-20261022-login-form-fixes`, commit `e24e27bc`, clean tree (compared with the
+    pin recorded in this plan; the live SSM value was not re-read, which needs an MFA session). Re-read it in the baseline.
+  - Config-sync: node 0 is level with `origin/production`; node 1 shows the same checkout, has no export cron and no
+    `/root/.ssh`, so it neither exports nor pushes (only node 0 does).
+  - **`/mnt/data` is a shared NFS mount** (`10.130.113.73`) on both prod nodes; `/opt/drupal/config`
+    (including the config-sync git checkout) and `sites/default/files` live on it. The push key in `/root/.ssh` does not
+    (container writable layer). A deploy key persisted on `/mnt/data` is therefore visible to both nodes; make it
+    readable only by the container user and do not commit it.
 
 **Open before the release**
 
@@ -269,8 +281,6 @@ are then absent again, so a rollback is a temporary position, not a safe resting
 - The staging rehearsal timings (3a) are for a single node with no traffic; the prod rebuild competes with live
   traffic. The 4-minute maintenance burst and its script remain untested. Staging's first homepage load after `cr`
   took 12.7 s.
-- The prod node 1 theme pin should be rechecked against the SSM pin in the baseline.
-- Whether `exclude_node_title` is enabled on prod; the quick module list did not show it.
 - Whether the prod ALB health check should be changed to a shallow endpoint first (see the
   [2026-11-18 incident](../incidents/2026-11-18-homepage-500-empty-news-link.md)); not required for this release.
 - Second target group `alb-library-drupal-production-1` has no load balancer; confirm the rollout only touches
