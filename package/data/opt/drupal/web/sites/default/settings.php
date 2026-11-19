@@ -915,6 +915,20 @@ if (PHP_SAPI === 'cli') {
 }
 $settings['block_interest_cohort'] = FALSE;
 ini_set('memory_limit', '1024M');
+
+// Non-production mail safety. Staging and develop are overwritten from a production
+// database snapshot, which carries production's mail settings, and their containers can
+// reach the real mail relay. When UVALIB_MAIL_DIVERT=1 (set only in the staging and develop
+// container.env files, never production), route all outgoing mail to core's test collector
+// instead. A $config override beats stored config, so it survives the database clone and any
+// config import. Collected messages sit in state key system.test_mail_collector (cleared by
+// the next clone); read them with:
+//   drush php:eval 'print_r(\Drupal::state()->get("system.test_mail_collector"));'
+if (getenv('UVALIB_MAIL_DIVERT') === '1') {
+  $config['system.mail']['interface']['default'] = 'test_mail_collector';
+  $config['system.mail']['interface']['webform'] = 'test_mail_collector';
+}
+
 if (file_exists('/usr/local/etc/settings.local.php')) {
    include '/usr/local/etc/settings.local.php';
 }
