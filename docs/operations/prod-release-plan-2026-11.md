@@ -122,9 +122,13 @@ changes made on prod (including the view fix, if it is applied after the release
 
 Note `/mnt/data` is a shared NFS mount on both prod nodes, so a key stored there is shared too.
 
-Before the release, one of: (a) a write-enabled deploy key persisted on host `/mnt/data` and mounted or copied in
-by Ansible, with GitHub host keys fetched from `api.github.com/meta` at deploy time (preferred); or (b) a post-deploy
-step in the runbook that restores the key and `known_hosts` on each node. Do not depend on the personal key.
+**Prepared 2026-11-20:** [prod-config-sync-push-key.md](prod-config-sync-push-key.md) (not yet applied). Checked on
+node 0: `/etc/gitconfig` is baked into the image (identity and `safe.directory`), so commits survive a recreate and only
+the SSH key and `known_hosts` are lost; and the repo's `.git/config` is on the shared mount, so a repo-local
+`core.sshCommand` persists. The design is a dedicated write deploy key plus GitHub-published host keys in
+`/opt/drupal/config/.push-key` (already bind-mounted from `/mnt/data`), selected through `core.sshCommand`. It needs no
+Ansible, image or crontab change. It does need a repo admin to add the deploy key on GitHub. Do not depend on the
+personal key.
 Verify afterwards on each node that `git status -sb` in `/opt/drupal/config/sync` is not "ahead of origin", and that
 the next `Automatic Commit` appears on `origin/production`. See the config-sync notes in the project memory and
 `docs/session-logs/2026-11-16-spotlight-role-local-login-and-config-push.md`.
@@ -173,7 +177,8 @@ Staging's container can reach the real relay, and a prod DB clone resets mail to
    on the old image, once, before the new image goes on either node.
 10. **Apply the view fix** from the [prod change runbook](prod-change-home-news-empty-link-guard.md) (3 fields) if it
     has not already been applied. (Applied on prod 2026-11-19; see section 8.)
-11. **Config-sync push key.** Persist a deploy key that survives the container recreate (see
+11. **Config-sync push key.** Persist a deploy key that survives the container recreate: follow
+    [prod-config-sync-push-key.md](prod-config-sync-push-key.md) (background in
     [3a](#required-pre-release-step-the-config-sync-push-key-does-not-survive-a-redeploy)). Apply the view fix
     (step 10) and confirm it is exported **before** the release if the key is not yet persisted.
 
@@ -285,7 +290,8 @@ are then absent again, so a rollback is a temporary position, not a safe resting
   them to separate projects, the control case (deploy without the uninstall), and whether `template_user_profile`
   needs the geocomplete element.
 - Persist the config-sync push key (3a, Phase 1 step 11). Prod pushes currently work only through the temporary
-  personal key.
+  personal key. Runbook prepared ([prod-config-sync-push-key.md](prod-config-sync-push-key.md)); needs a GitHub repo
+  admin to add the deploy key, then steps 1 to 6 on node 0.
 - Choose the image: the rehearsal used `build-20261119144810` (`5a3e21a`); `main` has since built
   `build-20261119201028` (adds only the `settings.php` mail override, inert on prod). Pair the choice with the
   `production_YYYY_MM_DD` git tag.
